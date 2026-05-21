@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jigyanshu Shah — Growth & Ecosystem</title>
-<meta name="description" content="Jigyanshu Shah — Manager, Growth & Ecosystem. Marketing strategist, brand builder, and content creator.">
+<meta name="description" content="Jigyanshu Shah — Growth operator building marketplace systems, GTM engines, and AI tools across four industries.">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -167,7 +167,6 @@ nav {
 
 /* SECTION BASE */
 .section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
-.section-full { padding: 100px 48px; }
 .section-tag {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
@@ -187,7 +186,7 @@ nav {
 .about-text p { font-size: 16px; color: var(--mist); font-weight: 300; line-height: 1.85; margin-bottom: 20px; }
 .about-text p strong { color: var(--ivory); font-weight: 600; }
 .about-text p .red { color: var(--flame); font-weight: 600; }
-.about-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 36px; }
+.about-stat-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; margin-top: 36px; }
 .about-stat { background: var(--carbon); padding: 24px 20px; }
 .stat-num { font-family: var(--syne); font-size: 36px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 6px; }
 .stat-num span { color: var(--flame); }
@@ -205,12 +204,6 @@ nav {
 /* EXPERIENCE */
 #experience { border-top: 1px solid var(--divider); background: var(--carbon); }
 .exp-inner { max-width: 1200px; margin: 0 auto; padding: 100px 48px; }
-.exp-comment {
-  background: rgba(184,240,60,0.06); border: 1px solid rgba(184,240,60,0.15);
-  border-radius: 8px; padding: 16px 20px; margin-bottom: 48px;
-  font-size: 13px; color: rgba(184,240,60,0.7); line-height: 1.6;
-  font-family: 'Courier New', monospace;
-}
 .timeline { display: flex; flex-direction: column; gap: 4px; }
 .exp-card {
   background: var(--surface); padding: 36px 40px;
@@ -227,11 +220,28 @@ nav {
   color: var(--acid); background: rgba(184,240,60,0.08);
   padding: 4px 10px; border-radius: 3px;
 }
-.exp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 8px; flex-wrap: wrap; }
-.exp-company { font-family: var(--syne); font-size: 22px; font-weight: 700; color: var(--white); }
+.exp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+.exp-company-info { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.exp-logo-wrap {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 44px; padding: 4px 12px;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--divider);
+  border-radius: 8px; flex-shrink: 0; overflow: hidden;
+}
+.exp-logo-wrap.light { background: rgba(255,255,255,0.92); border-color: rgba(255,255,255,0.12); }
+.exp-logo { height: 30px; width: auto; object-fit: contain; max-width: 130px; display: block; }
+.exp-logo-text {
+  font-family: var(--syne); font-size: 15px; font-weight: 800;
+  color: #C85C2B; letter-spacing: -0.02em; line-height: 1;
+}
+.exp-company-link {
+  font-family: var(--syne); font-size: 22px; font-weight: 700;
+  color: var(--white); text-decoration: none; transition: color 0.2s;
+}
+.exp-company-link:hover { color: var(--flame); }
 .exp-duration { font-size: 13px; color: var(--smoke); font-weight: 400; padding-top: 4px; white-space: nowrap; }
-.exp-role { font-size: 15px; color: var(--flame); font-weight: 500; margin-bottom: 16px; }
-.exp-desc { font-size: 14px; color: var(--mist); line-height: 1.75; margin-bottom: 20px; font-weight: 300; }
+.exp-role { font-size: 15px; color: var(--flame); font-weight: 500; margin-bottom: 12px; }
+.exp-desc { font-size: 14px; color: var(--mist); line-height: 1.75; margin-bottom: 20px; font-weight: 300; font-style: italic; border-left: 2px solid var(--steel); padding-left: 16px; }
 .exp-achievements { display: flex; flex-direction: column; gap: 8px; }
 .exp-achievement {
   display: flex; align-items: flex-start; gap: 12px;
@@ -245,102 +255,57 @@ nav {
   background: var(--carbon); color: var(--smoke); border: 1px solid var(--divider);
 }
 
-/* PROJECTS */
-#projects { border-top: 1px solid var(--divider); }
-.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
-.filter-btn {
-  padding: 8px 20px; border-radius: 100px; font-size: 13px; font-weight: 500;
-  border: 1px solid var(--steel); background: transparent; color: var(--mist);
-  cursor: pointer; transition: all 0.2s; letter-spacing: 0.02em;
+/* EARLIER WORK */
+#earlier-work { border-top: 1px solid var(--divider); }
+.earlier-grid { display: flex; flex-direction: column; gap: 3px; margin-top: 48px; }
+.earlier-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 32px; background: var(--carbon);
+  border-left: 3px solid var(--steel);
+  transition: border-color 0.2s, background 0.2s;
+  flex-wrap: wrap; gap: 12px;
 }
-.filter-btn:hover { border-color: var(--mist); color: var(--ivory); }
-.filter-btn.active { background: var(--flame); border-color: var(--flame); color: #fff; }
-.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
-.project-card {
-  background: var(--carbon); padding: 32px 28px;
-  transition: background 0.2s; cursor: pointer;
-  display: flex; flex-direction: column; gap: 16px;
-  position: relative; overflow: hidden;
-}
-.project-card::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-  background: var(--flame); transform: scaleX(0); transform-origin: left;
-  transition: transform 0.3s ease;
-}
-.project-card:hover { background: var(--surface); }
-.project-card:hover::after { transform: scaleX(1); }
-.project-card[data-filter="hide"] { display: none; }
-.project-type {
-  font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-  color: var(--flame);
-}
-.project-name { font-family: var(--syne); font-size: 20px; font-weight: 700; color: var(--white); line-height: 1.2; }
-.project-desc { font-size: 14px; color: var(--mist); line-height: 1.7; font-weight: 300; flex: 1; }
-.project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-.project-tag { padding: 4px 10px; background: var(--surface); border-radius: 100px; font-size: 11px; color: var(--smoke); }
-.project-links { display: flex; gap: 12px; margin-top: auto; padding-top: 8px; }
-.project-link {
-  font-size: 12px; font-weight: 600; color: var(--mist); text-decoration: none;
-  letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s;
-  display: flex; align-items: center; gap: 5px;
-}
-.project-link:hover { color: var(--flame); }
-.project-link.github { color: var(--acid); }
-.project-link.github:hover { opacity: 0.8; }
-
-/* GITHUB STATS */
-.github-banner {
-  background: var(--carbon); padding: 40px;
-  display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 3px; margin-top: 4px;
-}
-.gh-stat { background: var(--surface); padding: 28px 24px; text-align: center; }
-.gh-num { font-family: var(--syne); font-size: 40px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 6px; }
-.gh-num.loading { font-size: 20px; color: var(--smoke); }
-.gh-label { font-size: 12px; color: var(--smoke); text-transform: uppercase; letter-spacing: 0.08em; }
+.earlier-item:hover { border-left-color: var(--flame); background: var(--surface); }
+.earlier-left { display: flex; flex-direction: column; gap: 4px; }
+.earlier-company { font-family: var(--syne); font-size: 15px; font-weight: 700; color: var(--white); }
+.earlier-role-text { font-size: 13px; color: var(--flame); font-weight: 500; }
+.earlier-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; flex-wrap: wrap; }
+.earlier-meta { font-size: 12px; color: var(--smoke); }
 
 /* AI WORK */
 #ai-work { border-top: 1px solid var(--divider); background: var(--carbon); }
-.ai-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 48px; }
-.ai-card {
-  background: var(--surface); padding: 36px 32px;
-  display: flex; flex-direction: column; gap: 14px;
-  text-decoration: none; color: inherit;
-  transition: background 0.2s;
-  position: relative; overflow: hidden;
+.ai-list { display: flex; flex-direction: column; gap: 3px; margin-top: 48px; }
+.ai-list-item {
+  background: var(--surface); padding: 32px 36px;
+  border-left: 3px solid var(--steel);
+  transition: border-color 0.2s, background 0.2s;
+  display: flex; align-items: flex-start; gap: 24px;
 }
-.ai-card::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-  background: var(--acid); transform: scaleX(0); transform-origin: left;
-  transition: transform 0.3s ease;
+.ai-list-item:hover { border-left-color: var(--acid); background: var(--carbon); }
+.ai-item-num {
+  font-family: var(--syne); font-size: 12px; font-weight: 700;
+  color: var(--acid); flex-shrink: 0; min-width: 32px;
+  letter-spacing: 0.06em; padding-top: 3px;
 }
-.ai-card:not(.coming-soon):hover { background: var(--steel); }
-.ai-card:not(.coming-soon):hover::after { transform: scaleX(1); }
-.ai-card.coming-soon { opacity: 0.42; cursor: default; }
-.ai-card-type {
+.ai-item-body { flex: 1; }
+.ai-item-type {
   font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--acid);
+  text-transform: uppercase; color: var(--acid); margin-bottom: 8px;
 }
-.ai-card-cta {
-  margin-top: auto; padding-top: 20px;
-  font-size: 13px; font-weight: 600; color: var(--white);
-  display: flex; align-items: center; gap: 6px;
+.ai-item-title {
+  font-family: var(--syne); font-size: 20px; font-weight: 700;
+  color: var(--white); margin-bottom: 10px; line-height: 1.2;
 }
-.ai-card-cta.coming { color: var(--smoke); }
-
-/* UPCOMING STRIP */
-.upcoming-strip { border-top: 1px solid var(--divider); background: var(--void); }
-.upcoming-inner {
-  max-width: 1200px; margin: 0 auto; padding: 28px 48px;
-  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+.ai-item-desc { font-size: 14px; color: var(--mist); line-height: 1.75; font-weight: 300; }
+.ai-item-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 14px; font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--acid);
 }
-.upcoming-label {
-  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--smoke); flex-shrink: 0;
+.ai-item-status::before {
+  content: ''; display: block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--acid); animation: pulse 2s infinite;
 }
-.upcoming-items { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.upcoming-item { font-size: 13px; color: var(--mist); }
-.upcoming-sep { color: var(--steel); font-size: 13px; }
 
 /* SKILLS */
 #skills { border-top: 1px solid var(--divider); }
@@ -428,9 +393,6 @@ footer {
   .section, .exp-inner, .contact-inner { padding: 72px 28px; }
   #hero { padding: 80px 28px 72px; }
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  .projects-grid { grid-template-columns: repeat(2, 1fr); }
-  .github-banner { grid-template-columns: repeat(2, 1fr); }
-  .ai-grid { grid-template-columns: repeat(2, 1fr); }
   .skills-grid { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; gap: 48px; }
   footer { padding: 32px 28px; }
@@ -445,14 +407,12 @@ footer {
   .hero-role { font-size: 15px; }
   .hero-desc { font-size: 15px; }
   .hero-scroll { display: none; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .github-banner { grid-template-columns: repeat(2, 1fr); }
-  .ai-grid { grid-template-columns: 1fr; }
-  .upcoming-inner { padding: 24px 20px; }
   .about-stat-row { grid-template-columns: 1fr 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .exp-card { padding: 24px 20px; }
   .exp-card.current::before { display: none; }
+  .ai-list-item { padding: 24px 20px; gap: 16px; }
+  .earlier-item { padding: 16px 20px; }
   footer { flex-direction: column; text-align: center; padding: 28px 20px; }
 }
 </style>
@@ -467,7 +427,6 @@ footer {
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
     <li><a href="#ai-work">AI Work</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -479,7 +438,6 @@ footer {
 <div class="mobile-menu" id="mobileMenu">
   <a href="#about" class="mob-link">About</a>
   <a href="#experience" class="mob-link">Experience</a>
-  <a href="#projects" class="mob-link">Projects</a>
   <a href="#ai-work" class="mob-link">AI Work</a>
   <a href="#skills" class="mob-link">Skills</a>
   <a href="#contact" class="mob-link">Contact</a>
@@ -497,19 +455,19 @@ footer {
     <h1 class="hero-name">Jigyanshu<br><span class="accent">Shah.</span></h1>
     <div class="hero-role">
       <div class="hero-role-dot"></div>
-      Manager — Growth &amp; Ecosystem
+      Manager — Growth &amp; Marketing
     </div>
-    <p class="hero-desc">I build growth engines, craft brand stories, and make content that earns attention. Marketing by strategy, creativity by instinct.</p>
+    <p class="hero-desc">Growth operator building category performance engines, marketplace systems, and AI tools that actually ship. Five years. Four industries. Six tools in production.</p>
     <div class="hero-tags">
-      <span class="hero-tag hot">Growth Marketing</span>
-      <span class="hero-tag hot">Brand Building</span>
-      <span class="hero-tag">Content Creation</span>
-      <span class="hero-tag">YouTube</span>
-      <span class="hero-tag">Ecosystem Strategy</span>
-      <span class="hero-tag">Analytics</span>
+      <span class="hero-tag hot">Marketplace Growth</span>
+      <span class="hero-tag hot">Ecosystem Strategy</span>
+      <span class="hero-tag">GTM &amp; Category</span>
+      <span class="hero-tag">LTV/CAC</span>
+      <span class="hero-tag">AI-Assisted Build</span>
+      <span class="hero-tag">Full-Funnel</span>
     </div>
     <div class="hero-ctas">
-      <a href="#projects" class="btn-primary">See my work →</a>
+      <a href="#experience" class="btn-primary">See my work →</a>
       <a href="#contact" class="btn-outline">Hire me →</a>
     </div>
   </div>
@@ -524,38 +482,42 @@ footer {
       <div>
         <h2 class="section-title reveal">The person<br>behind the brand.</h2>
         <div class="about-text">
-          <p class="reveal reveal-delay-1">I'm a <strong>marketing manager</strong> obsessed with growth, brand, and the intersection of data and creativity. Currently building <span class="red">ecosystems</span> — the kind of marketing infrastructure that compounds over time.</p>
-          <p class="reveal reveal-delay-2">Beyond the 9-to-5, I create content on <strong>YouTube</strong> — exploring marketing, strategy, and the ideas that don't fit in a slide deck. I'm also learning to build things: GitHub repos, side projects, tools that scratch my own itch.</p>
-          <p class="reveal reveal-delay-3">This site is where the professional and personal collide — an honest portfolio of everything I've built, shipped, and learned.</p>
+          <p class="reveal reveal-delay-1">I'm a <strong>growth operator</strong> — the kind who owns category performance, builds the commercial infrastructure behind it, and ships AI tools that actually run in production. Currently driving <span class="red">ecosystem strategy</span> at Cars24 Australia — spanning marketplace GTM, product launches, and multi-vertical expansion.</p>
+          <p class="reveal reveal-delay-2">Beyond the day job, I build things. <strong>Six AI tools</strong> shipped and in active use — from QC automation and fraud detection to content auditing and community intelligence. Built prompt-first, running in real workflows, used by real teams.</p>
+          <p class="reveal reveal-delay-3">Five years across Auto Marketplace, Web3/Sports Tech, Fintech/Crypto, and Super-App/Mobility — this site is the proof of work.</p>
         </div>
         <div class="about-stat-row reveal reveal-delay-4">
           <div class="about-stat">
             <div class="stat-num">5<span>+</span></div>
-            <div class="stat-label">Years in marketing</div>
+            <div class="stat-label">Years in growth</div>
           </div>
           <div class="about-stat">
             <div class="stat-num">4</div>
-            <div class="stat-label">Companies scaled at</div>
+            <div class="stat-label">Industries</div>
           </div>
           <div class="about-stat">
-            <div class="stat-num">10<span>x</span></div>
-            <div class="stat-label">Organic growth led</div>
+            <div class="stat-num">6</div>
+            <div class="stat-label">AI tools shipped</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num">700<span>+</span></div>
+            <div class="stat-label">Leads in 90 days</div>
           </div>
         </div>
       </div>
       <div>
         <div class="about-pillars reveal reveal-delay-2">
           <div class="about-pillar">
-            <div class="pillar-label">Marketing Intelligence</div>
-            <div class="pillar-desc">Data-informed, audience-obsessed thinking. I don't run campaigns — I build systems that scale.</div>
+            <div class="pillar-label">Business-First Growth</div>
+            <div class="pillar-desc">Category performance, LTV/CAC, monetisation strategy. I don't run campaigns — I build the systems that compound over time.</div>
           </div>
           <div class="about-pillar">
-            <div class="pillar-label">Creative Vision</div>
-            <div class="pillar-desc">A restless creative instinct expressed through content, brand, and storytelling that earns attention in a world full of noise.</div>
+            <div class="pillar-label">Ecosystem Thinking</div>
+            <div class="pillar-desc">Multi-vertical GTM, marketplace supply and demand, cross-functional alignment. Growth as infrastructure, not a department.</div>
           </div>
           <div class="about-pillar">
-            <div class="pillar-label">Human Connection</div>
-            <div class="pillar-desc">Bold ideas delivered with warmth. The work should feel made by a human, for humans — never corporate, never cold.</div>
+            <div class="pillar-label">AI-Assisted Execution</div>
+            <div class="pillar-desc">Six tools in production. Automation pipelines, fraud detection, reporting at scale. I build the things that make the team faster.</div>
           </div>
         </div>
       </div>
@@ -569,106 +531,138 @@ footer {
     <div class="reveal"><div class="section-tag">Experience</div></div>
     <h2 class="section-title reveal">Where I've<br>built things.</h2>
 
-    <!--
-    ╔══════════════════════════════════════════════════════════╗
-    ║  HOW TO ADD YOUR EXPERIENCE                              ║
-    ║  Copy one .exp-card block below and update:              ║
-    ║  • exp-company   → Company name                          ║
-    ║  • exp-duration  → e.g. "Jan 2022 – Present"             ║
-    ║  • exp-role      → Your title at that company            ║
-    ║  • exp-desc      → 1-2 sentence overview                 ║
-    ║  • exp-achievement → one per bullet                      ║
-    ║  • exp-tag       → skills used                           ║
-    ║  Add class "current" to your most recent card.           ║
-    ╚══════════════════════════════════════════════════════════╝
-    -->
-
     <div class="timeline">
 
+      <!-- CARS24 -->
       <div class="exp-card current reveal">
         <div class="exp-header">
-          <div class="exp-company">CARS24</div>
+          <div class="exp-company-info">
+            <div class="exp-logo-wrap">
+              <img src="./assets/logos/cars24.png" alt="Cars24 Australia" class="exp-logo">
+            </div>
+            <div>
+              <a href="https://www.cars24.com.au" target="_blank" rel="noopener" class="exp-company-link">CARS24 Australia ↗</a>
+              <div class="exp-role">Manager — Growth &amp; Marketing · Gurgaon</div>
+            </div>
+          </div>
           <div class="exp-duration">Oct 2023 – Present</div>
         </div>
-        <div class="exp-role">Manager — Growth &amp; Ecosystem · Gurgaon</div>
-        <div class="exp-desc">Co-own growth and GTM strategy for Cars24 Australia's dealer marketplace. Building multi-vertical ecosystem — natively built app, web platform, and agent network — while bridging marketing performance with commercial and product decisions.</div>
+        <div class="exp-desc">Growth and ecosystem operator co-owning GTM strategy for Cars24 Australia's dealer marketplace — accountable for category performance, demand generation, and multi-vertical expansion from strategy through to unit economics.</div>
         <div class="exp-achievements">
-          <div class="exp-achievement">Led domain migration from cars24.com/au → cars24.com.au — 10x organic acquisition across categories; ~850 C2B and ~450 B2C organic leads per month.</div>
-          <div class="exp-achievement">Enabled 700+ qualified dealer leads in 3 months through stronger listing standards and tighter experience controls.</div>
-          <div class="exp-achievement">Spearheading multi-vertical ecosystem launch spanning app, web, and agent network — driving PMF, GTM roadmap, and cross-functional alignment.</div>
-          <div class="exp-achievement">Influencing ECM strategy (~3 enquiries per car/month), dealer selection, and inventory decisions to balance demand generation with monetisation efficiency.</div>
-          <div class="exp-achievement">Awarded 2024 Yearly Best Performer — Growth &amp; Marketing.</div>
+          <div class="exp-achievement">Co-own growth and GTM strategy for Cars24 Australia's dealer marketplace in partnership with business leadership — contributing to demand &amp; supply planning, customer segmentation, positioning, channel prioritisation, and revenue-linked forecasting.</div>
+          <div class="exp-achievement">Own upper-funnel to lower-funnel metrics — demand generation, conversion funnel performance, CRO, and experimentation to improve lead quality, inquiry relevance, and downstream monetisation.</div>
+          <div class="exp-achievement">Spearheading multi-vertical ecosystem launch encompassing a natively built app, web platform, and agent network — driving product-market validation, GTM roadmap, and cross-functional alignment across product, design, and operations.</div>
+          <div class="exp-achievement">Influencing ECM strategy (~3 enquiries per car/month), listing quality standards, dealer selection, and inventory decisions to balance demand generation with monetisation efficiency.</div>
+          <div class="exp-achievement">Enabled delivery of 700+ qualified dealer leads over the last 3 months while improving marketplace trust through stronger listing standards, structured feedback loops, and tighter experience controls.</div>
+          <div class="exp-achievement">Supported business expansion through launch of RWC as a service line and validation of adjacent opportunities including inspection and ownership-related services.</div>
+          <div class="exp-achievement">Led domain migration from cars24.com/au to cars24.com.au — 10x increase in organic acquisition across categories; ~850 C2B and ~450 B2C organic leads per month.</div>
+          <div class="exp-achievement">Awarded 2024 Yearly Best Performer – Growth &amp; Marketing.</div>
         </div>
         <div class="exp-tags">
           <span class="exp-tag">GTM Strategy</span>
           <span class="exp-tag">Marketplace Growth</span>
-          <span class="exp-tag">Technical SEO</span>
-          <span class="exp-tag">Performance</span>
           <span class="exp-tag">Ecosystem</span>
+          <span class="exp-tag">LTV/CAC</span>
           <span class="exp-tag">CRO</span>
+          <span class="exp-tag">Demand Generation</span>
+          <span class="exp-tag">Technical SEO</span>
         </div>
       </div>
 
+      <!-- RARIO -->
       <div class="exp-card reveal reveal-delay-1">
         <div class="exp-header">
-          <div class="exp-company">Rario</div>
+          <div class="exp-company-info">
+            <div class="exp-logo-wrap light">
+              <img src="./assets/logos/rario.png" alt="Rario" class="exp-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+              <span class="exp-logo-text" style="display:none;">RARIO</span>
+            </div>
+            <div>
+              <a href="https://www.rario.com" target="_blank" rel="noopener" class="exp-company-link">Rario ↗</a>
+              <div class="exp-role">Assistant Manager — Marketing · Gurgaon</div>
+            </div>
+          </div>
           <div class="exp-duration">Nov 2022 – Oct 2023</div>
         </div>
-        <div class="exp-role">Assistant Manager — Marketing · Gurgaon</div>
-        <div class="exp-desc">Led user acquisition and lifecycle growth during high-demand IPL cycles across paid, referral-led, and engagement journeys — owning scale, efficiency, and conversion outcomes end-to-end.</div>
+        <div class="exp-desc">Led user acquisition and lifecycle growth during high-demand IPL cycles — owning scale, efficiency, and conversion outcomes across paid, referral, and engagement journeys for India's leading cricket NFT marketplace.</div>
         <div class="exp-achievements">
-          <div class="exp-achievement">Managed ~$500K in IPL-season media budgets — drove 600K installs across digital channels.</div>
-          <div class="exp-achievement">Reduced CPA from $40–50 to $20–25 via channel optimisation and sharper acquisition mix decisions.</div>
-          <div class="exp-achievement">150% increase in organic traffic during IPL — 623.7K impressions, 271.7K clicks.</div>
-          <div class="exp-achievement">Acquired 21K+ new buyers through referral-led growth at ~28% buyer conversion.</div>
-          <div class="exp-achievement">Lifecycle journey redesign delivered a 2–3x uplift in user engagement over three months.</div>
+          <div class="exp-achievement">Drove user acquisition and lifecycle growth during high-demand IPL cycles across paid, referral-led, and engagement journeys — with ownership across scale, efficiency, and conversion outcomes.</div>
+          <div class="exp-achievement">Managed performance marketing during IPL season — overseeing ~$500K in media budgets and driving 600K installs across digital channels.</div>
+          <div class="exp-achievement">Reduced CPA from $40–50 to $20–25 through channel optimisation, funnel improvements, and sharper acquisition mix decisions.</div>
+          <div class="exp-achievement">Acquired 21K+ new buyers through referral-led growth strategies while maintaining ~28% buyer conversion.</div>
+          <div class="exp-achievement">Designed and optimised lifecycle journeys to improve activation and repeat engagement — contributing to a 2–3x uplift in user engagement over three months.</div>
+          <div class="exp-achievement">Built influencer-led acquisition funnels and landing journeys to improve install quality and downstream buyer behaviour.</div>
+          <div class="exp-achievement">Scaled organic demand during IPL — 150% increase in traffic, delivering 623.7K impressions and 271.7K clicks.</div>
         </div>
         <div class="exp-tags">
           <span class="exp-tag">Performance Marketing</span>
           <span class="exp-tag">Lifecycle</span>
           <span class="exp-tag">Referral Growth</span>
+          <span class="exp-tag">Web3 / Sports Tech</span>
           <span class="exp-tag">IPL</span>
-          <span class="exp-tag">Web3</span>
         </div>
       </div>
 
+      <!-- COINSWITCH -->
       <div class="exp-card reveal reveal-delay-2">
         <div class="exp-header">
-          <div class="exp-company">CoinSwitch</div>
+          <div class="exp-company-info">
+            <div class="exp-logo-wrap light">
+              <img src="./assets/logos/coinswitch.gif" alt="CoinSwitch" class="exp-logo">
+            </div>
+            <div>
+              <a href="https://coinswitch.co" target="_blank" rel="noopener" class="exp-company-link">CoinSwitch ↗</a>
+              <div class="exp-role">Senior SEO Associate · Bangalore</div>
+            </div>
+          </div>
           <div class="exp-duration">Jun 2022 – Nov 2022</div>
         </div>
-        <div class="exp-role">Senior SEO Associate · Bangalore</div>
-        <div class="exp-desc">SEO-led demand capture and web-to-app discoverability for India's largest crypto exchange — landing page optimisation, technical SEO, and ASO across the product ecosystem.</div>
+        <div class="exp-desc">Drove organic acquisition and conversion growth for India's largest crypto exchange through SEO-led demand capture, landing page optimisation, and web-to-app discoverability improvements.</div>
         <div class="exp-achievements">
-          <div class="exp-achievement">3x organic acquisition by optimising high-intent landing pages and improving CTR.</div>
-          <div class="exp-achievement">Strengthened technical foundations — crawl efficiency, page performance, discoverability across key acquisition journeys.</div>
-          <div class="exp-achievement">Worked across SEO and ASO levers to improve web-to-app visibility and conversion flow.</div>
+          <div class="exp-achievement">Drove organic user acquisition and conversion growth through SEO-led demand capture, landing page optimisation, and web-to-app discoverability improvements.</div>
+          <div class="exp-achievement">Developed category communication strategy for CRM — helped the team see measurable uplift in engagement.</div>
+          <div class="exp-achievement">Improved organic acquisition 3x by optimising high-intent landing pages, increasing CTR, and driving incremental installs and registrations.</div>
+          <div class="exp-achievement">Strengthened technical foundations to improve crawl efficiency, page performance, and discoverability across key acquisition journeys.</div>
+          <div class="exp-achievement">Worked across SEO and ASO levers to improve web-to-app visibility and conversion flow across product ecosystems.</div>
+          <div class="exp-achievement">Optimised internal linking and content architecture to improve engagement depth and user navigation across growth surfaces.</div>
           <div class="exp-achievement">Built reporting frameworks to track acquisition, installs, and engagement performance.</div>
         </div>
         <div class="exp-tags">
           <span class="exp-tag">Technical SEO</span>
           <span class="exp-tag">ASO</span>
           <span class="exp-tag">CRO</span>
-          <span class="exp-tag">Fintech</span>
+          <span class="exp-tag">Fintech / Crypto</span>
+          <span class="exp-tag">CRM</span>
         </div>
       </div>
 
+      <!-- PARK+ -->
       <div class="exp-card reveal reveal-delay-3">
         <div class="exp-header">
-          <div class="exp-company">Park+</div>
+          <div class="exp-company-info">
+            <div class="exp-logo-wrap">
+              <img src="./assets/logos/parkplus.jpg" alt="Park+" class="exp-logo">
+            </div>
+            <div>
+              <a href="https://www.parkplus.io" target="_blank" rel="noopener" class="exp-company-link">Park+ ↗</a>
+              <div class="exp-role">SEO Analyst · Gurgaon</div>
+            </div>
+          </div>
           <div class="exp-duration">Mar 2021 – Jun 2022</div>
         </div>
-        <div class="exp-role">SEO Analyst · Gurgaon</div>
-        <div class="exp-desc">Built site architecture and discoverability foundations for a Super-App spanning 9 product lines — from FASTag and Challan to EV Charging and Insurance.</div>
+        <div class="exp-desc">Built discoverability and acquisition foundations for a Super-App spanning 9 product lines — from FASTag and Challan to EV Charging and Insurance — across both web and app journeys.</div>
         <div class="exp-achievements">
-          <div class="exp-achievement">Top-3 rankings in FASTag, Challan, RTO, and Parking categories; top-10 across additional growth verticals.</div>
-          <div class="exp-achievement">URL architecture and content strategy across 9 product lines, aligned with user journeys and search demand.</div>
-          <div class="exp-achievement">Worked with product and design teams to launch new verticals and improve user-facing acquisition journeys.</div>
+          <div class="exp-achievement">Supported growth across multiple digital product lines by building site architecture, acquisition-focused content structures, and discoverability foundations for both web and app journeys.</div>
+          <div class="exp-achievement">Created URL and content architecture for new and existing business verticals — aligning site structure with user journeys and search demand.</div>
+          <div class="exp-achievement">Enabled growth across 9 product lines: FASTag, Challan, Parking, RTO, Fuel Price, New Cars, Insurance, Park+ for Business, and EV Charging — along with blogs and app discovery surfaces.</div>
+          <div class="exp-achievement">Worked closely with product and design teams to launch new verticals and improve user-facing acquisition journeys.</div>
+          <div class="exp-achievement">Achieved top-3 rankings in FASTag, Challan, RTO, and Parking categories; top-10 across additional growth verticals.</div>
+          <div class="exp-achievement">Led content strategy across major categories to improve discoverability, acquisition, and category visibility.</div>
         </div>
         <div class="exp-tags">
           <span class="exp-tag">SEO Architecture</span>
           <span class="exp-tag">Content Strategy</span>
-          <span class="exp-tag">Super-App</span>
+          <span class="exp-tag">Super-App / Mobility</span>
           <span class="exp-tag">Product SEO</span>
         </div>
       </div>
@@ -677,205 +671,163 @@ footer {
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects">
+<!-- EARLIER WORK -->
+<section id="earlier-work">
   <div class="section">
-    <div class="reveal"><div class="section-tag">Projects & Work</div></div>
-    <h2 class="section-title reveal">Things I've<br>actually built.</h2>
-    <p class="section-sub reveal">From growth campaigns to GitHub repos. Filter by category to find what's relevant to you.</p>
-
-    <div class="filter-bar reveal">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="marketing">Marketing</button>
-      <button class="filter-btn" data-filter="brand">Brand</button>
-      <button class="filter-btn" data-filter="tech">Tech / GitHub</button>
-    </div>
-
-    <!--
-    ╔═══════════════════════════════════════════════════════╗
-    ║  HOW TO ADD PROJECTS                                  ║
-    ║  Add data-category="marketing|brand|tech|content"     ║
-    ║  to each .project-card div.                           ║
-    ║  For GitHub repos: add the repo URL to .project-link  ║
-    ╚═══════════════════════════════════════════════════════╝
-    -->
-
-    <div class="projects-grid">
-
-      <div class="project-card reveal" data-category="marketing">
-        <div class="project-type">Marketing</div>
-        <div class="project-name">Cars24 Australia — Dealer Marketplace GTM</div>
-        <div class="project-desc">Co-owned growth and GTM for an emerging dealer marketplace — demand &amp; supply planning, customer segmentation, channel prioritisation, and revenue-linked forecasting alongside business leadership.</div>
-        <div class="project-tags">
-          <span class="project-tag">Marketplace</span>
-          <span class="project-tag">GTM</span>
-          <span class="project-tag">Growth Strategy</span>
-          <span class="project-tag">CRO</span>
+    <div class="reveal"><div class="section-tag">Earlier Work</div></div>
+    <h2 class="section-title reveal">Before the<br>main act.</h2>
+    <p class="section-sub reveal">Freelance and early-career roles spanning crypto, media, NGO, and employee experience — across New York, Chennai, Mumbai, and Bangalore.</p>
+    <div class="earlier-grid">
+      <div class="earlier-item reveal">
+        <div class="earlier-left">
+          <div class="earlier-company">Martian Wallet</div>
+          <div class="earlier-role-text">SEM &amp; SEO Consultant</div>
         </div>
-        <div class="project-links">
-          <a href="./work/cars24-qc-automation.html" class="project-link">Case study ↗</a>
+        <div class="earlier-right">
+          <span class="earlier-meta">New York</span>
+          <span class="earlier-meta">·</span>
+          <span class="earlier-meta">1 year</span>
+          <span class="exp-tag">Crypto / Web3</span>
         </div>
       </div>
-
-      <div class="project-card reveal reveal-delay-1" data-category="marketing">
-        <div class="project-type">Marketing</div>
-        <div class="project-name">Rario — IPL Acquisition Engine</div>
-        <div class="project-desc">~$500K in media budgets. 600K installs. CPA cut from $40–50 to $20–25. 21K+ new buyers through referral growth — all during a single IPL season.</div>
-        <div class="project-tags">
-          <span class="project-tag">Performance</span>
-          <span class="project-tag">Paid Media</span>
-          <span class="project-tag">Referral</span>
-          <span class="project-tag">IPL</span>
+      <div class="earlier-item reveal reveal-delay-1">
+        <div class="earlier-left">
+          <div class="earlier-company">Sharing Stories</div>
+          <div class="earlier-role-text">SEM &amp; SEO Consultant</div>
         </div>
-        <div class="project-links">
-          <a href="#" class="project-link">Results ↗</a>
+        <div class="earlier-right">
+          <span class="earlier-meta">Chennai</span>
+          <span class="earlier-meta">·</span>
+          <span class="earlier-meta">1 year</span>
+          <span class="exp-tag">Media</span>
         </div>
       </div>
-
-      <div class="project-card reveal reveal-delay-2" data-category="brand">
-        <div class="project-type">Brand</div>
-        <div class="project-name">Cars24 — Multi-Vertical Ecosystem Launch</div>
-        <div class="project-desc">Spearheading the launch of a natively built app, web platform, and agent network — driving product-market validation, GTM roadmap, and cross-functional alignment across product, design, and operations.</div>
-        <div class="project-tags">
-          <span class="project-tag">Ecosystem</span>
-          <span class="project-tag">Product Launch</span>
-          <span class="project-tag">GTM</span>
-          <span class="project-tag">Brand</span>
+      <div class="earlier-item reveal reveal-delay-2">
+        <div class="earlier-left">
+          <div class="earlier-company">Save the Paws</div>
+          <div class="earlier-role-text">Social Media Marketing Consultant</div>
         </div>
-        <div class="project-links">
-          <a href="#" class="project-link">View work ↗</a>
+        <div class="earlier-right">
+          <span class="earlier-meta">Mumbai</span>
+          <span class="earlier-meta">·</span>
+          <span class="earlier-meta">6 months</span>
+          <span class="exp-tag">NGO</span>
         </div>
       </div>
-
-      <div class="project-card reveal reveal-delay-1" data-category="tech">
-        <div class="project-type">Tech / SEO</div>
-        <div class="project-name">Cars24 — Domain Migration</div>
-        <div class="project-desc">Led full-funnel domain migration from cars24.com/au to cars24.com.au — technical, content, and structural overhaul that delivered 10x organic acquisition and ~850 C2B + ~450 B2C leads per month.</div>
-        <div class="project-tags">
-          <span class="project-tag">Technical SEO</span>
-          <span class="project-tag">Migration</span>
-          <span class="project-tag">Architecture</span>
+      <div class="earlier-item reveal reveal-delay-3">
+        <div class="earlier-left">
+          <div class="earlier-company">d'frens</div>
+          <div class="earlier-role-text">Account Manager · Event Co-ordinator · Video Editor</div>
         </div>
-        <div class="project-links">
-          <a href="#" class="project-link">Case study ↗</a>
+        <div class="earlier-right">
+          <span class="earlier-meta">Bangalore</span>
+          <span class="earlier-meta">·</span>
+          <span class="earlier-meta">1.5 years</span>
+          <span class="exp-tag">Employee Experience</span>
         </div>
-      </div>
-
-      <div class="project-card reveal reveal-delay-2" data-category="tech">
-        <div class="project-type">Tech / GitHub</div>
-        <div class="project-name">jigyanshushah.ai — This Site</div>
-        <div class="project-desc">A living portfolio with a full brand system, cinematic dark design, GitHub stats, and a YouTube content surface. Built AI-assisted with Claude (Anthropic).</div>
-        <div class="project-tags">
-          <span class="project-tag">Portfolio</span>
-          <span class="project-tag">HTML/CSS</span>
-          <span class="project-tag">AI-assisted</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/jigyanshushah/jigyanshushah.ai" class="project-link github" target="_blank">GitHub ↗</a>
-        </div>
-      </div>
-
-
-    </div>
-
-    <!-- GitHub Stats Banner -->
-    <div class="github-banner reveal" id="ghBanner">
-      <div class="gh-stat">
-        <div class="gh-num loading" id="gh-repos">—</div>
-        <div class="gh-label">Public repos</div>
-      </div>
-      <div class="gh-stat">
-        <div class="gh-num loading" id="gh-stars">—</div>
-        <div class="gh-label">Total stars</div>
-      </div>
-      <div class="gh-stat">
-        <div class="gh-num loading" id="gh-followers">—</div>
-        <div class="gh-label">Followers</div>
-      </div>
-      <div class="gh-stat">
-        <div class="gh-num" style="color: var(--acid);">Open</div>
-        <div class="gh-label">github.com/jigyanshushah</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- AI USE CASES -->
+<!-- AI WORK -->
 <section id="ai-work">
   <div class="section">
     <div class="reveal"><div class="section-tag">AI Work</div></div>
     <h2 class="section-title reveal">AI in practice.</h2>
-    <p class="section-sub reveal">Real problems. Real prompts. Real results. Each case study walks through how I used AI to solve a specific marketing, growth, or operations challenge.</p>
+    <p class="section-sub reveal">Real problems. Real solutions. Six tools built and in active use — from marketplace operations and fraud detection to reporting automation and community intelligence.</p>
 
-    <div class="ai-grid">
+    <div class="ai-list">
 
-      <a href="./work/cars24-qc-automation.html" class="ai-card reveal">
-        <div class="ai-card-type">Automation · Operations</div>
-        <div class="project-name">Cars24 AU — QC Automation Engine</div>
-        <div class="project-desc">Designed and implemented an automated quality control pipeline that replaced manual inspection processes — cutting turnaround time and scaling throughput across Cars24 Australia's operation.</div>
-        <div class="project-tags">
-          <span class="project-tag">Automation</span>
-          <span class="project-tag">QC</span>
-          <span class="project-tag">AI Pipeline</span>
-          <span class="project-tag">Cars24</span>
+      <div class="ai-list-item reveal">
+        <div class="ai-item-num">01</div>
+        <div class="ai-item-body">
+          <div class="ai-item-type">Automation · Operations</div>
+          <div class="ai-item-title">QC Automation Engine</div>
+          <div class="ai-item-desc">Automated vehicle listing quality control pipeline for Cars24 Australia — replaced a 2-person manual review team. Processes 2,000+ records in ~20 minutes vs 5+ days manually. 69.7% of eligible listings auto-cleared as Good To Go in the latest run.</div>
+          <div class="ai-item-status">Live · Cars24 AU</div>
         </div>
-        <div class="ai-card-cta">View case study ↗</div>
-      </a>
-
-      <div class="ai-card coming-soon reveal reveal-delay-1">
-        <div class="ai-card-type">Growth · Experimentation</div>
-        <div class="project-name">AI-Assisted Growth Experiments</div>
-        <div class="project-desc">A structured AI-assisted approach to growth experimentation — from hypothesis generation to result analysis, with measurable outcomes.</div>
-        <div class="project-tags">
-          <span class="project-tag">Growth</span>
-          <span class="project-tag">Experimentation</span>
-          <span class="project-tag">Analytics</span>
-        </div>
-        <div class="ai-card-cta coming">Coming soon</div>
       </div>
 
-      <div class="ai-card coming-soon reveal reveal-delay-2">
-        <div class="ai-card-type">Content · Scale</div>
-        <div class="project-name">AI Content Pipeline at Scale</div>
-        <div class="project-desc">How I built and managed a content operation using AI tools — from brief to publish, with human-in-the-loop quality control baked in.</div>
-        <div class="project-tags">
-          <span class="project-tag">Content Ops</span>
-          <span class="project-tag">AI Workflow</span>
-          <span class="project-tag">Scale</span>
+      <div class="ai-list-item reveal reveal-delay-1">
+        <div class="ai-item-num">02</div>
+        <div class="ai-item-body">
+          <div class="ai-item-type">Reporting · Analytics</div>
+          <div class="ai-item-title">Marketing Reporting Suite</div>
+          <div class="ai-item-desc">Automated multi-channel reporting across SEO, performance marketing, and content — eliminated manual report-building and standardised visibility across all channels. Runs on schedule, lands in the right hands.</div>
+          <div class="ai-item-status">Live · Internal</div>
         </div>
-        <div class="ai-card-cta coming">Coming soon</div>
+      </div>
+
+      <div class="ai-list-item reveal reveal-delay-2">
+        <div class="ai-item-num">03</div>
+        <div class="ai-item-body">
+          <div class="ai-item-type">Content · Quality</div>
+          <div class="ai-item-title">Content Audit Automation</div>
+          <div class="ai-item-desc">Auto-triggered content audits on every content launch — catches structural issues, metadata gaps, and discoverability problems before they compound in search performance. Zero manual QA overhead on go-live.</div>
+          <div class="ai-item-status">Live · Internal</div>
+        </div>
+      </div>
+
+      <div class="ai-list-item reveal reveal-delay-3">
+        <div class="ai-item-num">04</div>
+        <div class="ai-item-body">
+          <div class="ai-item-type">Community · Engagement</div>
+          <div class="ai-item-title">Reddit Community Intelligence</div>
+          <div class="ai-item-desc">End-to-end pipeline that scrapes and filters relevant Reddit threads, delivers curated posts with suggested responses directly to Slack, and tracks engagement progression — whether you replied, how you engaged, and what the outcome was.</div>
+          <div class="ai-item-status">Live · Internal</div>
+        </div>
+      </div>
+
+      <div class="ai-list-item reveal reveal-delay-4">
+        <div class="ai-item-num">05</div>
+        <div class="ai-item-body">
+          <div class="ai-item-type">Trust · Compliance</div>
+          <div class="ai-item-title">Vehicle Recall Checker</div>
+          <div class="ai-item-desc">Flags active Australian government recall notices against live Cars24 inventory — automated trust and compliance layer for the marketplace, protecting buyers and reducing operational and reputational risk.</div>
+          <div class="ai-item-status">Live · Cars24 AU</div>
+        </div>
+      </div>
+
+      <div class="ai-list-item reveal reveal-delay-5">
+        <div class="ai-item-num">06</div>
+        <div class="ai-item-body">
+          <div class="ai-item-type">Fraud Detection · Trust</div>
+          <div class="ai-item-title">Odometer Rollback Alert</div>
+          <div class="ai-item-desc">Detects odometer tampering and rollback signals across vehicle listings — automated fraud detection layer that improves listing integrity, builds buyer trust, and reduces fraudulent inventory entering the marketplace.</div>
+          <div class="ai-item-status">Live · Cars24 AU</div>
+        </div>
       </div>
 
     </div>
   </div>
 </section>
-
-<!-- UPCOMING STRIP -->
-<div class="upcoming-strip reveal">
-  <div class="upcoming-inner">
-    <div class="upcoming-label">What's next</div>
-    <div class="upcoming-items">
-      <span class="upcoming-item">YouTube — strategy &amp; marketing breakdowns</span>
-      <span class="upcoming-sep">·</span>
-      <span class="upcoming-item">More AI case studies</span>
-      <span class="upcoming-sep">·</span>
-      <span class="upcoming-item">Deep-dive project write-ups</span>
-    </div>
-  </div>
-</div>
 
 <!-- SKILLS -->
 <section id="skills">
   <div class="section">
     <div class="reveal"><div class="section-tag">Skills</div></div>
     <h2 class="section-title reveal">What I bring<br>to the table.</h2>
-    <p class="section-sub reveal">The toolkit — update this with your actual stack as you go. Hover anything to see what makes it yours.</p>
+    <p class="section-sub reveal">Core competencies, channel expertise, and the full toolkit — built across four industries and five years.</p>
     <div class="skills-grid">
-      <div class="skill-group reveal">
-        <div class="skill-group-title">Growth & Marketing</div>
+      <div class="skill-group reveal" style="grid-column: 1 / -1;">
+        <div class="skill-group-title">Core Competencies</div>
         <div class="skill-chips">
-          <span class="skill-chip featured">Growth Strategy</span>
-          <span class="skill-chip featured">Ecosystem Building</span>
+          <span class="skill-chip featured">Multi-Channel Acquisition</span>
+          <span class="skill-chip featured">Full-Funnel Demand Generation &amp; CRO</span>
+          <span class="skill-chip featured">GTM Strategy &amp; Product Launches</span>
+          <span class="skill-chip featured">Marketplace Growth &amp; Category Management</span>
+          <span class="skill-chip featured">LTV/CAC &amp; Unit Economics</span>
+          <span class="skill-chip featured">Lifecycle Marketing &amp; Retention</span>
+          <span class="skill-chip featured">Data-Driven Experimentation</span>
+          <span class="skill-chip featured">Domain Migration &amp; Technical SEO</span>
+        </div>
+      </div>
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Growth &amp; Marketing</div>
+        <div class="skill-chips">
+          <span class="skill-chip">Growth Strategy</span>
+          <span class="skill-chip">Ecosystem Building</span>
           <span class="skill-chip">Marketplace Growth</span>
           <span class="skill-chip">Performance Marketing</span>
           <span class="skill-chip">Technical SEO</span>
@@ -883,14 +835,13 @@ footer {
           <span class="skill-chip">CRO &amp; Experimentation</span>
           <span class="skill-chip">Funnel Optimisation</span>
           <span class="skill-chip">Go-To-Market</span>
-          <span class="skill-chip">LTV/CAC</span>
           <span class="skill-chip">Influencer Strategy</span>
         </div>
       </div>
       <div class="skill-group reveal reveal-delay-1">
-        <div class="skill-group-title">Brand & Creative</div>
+        <div class="skill-group-title">Brand &amp; Creative</div>
         <div class="skill-chips">
-          <span class="skill-chip featured">Brand Strategy</span>
+          <span class="skill-chip">Brand Strategy</span>
           <span class="skill-chip">Storytelling</span>
           <span class="skill-chip">Copywriting</span>
           <span class="skill-chip">Creative Direction</span>
@@ -901,7 +852,7 @@ footer {
         </div>
       </div>
       <div class="skill-group reveal reveal-delay-2">
-        <div class="skill-group-title">Technical & Data</div>
+        <div class="skill-group-title">Technical &amp; Data</div>
         <div class="skill-chips">
           <span class="skill-chip">GA4 / Mixpanel</span>
           <span class="skill-chip">CleverTap</span>
@@ -909,7 +860,6 @@ footer {
           <span class="skill-chip">A/B Testing</span>
           <span class="skill-chip">Marketing Automation</span>
           <span class="skill-chip">Domain Migration</span>
-          <span class="skill-chip">Git / GitHub</span>
           <span class="skill-chip">Data Visualisation</span>
           <span class="skill-chip">SQL (Learning)</span>
           <span class="skill-chip">Python (Learning)</span>
@@ -941,7 +891,7 @@ footer {
       <div class="contact-info reveal">
         <div class="availability-badge"><div class="avail-dot"></div>Available for hire</div>
         <div class="contact-tagline">Let's build something<br><span>worth talking about.</span></div>
-        <div class="contact-desc">Looking for someone to lead bold marketing, creative strategy, or growth initiatives? I'm currently open to select opportunities where I can help brands scale, stand out, and drive meaningful impact.</div>
+        <div class="contact-desc">Looking for someone to lead growth strategy, ecosystem initiatives, or marketing that actually drives business outcomes? I'm currently open to select opportunities where I can help brands scale, stand out, and compound over time.</div>
         <div class="social-links">
           <a href="https://www.linkedin.com/in/jigyanshu-shah/" target="_blank" class="social-link">
             <div class="social-link-left">
@@ -1024,10 +974,6 @@ footer {
 </footer>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────────
-// Update GITHUB_USERNAME to your real GitHub handle
-const GITHUB_USERNAME = 'jigyanshushah';
-
 // ── SCROLL PROGRESS BAR ─────────────────────────────────────
 const progressBar = document.getElementById('progress-bar');
 window.addEventListener('scroll', () => {
@@ -1057,25 +1003,6 @@ const sectionObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 sections.forEach(s => sectionObserver.observe(s));
 
-// ── PROJECT FILTER ────────────────────────────────────────────
-const filterBtns = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-    projectCards.forEach(card => {
-      if (filter === 'all' || card.dataset.category === filter) {
-        card.removeAttribute('data-filter');
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  });
-});
-
 // ── MOBILE MENU ───────────────────────────────────────────────
 const menuBtn = document.getElementById('menuBtn');
 const mobileMenu = document.getElementById('mobileMenu');
@@ -1094,28 +1021,6 @@ document.querySelectorAll('.mob-link, .mobile-cta').forEach(a => {
     document.body.style.overflow = '';
   });
 });
-
-// ── GITHUB STATS ──────────────────────────────────────────────
-async function loadGitHubStats() {
-  try {
-    const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
-    if (!res.ok) return;
-    const data = await res.json();
-    const reposEl = document.getElementById('gh-repos');
-    const followersEl = document.getElementById('gh-followers');
-    if (reposEl) { reposEl.textContent = data.public_repos || '—'; reposEl.classList.remove('loading'); }
-    if (followersEl) { followersEl.textContent = data.followers || '—'; followersEl.classList.remove('loading'); }
-    // Fetch stars
-    const reposRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`);
-    if (reposRes.ok) {
-      const repos = await reposRes.json();
-      const stars = repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
-      const starsEl = document.getElementById('gh-stars');
-      if (starsEl) { starsEl.textContent = stars; starsEl.classList.remove('loading'); }
-    }
-  } catch(e) { /* GitHub might not exist yet — silently fails */ }
-}
-loadGitHubStats();
 
 // ── FORM SUBMIT ───────────────────────────────────────────────
 document.querySelector('.form-submit').addEventListener('click', () => {
