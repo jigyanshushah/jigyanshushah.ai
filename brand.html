@@ -1,0 +1,1761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jigyanshu Shah — Personal Brand Guidelines</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #080808;
+    --carbon: #111111;
+    --surface: #181818;
+    --steel: #252525;
+    --divider: #2c2c2c;
+    --ivory: #F2F2F2;
+    --mist: #9A9A9A;
+    --smoke: #555555;
+    --crimson: #C91A33;
+    --flame: #E8243C;
+    --acid: #B8F03C;
+    --white: #FFFFFF;
+    --syne: 'Syne', system-ui, sans-serif;
+    --outfit: 'Outfit', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--ivory);
+    font-family: var(--outfit);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,8,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--divider);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: var(--syne);
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--flame); }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--mist);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ivory); }
+  .nav-version {
+    font-size: 12px;
+    color: var(--smoke);
+    font-family: var(--outfit);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* LAYOUT */
+  .section {
+    padding: 100px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--divider);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--flame);
+    margin-bottom: 20px;
+  }
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--flame);
+  }
+
+  .section-title {
+    font-family: var(--syne);
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    font-size: 17px;
+    color: var(--mist);
+    font-weight: 300;
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  /* HERO / COVER */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 48px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--divider);
+  }
+
+  .hero-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--divider) 1px, transparent 1px),
+      linear-gradient(90deg, var(--divider) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.25;
+  }
+
+  .hero-bg-accent {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,26,51,0.12) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--divider);
+  }
+
+  .hero-monogram {
+    font-family: var(--syne);
+    font-size: clamp(140px, 20vw, 260px);
+    font-weight: 800;
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--steel);
+    user-select: none;
+    margin-bottom: -16px;
+  }
+
+  .hero-name {
+    font-family: var(--syne);
+    font-size: clamp(40px, 7vw, 96px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .hero-name .highlight { color: var(--flame); }
+
+  .hero-descriptor {
+    font-family: var(--outfit);
+    font-size: 18px;
+    color: var(--mist);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    max-width: 500px;
+    line-height: 1.6;
+    margin-bottom: 48px;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .hero-tag {
+    padding: 8px 18px;
+    border: 1px solid var(--steel);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--mist);
+    letter-spacing: 0.02em;
+  }
+  .hero-tag.active {
+    border-color: var(--flame);
+    color: var(--flame);
+    background: rgba(201,26,51,0.06);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    right: 48px;
+    font-size: 12px;
+    color: var(--smoke);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-scroll::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--smoke), transparent);
+  }
+
+  /* BRAND FOUNDATION */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+  }
+  .pillar {
+    background: var(--carbon);
+    padding: 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pillar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--steel);
+  }
+  .pillar.primary::before { background: var(--flame); }
+
+  .pillar-number {
+    font-family: var(--syne);
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--divider);
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -0.04em;
+  }
+  .pillar.primary .pillar-number { color: rgba(201,26,51,0.2); }
+
+  .pillar-title {
+    font-family: var(--syne);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .pillar-text {
+    font-size: 14px;
+    color: var(--mist);
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .persona-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    margin-top: 32px;
+  }
+  .persona-chip {
+    background: var(--surface);
+    padding: 28px 20px;
+    text-align: center;
+  }
+  .persona-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+    display: block;
+    line-height: 1;
+  }
+  .persona-label {
+    font-family: var(--syne);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--white);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .persona-desc {
+    font-size: 12px;
+    color: var(--smoke);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  /* COLOURS */
+  .colour-grid-primary {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+  .colour-grid-secondary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-bottom: 4px;
+  }
+  .colour-grid-tertiary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+
+  .colour-swatch {
+    padding: 32px 28px 28px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+  }
+  .colour-swatch.tall { min-height: 220px; }
+
+  .colour-name {
+    font-family: var(--syne);
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .colour-hex {
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    font-family: 'Courier New', monospace;
+    opacity: 0.7;
+  }
+  .colour-role {
+    position: absolute;
+    top: 20px;
+    left: 28px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .colour-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* swatch colours */
+  .sw-void { background: #080808; color: #F2F2F2; }
+  .sw-carbon { background: #111111; color: #F2F2F2; border: 1px solid #252525; }
+  .sw-surface { background: #181818; color: #F2F2F2; border: 1px solid #252525; }
+  .sw-ivory { background: #F2F2F2; color: #080808; }
+  .sw-mist { background: #9A9A9A; color: #080808; }
+  .sw-crimson { background: #C91A33; color: #FFFFFF; }
+  .sw-flame { background: #E8243C; color: #FFFFFF; }
+  .sw-acid { background: #B8F03C; color: #080808; }
+  .sw-acid-dark { background: #080808; color: #B8F03C; border: 1px solid #252525; }
+
+  .gradient-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-top: 32px;
+  }
+  .gradient-swatch {
+    height: 120px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+  }
+  .g-ignite { background: linear-gradient(135deg, #E8243C 0%, #080808 100%); }
+  .g-maroon { background: linear-gradient(135deg, #E8243C 0%, #3d0010 100%); }
+  .gradient-label {
+    font-family: var(--syne);
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .gradient-value {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    font-family: 'Courier New', monospace;
+    letter-spacing: 0.06em;
+  }
+
+  .ratio-bar {
+    display: flex;
+    height: 48px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 32px;
+    gap: 3px;
+  }
+  .ratio-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: flex 0.4s ease;
+  }
+  .ratio-void { background: #111111; flex: 70; color: #555; border: 1px solid #252525; }
+  .ratio-ivory { background: #F2F2F2; flex: 20; color: #888; }
+  .ratio-crimson { background: #E8243C; flex: 8; color: #fff; font-size: 10px; }
+  .ratio-acid { background: #B8F03C; flex: 2; color: #080808; font-size: 9px; }
+
+  .ratio-legend {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .ratio-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--mist);
+  }
+  .ratio-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* TYPOGRAPHY */
+  .type-specimen {
+    background: var(--carbon);
+    padding: 48px;
+    margin-bottom: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+  .type-specimen.dark { background: var(--surface); }
+
+  .type-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .type-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--divider);
+  }
+
+  .specimen-display {
+    font-family: var(--syne);
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .specimen-name {
+    font-family: var(--outfit);
+    font-size: 14px;
+    color: var(--smoke);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .type-scale {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .scale-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 80px;
+    gap: 24px;
+    align-items: baseline;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .scale-row:last-child { border-bottom: none; }
+  .scale-meta {
+    font-size: 11px;
+    color: var(--smoke);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .scale-size {
+    font-size: 11px;
+    color: var(--smoke);
+    text-align: right;
+    font-family: 'Courier New', monospace;
+  }
+
+  .weight-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    margin-top: 32px;
+  }
+  .weight-card {
+    background: var(--surface);
+    padding: 28px 24px;
+  }
+  .weight-sample {
+    font-family: var(--syne);
+    font-size: 36px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+  .weight-name {
+    font-size: 12px;
+    color: var(--smoke);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .pairing-box {
+    background: var(--carbon);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+  }
+  .pairing-box.approved::before {
+    content: 'APPROVED PAIRING';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--acid);
+    background: rgba(184,240,60,0.08);
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+  .pairing-box.avoid::before {
+    content: 'AVOID';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #E8243C;
+    background: rgba(232,36,60,0.08);
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+
+  /* SHAPES */
+  .shape-showcase {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    margin-top: 32px;
+  }
+  .shape-card {
+    background: var(--carbon);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    min-height: 280px;
+  }
+  .shape-demo {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .shape-pill {
+    width: 80%;
+    height: 72px;
+    border-radius: 100px;
+    border: 1.5px solid var(--steel);
+    background: transparent;
+  }
+  .shape-pill.filled {
+    background: var(--flame);
+    border-color: var(--flame);
+  }
+
+  .shape-slash-demo {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+    width: 100%;
+    height: 72px;
+    justify-content: center;
+  }
+  .shape-slash-line {
+    width: 2px;
+    height: 60px;
+    background: var(--flame);
+    transform: skewX(-20deg);
+    margin: 0 8px;
+  }
+  .shape-slash-text-l {
+    font-family: var(--syne);
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--white);
+    margin-right: 12px;
+  }
+  .shape-slash-text-r {
+    font-family: var(--syne);
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--mist);
+    margin-left: 12px;
+  }
+
+  .shape-dot-demo {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 72px;
+  }
+  .dot {
+    border-radius: 50%;
+  }
+  .dot-lg { width: 20px; height: 20px; background: var(--flame); }
+  .dot-md { width: 12px; height: 12px; background: var(--mist); }
+  .dot-sm { width: 7px; height: 7px; background: var(--steel); }
+
+  .shape-label {
+    font-family: var(--syne);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .shape-desc {
+    font-size: 13px;
+    color: var(--mist);
+    line-height: 1.6;
+  }
+
+  /* VOICE */
+  .voice-attributes {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    margin-bottom: 48px;
+  }
+  .voice-attr {
+    background: var(--carbon);
+    padding: 32px 24px;
+    position: relative;
+  }
+  .voice-attr::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--steel);
+  }
+  .voice-attr.active::after { background: var(--flame); }
+  .attr-word {
+    font-family: var(--syne);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .attr-def {
+    font-size: 12px;
+    color: var(--smoke);
+    line-height: 1.6;
+  }
+
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .do-box { background: rgba(184,240,60,0.04); border: 1px solid rgba(184,240,60,0.12); padding: 32px; }
+  .dont-box { background: rgba(232,36,60,0.04); border: 1px solid rgba(232,36,60,0.12); padding: 32px; }
+  .do-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--acid);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .dont-header {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--flame);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .copy-example {
+    font-family: var(--syne);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .copy-sub {
+    font-size: 13px;
+    color: var(--smoke);
+    line-height: 1.6;
+  }
+  .copy-items { display: flex; flex-direction: column; gap: 24px; }
+
+  /* DIGITAL ASSETS */
+  .asset-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+  }
+  .asset-card {
+    background: var(--carbon);
+    padding: 40px;
+  }
+  .asset-card-title {
+    font-family: var(--syne);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .asset-card-sub {
+    font-size: 13px;
+    color: var(--smoke);
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  /* CTA preview */
+  .cta-formula {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--outfit);
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: default;
+    letter-spacing: 0.01em;
+  }
+  .cta-primary {
+    background: var(--flame);
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 14px;
+    border-radius: 14px;
+  }
+  .cta-secondary {
+    background: transparent;
+    color: var(--flame);
+    border: 1.5px solid var(--flame);
+    padding: 12px 24px;
+    font-size: 14px;
+    border-radius: 14px;
+  }
+  .cta-acid {
+    background: var(--acid);
+    color: #080808;
+    padding: 10px 20px;
+    font-size: 12px;
+    border-radius: 10px;
+    font-weight: 700;
+  }
+
+  .formula-table {
+    font-size: 13px;
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .formula-table td {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--divider);
+    color: var(--mist);
+  }
+  .formula-table td:first-child {
+    color: var(--smoke);
+    width: 120px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  .formula-table td .val {
+    color: var(--acid);
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+  }
+
+  /* social template mock */
+  .social-mocks {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+    align-items: flex-end;
+  }
+  .mock-square {
+    width: 140px;
+    height: 140px;
+    background: var(--surface);
+    border: 1px solid var(--steel);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    justify-content: space-between;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .mock-story {
+    width: 80px;
+    height: 140px;
+    background: var(--surface);
+    border: 1px solid var(--steel);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    justify-content: space-between;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .mock-logo { width: 32px; height: 6px; background: var(--flame); border-radius: 2px; }
+  .mock-logo-story { width: 20px; height: 4px; background: var(--flame); border-radius: 2px; }
+  .mock-headline { width: 80%; height: 8px; background: var(--steel); border-radius: 2px; margin-bottom: 4px; }
+  .mock-subline { width: 55%; height: 5px; background: var(--divider); border-radius: 2px; }
+  .mock-bottom { display: flex; flex-direction: column; gap: 3px; }
+  .mock-safe { font-size: 9px; color: var(--smoke); letter-spacing: 0.04em; position: absolute; right: 8px; top: 8px; }
+  .mock-dim { font-size: 10px; color: var(--smoke); margin-top: 6px; text-align: center; width: 100%; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--divider);
+    padding: 40px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: var(--syne);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.03em;
+    color: var(--white);
+  }
+  .footer-logo span { color: var(--flame); }
+  .footer-note {
+    font-size: 12px;
+    color: var(--smoke);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .footer-acid {
+    font-size: 12px;
+    color: var(--acid);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+
+  /* Tablet: 641px – 1024px */
+  @media (max-width: 1024px) {
+    nav { padding: 0 28px; }
+    .nav-links { gap: 20px; }
+    .nav-version { display: none; }
+    .section { padding: 72px 28px; max-width: 100%; }
+    .hero { padding: 64px 28px; }
+    .pillars { grid-template-columns: 1fr; }
+    .persona-grid { grid-template-columns: repeat(3, 1fr); }
+    .colour-grid-primary { grid-template-columns: 1fr 1fr; }
+    .colour-grid-secondary { grid-template-columns: repeat(2, 1fr); }
+    .weight-grid { grid-template-columns: repeat(2, 1fr); }
+    .shape-showcase { grid-template-columns: 1fr 1fr; }
+    .voice-attributes { grid-template-columns: repeat(3, 1fr); }
+    .asset-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 32px 28px; }
+  }
+
+  /* Mobile: ≤ 640px */
+  @media (max-width: 640px) {
+    nav {
+      padding: 0 20px;
+      height: 52px;
+    }
+    .nav-links { display: none; }
+    .nav-version { display: none; }
+
+    .section {
+      padding: 60px 20px;
+    }
+
+    .section-title {
+      font-size: 36px;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      margin-bottom: 36px;
+    }
+
+    /* Hero */
+    .hero { padding: 56px 20px 80px; min-height: auto; }
+    .hero-monogram {
+      font-size: 100px;
+      margin-bottom: -8px;
+    }
+    .hero-name { font-size: 40px; }
+    .hero-descriptor { font-size: 15px; margin-bottom: 32px; }
+    .hero-scroll { display: none; }
+    .hero-bg-accent { width: 300px; height: 300px; }
+
+    /* Foundation */
+    .pillars { grid-template-columns: 1fr; }
+    .pillar { padding: 28px 24px; }
+    .pillar-number { font-size: 48px; }
+    .persona-grid { grid-template-columns: repeat(2, 1fr); }
+    .persona-chip { padding: 20px 16px; }
+
+    /* Colours */
+    .colour-grid-primary { grid-template-columns: 1fr; }
+    .colour-grid-secondary { grid-template-columns: 1fr 1fr; }
+    .colour-grid-tertiary { grid-template-columns: 1fr; }
+    .colour-swatch { min-height: 120px; padding: 24px 20px 20px; }
+    .colour-swatch.tall { min-height: 140px; }
+    .gradient-row { grid-template-columns: 1fr; }
+    .ratio-bar { height: 36px; }
+    .ratio-seg { font-size: 10px; }
+
+    /* Typography */
+    .type-specimen { padding: 32px 24px; }
+    .specimen-display { font-size: 52px; }
+    .scale-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .scale-row .scale-size { display: none; }
+    .scale-row .scale-meta {
+      font-size: 10px;
+      color: var(--flame);
+    }
+    .weight-grid { grid-template-columns: 1fr 1fr; }
+    .weight-card { padding: 20px 16px; }
+    .weight-sample { font-size: 28px; }
+    .two-col { grid-template-columns: 1fr; }
+    .pairing-box { padding: 24px; }
+
+    /* Shapes */
+    .shape-showcase { grid-template-columns: 1fr; }
+    .shape-card { padding: 32px 28px; min-height: auto; }
+
+    /* Voice */
+    .voice-attributes { grid-template-columns: 1fr 1fr; }
+    .voice-attr { padding: 20px 16px; }
+    .do-dont { grid-template-columns: 1fr; }
+    .do-box, .dont-box { padding: 24px; }
+    .copy-example { font-size: 16px; }
+
+    /* Assets */
+    .asset-grid { grid-template-columns: 1fr; }
+    .asset-card { padding: 28px 24px; }
+    .social-mocks { flex-wrap: wrap; gap: 12px; }
+
+    /* Inline grids from HTML — override with flex/block */
+    .pillar-monogram-section { flex-direction: column !important; gap: 32px !important; }
+
+    footer {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      padding: 32px 20px;
+      align-items: center;
+    }
+
+    /* Fix inline style grids scattered through the HTML */
+    .insight-box { padding: 20px; }
+    .insight-text { font-size: 15px; }
+
+    .monogram-section {
+      grid-template-columns: 1fr !important;
+      padding: 32px 24px !important;
+      gap: 32px !important;
+    }
+    .corner-grid {
+      grid-template-columns: 1fr !important;
+      padding: 28px 24px !important;
+      gap: 32px !important;
+    }
+    .grammar-grid {
+      grid-template-columns: 1fr !important;
+    }
+    .acid-inner {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 24px !important;
+      padding-top: 32px;
+    }
+    .acid-inner > div:last-child {
+      margin-left: 0 !important;
+    }
+  }
+
+  /* dividers */
+  .rule { height: 1px; background: var(--divider); margin: 40px 0; }
+  .rule-flame { height: 2px; background: var(--flame); width: 40px; margin: 0 0 24px; }
+  
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  
+  .tag-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .tp-crimson { background: rgba(201,26,51,0.12); color: var(--flame); border: 1px solid rgba(201,26,51,0.2); }
+  .tp-acid { background: rgba(184,240,60,0.1); color: var(--acid); border: 1px solid rgba(184,240,60,0.2); }
+  .tp-neutral { background: var(--surface); color: var(--mist); border: 1px solid var(--steel); }
+
+  .insight-box {
+    background: var(--carbon);
+    border-left: 3px solid var(--flame);
+    padding: 24px 28px;
+    margin: 32px 0;
+  }
+  .insight-text {
+    font-family: var(--syne);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.5;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">JS<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#foundation">Foundation</a></li>
+    <li><a href="#colours">Colours</a></li>
+    <li><a href="#typography">Typography</a></li>
+    <li><a href="#shapes">Shapes</a></li>
+    <li><a href="#voice">Voice</a></li>
+    <li><a href="#assets">Assets</a></li>
+  </ul>
+  <div class="nav-version">v1.0 · 2025</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-accent"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Personal Brand Guidelines · v1.0</div>
+    <div class="hero-monogram">JS</div>
+    <h1 class="hero-name">Jigyanshu <span class="highlight">Shah</span></h1>
+    <p class="hero-descriptor">Marketing strategist. Content creator. Brand builder. This is the visual and verbal system behind the name.</p>
+    <div class="hero-tags">
+      <span class="hero-tag active">Marketing</span>
+      <span class="hero-tag active">Content</span>
+      <span class="hero-tag">Strategy</span>
+      <span class="hero-tag">Brand</span>
+      <span class="hero-tag">YouTube</span>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</div>
+
+<!-- BRAND FOUNDATION -->
+<div class="section" id="foundation">
+  <div class="section-tag">01 — Foundation</div>
+  <h2 class="section-title">What JS<br>stands for.</h2>
+  <p class="section-sub">Before any colour or typeface decision is made, this is the thinking that drives them. Every design choice maps back to this.</p>
+
+  <div class="pillars">
+    <div class="pillar primary">
+      <div class="pillar-number">01</div>
+      <div class="pillar-title">Marketing Intelligence</div>
+      <p class="pillar-text">Data-informed, audience-obsessed thinking that transforms ideas into campaigns that actually move people — not just metrics.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-number">02</div>
+      <div class="pillar-title">Creative Vision</div>
+      <p class="pillar-text">A restless creative instinct — expressed through content, visuals, and storytelling that earns attention in a world full of noise.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-number">03</div>
+      <div class="pillar-title">Human Connection</div>
+      <p class="pillar-text">Bold ideas delivered with warmth. The work should feel like it was made by a human, for humans — never cold, never corporate.</p>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="section-tag">Brand Persona</div>
+  <p class="section-sub" style="margin-bottom: 0;">Five attributes that must come through in everything — from a YouTube thumbnail to a cold email to a slide deck.</p>
+
+  <div class="persona-grid">
+    <div class="persona-chip">
+      <span class="persona-icon">◈</span>
+      <span class="persona-label">Bold</span>
+      <span class="persona-desc">Takes a stance. Never wishy-washy or both-sides.</span>
+    </div>
+    <div class="persona-chip">
+      <span class="persona-icon">◉</span>
+      <span class="persona-label">Strategic</span>
+      <span class="persona-desc">Every move is intentional. Thinks before publishing.</span>
+    </div>
+    <div class="persona-chip">
+      <span class="persona-icon">◎</span>
+      <span class="persona-label">Human</span>
+      <span class="persona-desc">Warm, direct, and genuinely curious.</span>
+    </div>
+    <div class="persona-chip">
+      <span class="persona-icon">◇</span>
+      <span class="persona-label">Experimental</span>
+      <span class="persona-desc">Tries new formats, platforms, and approaches — on purpose.</span>
+    </div>
+    <div class="persona-chip">
+      <span class="persona-icon">◆</span>
+      <span class="persona-label">Precise</span>
+      <span class="persona-desc">Says the specific thing, not the safe thing.</span>
+    </div>
+  </div>
+</div>
+
+<!-- COLOURS -->
+<div class="section" id="colours">
+  <div class="section-tag">02 — Colour System</div>
+  <h2 class="section-title">The palette.</h2>
+  <p class="section-sub">Dark by default. Deep red as the signature. And one colour that will surprise you — and your audience.</p>
+
+  <!-- Primary swatch row -->
+  <div class="colour-grid-primary">
+    <div class="colour-swatch tall sw-void">
+      <span class="colour-role">Base</span>
+      <span class="tag-pill tp-crimson" style="position: absolute; top: 16px; right: 16px; font-size: 10px;">Primary</span>
+      <span class="colour-name">JS Void</span>
+      <span class="colour-hex">#080808</span>
+    </div>
+    <div class="colour-swatch tall sw-carbon">
+      <span class="colour-role">Surface</span>
+      <span class="colour-name">JS Carbon</span>
+      <span class="colour-hex">#111111</span>
+    </div>
+    <div class="colour-swatch tall sw-surface">
+      <span class="colour-role">Elevated</span>
+      <span class="colour-name">JS Slate</span>
+      <span class="colour-hex">#181818</span>
+    </div>
+  </div>
+
+  <div class="colour-grid-secondary">
+    <div class="colour-swatch sw-ivory">
+      <span class="colour-role" style="color: #333;">Text</span>
+      <span class="colour-name" style="color: #111;">JS Ivory</span>
+      <span class="colour-hex" style="color: #444;">#F2F2F2</span>
+    </div>
+    <div class="colour-swatch sw-mist">
+      <span class="colour-role" style="color: #444;">Secondary text</span>
+      <span class="colour-name" style="color: #111;">JS Mist</span>
+      <span class="colour-hex" style="color: #333;">#9A9A9A</span>
+    </div>
+    <div class="colour-swatch sw-crimson">
+      <span class="colour-role">Signature</span>
+      <span class="tag-pill" style="position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.15); color: #fff; border: none; font-size: 10px;">★ Your Red</span>
+      <span class="colour-name">JS Crimson</span>
+      <span class="colour-hex">#C91A33</span>
+    </div>
+    <div class="colour-swatch sw-flame">
+      <span class="colour-role">Hover / CTA</span>
+      <span class="colour-name">JS Flame</span>
+      <span class="colour-hex">#E8243C</span>
+    </div>
+  </div>
+
+  <!-- The surprise -->
+  <div style="background: #0E1A00; border: 1px solid #2A3D00; padding: 36px; margin-top: 4px; position: relative;">
+    <div style="position: absolute; top: 20px; right: 24px;">
+      <span class="tag-pill tp-acid">The Surprise</span>
+    </div>
+    <div class="acid-inner" style="display: flex; align-items: flex-end; gap: 40px; flex-wrap: wrap;">
+      <div>
+        <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--acid); opacity: 0.6; margin-bottom: 8px; font-weight: 600;">Tertiary · Use sparingly</div>
+        <div style="font-family: var(--syne); font-size: 32px; font-weight: 800; color: var(--acid); letter-spacing: -0.02em; margin-bottom: 4px;">JS Acid</div>
+        <div style="font-family: 'Courier New', monospace; font-size: 13px; color: rgba(184,240,60,0.5); letter-spacing: 0.06em;">#B8F03C</div>
+      </div>
+      <div style="max-width: 460px;">
+        <p style="font-size: 15px; color: rgba(184,240,60,0.7); line-height: 1.7; font-weight: 300;">
+          This is the <strong style="color: var(--acid);">experimental voice</strong> of your brand. Neon acid green — unexpected against deep black and crimson. Use it for achievements, data callouts, "results that speak" moments, and experimental content. <strong style="color: var(--acid);">It's your edge.</strong> Use it once per surface — if it appears everywhere, it loses power.
+        </p>
+      </div>
+      <div style="display: flex; gap: 8px; margin-left: auto;">
+        <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--acid);"></div>
+        <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--flame);"></div>
+        <div style="width: 60px; height: 60px; border-radius: 50%; background: var(--void); border: 1px solid #333;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gradients -->
+  <div class="section-tag" style="margin-top: 56px;">Approved Gradients</div>
+  <div class="gradient-row">
+    <div class="gradient-swatch g-ignite">
+      <span class="gradient-label">Ignite</span>
+      <span class="gradient-value">#E8243C → #080808 · 135°</span>
+    </div>
+    <div class="gradient-swatch g-maroon">
+      <span class="gradient-label">Embers</span>
+      <span class="gradient-value">#E8243C → #3D0010 · 135°</span>
+    </div>
+  </div>
+  <p style="font-size: 13px; color: var(--smoke); margin-top: 12px; font-style: italic;">Only these two gradients are in-system. Don't create new ones. Each is for a different moment — Ignite for the dramatic, Embers for the intimate.</p>
+
+  <!-- Usage ratio -->
+  <div class="section-tag" style="margin-top: 56px;">Usage Ratio</div>
+  <div class="ratio-bar">
+    <div class="ratio-seg ratio-void">70%</div>
+    <div class="ratio-seg ratio-ivory">20%</div>
+    <div class="ratio-seg ratio-crimson">8%</div>
+    <div class="ratio-seg ratio-acid">2%</div>
+  </div>
+  <div class="ratio-legend">
+    <div class="ratio-item"><div class="ratio-dot" style="background:#111; border: 1px solid #333;"></div>70% Dark base</div>
+    <div class="ratio-item"><div class="ratio-dot" style="background:#F2F2F2;"></div>20% Light (text / space)</div>
+    <div class="ratio-item"><div class="ratio-dot" style="background:#E8243C;"></div>8% Crimson / Flame</div>
+    <div class="ratio-item"><div class="ratio-dot" style="background:#B8F03C;"></div>2% Acid (accent only)</div>
+  </div>
+</div>
+
+<!-- TYPOGRAPHY -->
+<div class="section" id="typography">
+  <div class="section-tag">03 — Typography</div>
+  <h2 class="section-title">Two typefaces.<br>One voice.</h2>
+  <p class="section-sub">Syne for impact. Outfit for clarity. Together they cover everything from a billboard headline to a caption on your website footer.</p>
+
+  <!-- Specimen 1: Syne -->
+  <div class="type-specimen">
+    <div class="type-label">Display typeface — Syne</div>
+    <div class="specimen-display">Make Bold<br><span style="color: var(--flame);">Moves.</span></div>
+    <div style="margin-top: 16px; font-size: 13px; color: var(--smoke); max-width: 400px;">Use Syne for: headlines, your name, section titles, big numbers, CTA text, slide headers, video titles, social hooks.</div>
+  </div>
+
+  <!-- Specimen 2: Outfit -->
+  <div class="type-specimen dark" style="margin-top: 4px;">
+    <div class="type-label">Body typeface — Outfit</div>
+    <p style="font-family: var(--outfit); font-size: 22px; font-weight: 300; color: var(--ivory); max-width: 620px; line-height: 1.6; margin-bottom: 12px;">
+      "The best marketing doesn't feel like marketing. It feels like something <span style="font-weight: 600; color: var(--white);">worth sharing.</span>"
+    </p>
+    <div style="font-size: 13px; color: var(--smoke);">Use Outfit for: body copy, captions, navigation labels, emails, video descriptions, long-form content.</div>
+  </div>
+
+  <!-- Type scale -->
+  <div class="section-tag" style="margin-top: 56px;">Type Scale</div>
+  <div class="type-scale">
+    <div class="scale-row">
+      <span class="scale-meta">Display / Hero</span>
+      <span style="font-family: var(--syne); font-size: 64px; font-weight: 800; color: var(--white); line-height: 1; letter-spacing: -0.04em;">Jigyanshu</span>
+      <span class="scale-size">64px / 800</span>
+    </div>
+    <div class="scale-row">
+      <span class="scale-meta">Headline</span>
+      <span style="font-family: var(--syne); font-size: 40px; font-weight: 700; color: var(--white); line-height: 1.1; letter-spacing: -0.03em;">Marketing, redefined.</span>
+      <span class="scale-size">40px / 700</span>
+    </div>
+    <div class="scale-row">
+      <span class="scale-meta">Subheading</span>
+      <span style="font-family: var(--syne); font-size: 24px; font-weight: 600; color: var(--ivory); line-height: 1.3;">Brand strategy that sticks.</span>
+      <span class="scale-size">24px / 600</span>
+    </div>
+    <div class="scale-row">
+      <span class="scale-meta">Body Large</span>
+      <span style="font-family: var(--outfit); font-size: 18px; font-weight: 400; color: var(--mist); line-height: 1.6;">Content that earns attention in a world full of noise.</span>
+      <span class="scale-size">18px / 400</span>
+    </div>
+    <div class="scale-row">
+      <span class="scale-meta">Body</span>
+      <span style="font-family: var(--outfit); font-size: 15px; font-weight: 400; color: var(--mist); line-height: 1.7;">Crafted with intention, delivered with clarity — that's the JS standard.</span>
+      <span class="scale-size">15px / 400</span>
+    </div>
+    <div class="scale-row">
+      <span class="scale-meta">Caption / Label</span>
+      <span style="font-family: var(--outfit); font-size: 12px; font-weight: 500; color: var(--smoke); letter-spacing: 0.06em; text-transform: uppercase;">Marketing · Strategy · Content</span>
+      <span class="scale-size">12px / 500</span>
+    </div>
+  </div>
+
+  <!-- Weight specimens -->
+  <div class="section-tag" style="margin-top: 56px;">Syne Weights</div>
+  <div class="weight-grid">
+    <div class="weight-card">
+      <div class="weight-sample" style="font-weight: 400;">Aa</div>
+      <div class="weight-name">Regular · 400</div>
+    </div>
+    <div class="weight-card">
+      <div class="weight-sample" style="font-weight: 600;">Aa</div>
+      <div class="weight-name">Semibold · 600</div>
+    </div>
+    <div class="weight-card">
+      <div class="weight-sample" style="font-weight: 700;">Aa</div>
+      <div class="weight-name">Bold · 700</div>
+    </div>
+    <div class="weight-card" style="background: var(--flame);">
+      <div class="weight-sample" style="font-weight: 800; color: #fff;">Aa</div>
+      <div class="weight-name" style="color: rgba(255,255,255,0.7);">ExtraBold · 800 ★</div>
+    </div>
+  </div>
+
+  <!-- Rules -->
+  <div class="insight-box" style="margin-top: 48px;">
+    <div class="insight-text">"Never justify text. Never right-align editorial copy. Never use ALL CAPS for headlines. These three rules eliminate 90% of type mistakes."</div>
+  </div>
+
+  <div class="two-col" style="margin-top: 4px; gap: 4px;">
+    <div style="background: var(--carbon); padding: 32px;">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acid); margin-bottom: 20px;">✓ Do</div>
+      <ul style="font-size: 14px; color: var(--mist); line-height: 2; list-style: none; padding: 0;">
+        <li>← Left-aligned or centred only</li>
+        <li>← Sentence case for headlines</li>
+        <li>← Title Case for blog/video titles</li>
+        <li>← Bold + Light for high contrast pairings</li>
+        <li>← Syne ExtraBold for big impact moments</li>
+      </ul>
+    </div>
+    <div style="background: var(--carbon); padding: 32px;">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--flame); margin-bottom: 20px;">✗ Don't</div>
+      <ul style="font-size: 14px; color: var(--mist); line-height: 2; list-style: none; padding: 0;">
+        <li>✗ Justify text — ever</li>
+        <li>✗ Right-align paragraphs</li>
+        <li>✗ ALL CAPS for long text</li>
+        <li>✗ Mix Syne and Outfit at the same size</li>
+        <li>✗ Substitute another sans-serif "because it's similar"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- SHAPES -->
+<div class="section" id="shapes">
+  <div class="section-tag">04 — Shape Language</div>
+  <h2 class="section-title">Three elements.<br>One system.</h2>
+  <p class="section-sub">Shapes carry meaning before anyone reads a word. These three elements are the graphic vocabulary of the JS brand.</p>
+
+  <div class="shape-showcase">
+    <div class="shape-card">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0;">
+        <span class="tag-pill tp-crimson">Primary</span>
+      </div>
+      <div class="shape-demo">
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 90%; align-items: flex-start;">
+          <div style="width: 100%; height: 52px; border-radius: 100px; background: var(--flame);"></div>
+          <div style="width: 75%; height: 40px; border-radius: 100px; border: 1.5px solid var(--steel);"></div>
+          <div style="width: 50%; height: 30px; border-radius: 100px; border: 1.5px solid var(--divider);"></div>
+        </div>
+      </div>
+      <div class="shape-label">The Pill</div>
+      <div class="shape-desc">Rounded rectangle. Soft edges represent approachability. Used for CTAs, tags, badges, and containers. Radius = half of height for full pill.</div>
+    </div>
+    <div class="shape-card">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="tag-pill tp-crimson">Primary</span>
+      </div>
+      <div class="shape-demo">
+        <div class="shape-slash-demo">
+          <span class="shape-slash-text-l">JS</span>
+          <div class="shape-slash-line"></div>
+          <span class="shape-slash-text-r">Shah</span>
+        </div>
+      </div>
+      <div class="shape-label">The Slash</div>
+      <div class="shape-desc">A skewed vertical line — representing momentum, division of ideas, and editorial structure. Use it to separate concepts, names, roles, or content categories.</div>
+    </div>
+    <div class="shape-card">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span class="tag-pill tp-neutral">Accent</span>
+      </div>
+      <div class="shape-demo">
+        <div class="shape-dot-demo">
+          <div class="dot dot-lg"></div>
+          <div class="dot dot-md"></div>
+          <div class="dot dot-sm"></div>
+          <div class="dot dot-sm" style="background: var(--acid); width: 9px; height: 9px;"></div>
+        </div>
+      </div>
+      <div class="shape-label">The Dot Cluster</div>
+      <div class="shape-desc">Three dots in descending size — representing rhythm, continuity, and conversational energy. Works as a pattern, a loading state, or a visual pause between sections.</div>
+    </div>
+  </div>
+
+  <!-- Corner radius rule -->
+  <div class="corner-grid" style="background: var(--carbon); padding: 40px; margin-top: 4px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+    <div>
+      <div class="rule-flame"></div>
+      <div style="font-family: var(--syne); font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 12px;">Corner Radius Rule</div>
+      <p style="font-size: 14px; color: var(--mist); line-height: 1.7; margin-bottom: 20px;">The radius should be proportional to the element size. A micro chip gets 6px. A card gets 12–16px. A full pill gets radius = height / 2.</p>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <div style="width: 40px; height: 40px; background: var(--surface); border-radius: 6px; border: 1px solid var(--steel);"></div>
+        <div style="width: 60px; height: 60px; background: var(--surface); border-radius: 12px; border: 1px solid var(--steel);"></div>
+        <div style="width: 80px; height: 80px; background: var(--surface); border-radius: 16px; border: 1px solid var(--steel);"></div>
+        <div style="width: 80px; height: 40px; background: var(--flame); border-radius: 100px;"></div>
+      </div>
+    </div>
+    <div>
+      <div class="rule-flame"></div>
+      <div style="font-family: var(--syne); font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 12px;">Never use sharp corners</div>
+      <p style="font-size: 14px; color: var(--mist); line-height: 1.7; margin-bottom: 20px;">Zero-radius corners feel aggressive and off-brand. The JS system is structured but never harsh. Every container gets at least 6px radius.</p>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <div style="position: relative;">
+          <div style="width: 80px; height: 40px; background: var(--surface); border-radius: 0; border: 1px solid var(--steel);"></div>
+          <div style="position: absolute; top: -6px; right: -6px; width: 16px; height: 16px; background: var(--flame); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: white;">✗</div>
+        </div>
+        <div style="position: relative;">
+          <div style="width: 80px; height: 40px; background: var(--surface); border-radius: 100px; border: 1px solid var(--acid);"></div>
+          <div style="position: absolute; top: -6px; right: -6px; width: 16px; height: 16px; background: var(--acid); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #080808;">✓</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VOICE & TONE -->
+<div class="section" id="voice">
+  <div class="section-tag">05 — Voice &amp; Tone</div>
+  <h2 class="section-title">Sound like<br>a human.</h2>
+  <p class="section-sub">Your brand has a distinct voice. These rules keep it consistent whether you're writing a YouTube title, an email to a client, or a caption on Instagram.</p>
+
+  <div class="voice-attributes">
+    <div class="voice-attr active">
+      <div class="attr-word">Bold</div>
+      <div class="attr-def">Takes positions. Never vague. "Marketing is broken" not "marketing could improve".</div>
+    </div>
+    <div class="voice-attr active">
+      <div class="attr-word">Strategic</div>
+      <div class="attr-def">Shows the thinking behind the thing. "Here's why this works" matters as much as "here's what to do".</div>
+    </div>
+    <div class="voice-attr">
+      <div class="attr-word">Human</div>
+      <div class="attr-def">Real language. No corporate-speak. "Let's work together" not "synergise our collaborative touchpoints".</div>
+    </div>
+    <div class="voice-attr">
+      <div class="attr-word">Curious</div>
+      <div class="attr-def">Asks questions. Explores ideas. Doesn't pretend to have all the answers — that's what makes it trustworthy.</div>
+    </div>
+    <div class="voice-attr">
+      <div class="attr-word">Direct</div>
+      <div class="attr-def">Gets to the point. Short sentences. Active voice. The most important thing first, always.</div>
+    </div>
+  </div>
+
+  <div class="do-dont">
+    <div class="do-box">
+      <div class="do-header">✓ &nbsp; Write this</div>
+      <div class="copy-items">
+        <div>
+          <div class="copy-example" style="color: var(--white);">I help brands grow without burning their budget.</div>
+          <div class="copy-sub">Direct, benefit-first, human language.</div>
+        </div>
+        <div>
+          <div class="copy-example" style="color: var(--white);">Let's build something worth talking about.</div>
+          <div class="copy-sub">Inviting. Collaborative. No jargon.</div>
+        </div>
+        <div>
+          <div class="copy-example" style="color: var(--white);">3 marketing mistakes I see every week (and how to fix them)</div>
+          <div class="copy-sub">Specific. Useful. Earns the click.</div>
+        </div>
+      </div>
+    </div>
+    <div class="dont-box">
+      <div class="dont-header">✗ &nbsp; Not this</div>
+      <div class="copy-items">
+        <div>
+          <div class="copy-example" style="color: var(--mist);">I leverage data-driven synergies to optimise brand ecosystems.</div>
+          <div class="copy-sub">Jargon-heavy, meaningless, forgettable.</div>
+        </div>
+        <div>
+          <div class="copy-example" style="color: var(--mist);">Passionate about delivering excellence in all verticals.</div>
+          <div class="copy-sub">Nobody talks like this. It sounds like a job description.</div>
+        </div>
+        <div>
+          <div class="copy-example" style="color: var(--mist);">Content Creator | Marketer | Growth Hacker | Entrepreneur</div>
+          <div class="copy-sub">A title stack is not a voice. Pick one sentence over four labels.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-box" style="margin-top: 4px;">
+    <div class="insight-text">"Write how you'd explain it to a smart friend — not how you'd present it to a committee."</div>
+  </div>
+
+  <!-- Grammar quick rules -->
+  <div class="grammar-grid" style="margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px;">
+    <div style="background: var(--carbon); padding: 28px;">
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--flame); font-weight: 700; margin-bottom: 12px;">Name Treatment</div>
+      <div style="font-family: var(--syne); font-size: 22px; font-weight: 800; color: var(--white); margin-bottom: 8px;">Jigyanshu Shah</div>
+      <div style="font-size: 13px; color: var(--smoke);">Full name — always this capitalisation. Initials: JS. On social: @jigyanshushah (suggested). No nicknames in formal brand contexts.</div>
+    </div>
+    <div style="background: var(--carbon); padding: 28px;">
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--flame); font-weight: 700; margin-bottom: 12px;">Casing Rule</div>
+      <div style="font-size: 15px; color: var(--white); line-height: 1.8;">
+        <span style="color: var(--acid);">✓</span> Sentence case for headlines<br>
+        <span style="color: var(--acid);">✓</span> Title Case for video / blog titles<br>
+        <span style="color: var(--flame);">✗</span> ALL CAPS for long copy<br>
+        <span style="color: var(--flame);">✗</span> all lowercase for formal content
+      </div>
+    </div>
+    <div style="background: var(--carbon); padding: 28px;">
+      <div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--flame); font-weight: 700; margin-bottom: 12px;">Punctuation</div>
+      <div style="font-size: 15px; color: var(--white); line-height: 1.8;">
+        <span style="color: var(--acid);">✓</span> Oxford comma: A, B, and C<br>
+        <span style="color: var(--acid);">✓</span> Em dash for emphasis — always<br>
+        <span style="color: var(--flame);">✗</span> Multiple exclamation marks!!!<br>
+        <span style="color: var(--flame);">✗</span> Ellipsis abuse...
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIGITAL ASSETS -->
+<div class="section" id="assets">
+  <div class="section-tag">06 — Digital Assets</div>
+  <h2 class="section-title">How it looks<br>in the wild.</h2>
+  <p class="section-sub">Rules for CTAs, social media, and how the JS brand shows up on screen — from a YouTube thumbnail to a website button.</p>
+
+  <div class="asset-grid">
+    <!-- CTA system -->
+    <div class="asset-card">
+      <div class="asset-card-title">CTA Button System</div>
+      <div class="asset-card-sub">Every button follows the proportional X formula. Let X = the base padding unit. This ensures every CTA is balanced at every size.</div>
+      
+      <div class="cta-formula">
+        <button class="cta-btn cta-primary">Let's collaborate →</button>
+        <button class="cta-btn cta-secondary">View my work</button>
+        <button class="cta-btn cta-acid">New: watch on YouTube ↗</button>
+      </div>
+
+      <table class="formula-table">
+        <tr>
+          <td>Top/Bottom</td>
+          <td><span class="val">X</span> &nbsp; (e.g., 12px)</td>
+        </tr>
+        <tr>
+          <td>Left/Right</td>
+          <td><span class="val">2X</span> &nbsp; (e.g., 24px)</td>
+        </tr>
+        <tr>
+          <td>Border radius</td>
+          <td><span class="val">X</span> or pill (100px)</td>
+        </tr>
+        <tr>
+          <td>Font size</td>
+          <td><span class="val">3X</span> &nbsp; (e.g., 14–16px)</td>
+        </tr>
+        <tr>
+          <td>Variants</td>
+          <td>Primary (Flame fill) · Secondary (outline) · Acid (announcement)</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- Social media -->
+    <div class="asset-card">
+      <div class="asset-card-title">Social Media Formats</div>
+      <div class="asset-card-sub">Three core formats for your content output. Logo always top-left or top-right. One message per surface.</div>
+      
+      <div class="social-mocks">
+        <div>
+          <div class="mock-square">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div class="mock-logo"></div>
+              <div style="width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #333;"></div>
+            </div>
+            <div class="mock-bottom">
+              <div class="mock-headline"></div>
+              <div class="mock-subline"></div>
+            </div>
+          </div>
+          <div class="mock-dim">Feed · 1080 × 1080</div>
+        </div>
+
+        <div>
+          <div class="mock-story">
+            <div style="height: 20px; display: flex; align-items: center;">
+              <div class="mock-logo-story"></div>
+            </div>
+            <div class="mock-bottom" style="padding-bottom: 32px;">
+              <div class="mock-headline" style="width: 90%;"></div>
+              <div class="mock-subline" style="width: 60%;"></div>
+            </div>
+            <div style="position: absolute; bottom: 8px; left: 8px; right: 8px; height: 6px; background: rgba(232,36,60,0.2); border-radius: 100px;">
+              <div style="width: 40%; height: 100%; background: var(--flame); border-radius: 100px;"></div>
+            </div>
+          </div>
+          <div class="mock-dim">Story/Reel · 1080 × 1920</div>
+        </div>
+
+        <div>
+          <div class="mock-square" style="width: 180px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div class="mock-logo"></div>
+              <span style="font-size: 9px; color: var(--smoke);">THUMBNAIL</span>
+            </div>
+            <div style="flex: 1; display: flex; align-items: center; justify-content: flex-start; padding: 8px 0;">
+              <div style="width: 44px; height: 44px; background: var(--flame); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--syne); font-weight: 800; font-size: 11px; color: #fff; flex-shrink: 0; margin-right: 8px;">JS</div>
+              <div>
+                <div class="mock-headline" style="width: 90%;"></div>
+                <div class="mock-subline"></div>
+              </div>
+            </div>
+          </div>
+          <div class="mock-dim">YouTube · 1280 × 720</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 28px; padding: 20px; background: rgba(184,240,60,0.06); border: 1px solid rgba(184,240,60,0.1); border-radius: 8px;">
+        <div style="font-size: 12px; color: var(--acid); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;">Safe Area Rule</div>
+        <div style="font-size: 13px; color: var(--mist); line-height: 1.7;">On Stories/Reels: top 220px and bottom 420px are UI overlay zones — keep the JS logo and key content within the safe middle band.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monogram rules -->
+  <div class="monogram-section" style="background: var(--carbon); padding: 48px; margin-top: 4px; display: grid; grid-template-columns: 1fr 2fr; gap: 56px; align-items: center;">
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
+      <div style="font-family: var(--syne); font-size: 120px; font-weight: 800; color: var(--white); line-height: 1; letter-spacing: -0.06em;">JS</div>
+      <div style="display: flex; gap: 12px;">
+        <div style="width: 48px; height: 48px; background: var(--void); border: 1px solid var(--steel); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--syne); font-weight: 800; font-size: 16px; color: var(--white);">JS</div>
+        <div style="width: 48px; height: 48px; background: var(--flame); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--syne); font-weight: 800; font-size: 16px; color: #fff;">JS</div>
+        <div style="width: 48px; height: 48px; background: var(--ivory); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-family: var(--syne); font-weight: 800; font-size: 16px; color: var(--void);">JS</div>
+      </div>
+    </div>
+    <div>
+      <div class="rule-flame"></div>
+      <div style="font-family: var(--syne); font-size: 24px; font-weight: 700; color: var(--white); margin-bottom: 16px;">Your Monogram</div>
+      <p style="font-size: 15px; color: var(--mist); line-height: 1.7; margin-bottom: 20px;">"JS" is your primary mark — a symbol before a name. Use it as your social avatar, email signature stamp, favicon, and video watermark. It works in three colourways:</p>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 14px; color: var(--mist);"><span style="color: var(--ivory); font-weight: 600;">White on Void</span> — Default. Most surfaces. Premium.</div>
+        <div style="font-size: 14px; color: var(--mist);"><span style="color: var(--ivory); font-weight: 600;">White on Crimson</span> — Impact moments. Profile pictures. Thumbnails.</div>
+        <div style="font-size: 14px; color: var(--mist);"><span style="color: var(--ivory); font-weight: 600;">Void on Ivory</span> — Light backgrounds only. Documents, print.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Jigyanshu <span>Shah</span></div>
+  <div class="footer-note">Personal Brand Guidelines · v1.0 · 2025</div>
+  <div class="footer-acid">Built to be bold.</div>
+</footer>
+
+</body>
+</html>
