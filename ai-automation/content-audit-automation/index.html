@@ -4,12 +4,530 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Content Audit Automation | AI Automation by Jigyanshu Shah</title>
-<meta name="description" content="Catch structural and discoverability issues before content problems compound in search performance.">
+<meta name="description" content="An internal content audit engine built to generate deep landing-page and editorial audits across SEO, GEO, structure, trust, and actionability.">
 <link rel="canonical" href="https://jigyanshushah.ai/ai-automation/content-audit-automation/">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/ai-automation.css">
+<style>
+.audit-page {
+  --audit-blue: #4736fe;
+  --audit-blue-dark: #2b2098;
+  --audit-blue-light: #e3e1ff;
+  --audit-mint: #63ffb1;
+  --audit-orange: #ff4f01;
+  --audit-black: #020618;
+  --audit-white: #ffffff;
+  --audit-grey: #f4f4f8;
+  --audit-grey-2: #e5e7eb;
+  --audit-grey-3: #6b7280;
+  --audit-mono: 'JetBrains Mono', monospace;
+}
+.audit-page body,
+body.audit-page {
+  background: var(--audit-grey);
+  color: var(--audit-black);
+}
+.audit-page nav {
+  background: rgba(255,255,255,0.82);
+  border-bottom: 1px solid rgba(2,6,24,0.06);
+}
+.audit-page .nav-logo,
+.audit-page .nav-links a:hover,
+.audit-page .nav-links a.active,
+.audit-page .nav-menu-btn {
+  color: var(--audit-black);
+}
+.audit-page .nav-links a { color: rgba(2,6,24,0.58); }
+.audit-page .mobile-menu {
+  background: rgba(255,255,255,0.98);
+}
+.audit-page .mobile-menu a { color: var(--audit-black); border-bottom-color: rgba(2,6,24,0.08); }
+.audit-main {
+  padding-top: 92px;
+  padding-bottom: 48px;
+}
+.audit-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+}
+.audit-hero {
+  background: linear-gradient(135deg, var(--audit-blue-dark) 0%, var(--audit-blue) 100%);
+  color: var(--audit-white);
+  padding: 36px 40px 32px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px 22px 0 0;
+}
+.audit-hero::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 320px;
+  height: 200px;
+  background: var(--audit-mint);
+  opacity: 0.12;
+  border-radius: 50% 30% 50% 30%;
+  transform: rotate(-20deg);
+}
+.audit-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 32%;
+  width: 210px;
+  height: 210px;
+  background: #fff;
+  opacity: 0.05;
+  border-radius: 50%;
+}
+.audit-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.audit-logo {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--audit-mint);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.audit-logo::before {
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: var(--audit-mint);
+}
+.audit-badge {
+  background: var(--audit-mint);
+  color: var(--audit-black);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.audit-title {
+  position: relative;
+  z-index: 1;
+  margin-top: 24px;
+  font-family: var(--syne);
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  max-width: 760px;
+}
+.audit-title span { color: var(--audit-mint); }
+.audit-subtitle {
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+  max-width: 760px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.78);
+}
+.audit-meta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+.audit-pill {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.92);
+}
+.audit-pill span { color: var(--audit-mint); margin-right: 4px; }
+.audit-score-hero {
+  background: var(--audit-white);
+  margin: -28px 40px 0;
+  border-radius: 18px;
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  box-shadow: 0 8px 28px rgba(71,54,254,0.10);
+  position: relative;
+  z-index: 3;
+  flex-wrap: wrap;
+}
+.audit-ring {
+  position: relative;
+  width: 122px;
+  height: 122px;
+  flex-shrink: 0;
+}
+.audit-ring svg { width: 122px; height: 122px; transform: rotate(-90deg); }
+.audit-ring .bg { fill: none; stroke: var(--audit-grey-2); stroke-width: 9; }
+.audit-ring .fill { fill: none; stroke: var(--audit-blue); stroke-width: 9; stroke-linecap: round; stroke-dasharray: 320; stroke-dashoffset: 24; }
+.audit-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.audit-ring-number { font-size: 30px; font-weight: 800; color: var(--audit-blue); line-height: 1; }
+.audit-ring-denom { font-size: 11px; color: var(--audit-grey-3); font-family: var(--audit-mono); }
+.audit-score-copy { flex: 1; min-width: 240px; }
+.audit-verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff3ee;
+  color: var(--audit-orange);
+  border: 1.5px solid #ffcdb8;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.audit-verdict::before { content: '●'; font-size: 8px; }
+.audit-score-title {
+  font-family: var(--syne);
+  font-size: 28px;
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  margin-bottom: 8px;
+}
+.audit-score-desc {
+  font-size: 14px;
+  color: var(--audit-grey-3);
+  line-height: 1.7;
+  max-width: 520px;
+}
+.audit-divider-stats {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.audit-divider-stat { text-align: center; }
+.audit-divider-num { font-size: 24px; font-weight: 800; color: var(--audit-blue); }
+.audit-divider-label { font-size: 11px; color: var(--audit-grey-3); font-family: var(--audit-mono); text-transform: uppercase; letter-spacing: 0.06em; }
+.audit-content {
+  background: transparent;
+  padding: 40px 40px 20px;
+}
+.audit-section-head {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--audit-blue);
+  margin: 34px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.audit-section-head::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--audit-grey-2);
+}
+.audit-grid-2,
+.audit-grid-3,
+.audit-stat-grid,
+.audit-check-grid,
+.audit-output-grid {
+  display: grid;
+  gap: 18px;
+}
+.audit-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.audit-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.audit-stat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.audit-check-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.audit-output-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.audit-card {
+  background: var(--audit-white);
+  border-radius: 16px;
+  padding: 24px 26px;
+  box-shadow: 0 2px 12px rgba(71,54,254,0.06);
+}
+.audit-card-title {
+  font-family: var(--syne);
+  font-size: 24px;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin-bottom: 10px;
+}
+.audit-card-copy,
+.audit-list li,
+.audit-row-copy,
+.audit-output-copy,
+.audit-step-copy,
+.audit-table td {
+  font-size: 14px;
+  color: var(--audit-grey-3);
+  line-height: 1.75;
+}
+.audit-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+.audit-list li {
+  position: relative;
+  padding-left: 18px;
+}
+.audit-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--audit-blue);
+}
+.audit-mini-stat {
+  background: var(--audit-white);
+  border-radius: 16px;
+  padding: 20px 18px;
+  box-shadow: 0 2px 12px rgba(71,54,254,0.06);
+  border-top: 4px solid var(--audit-blue-light);
+  text-align: center;
+}
+.audit-mini-stat.primary { border-top-color: var(--audit-blue); }
+.audit-mini-stat.mint { border-top-color: var(--audit-mint); }
+.audit-mini-stat.orange { border-top-color: var(--audit-orange); }
+.audit-mini-value {
+  font-family: var(--syne);
+  font-size: 34px;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: var(--audit-blue);
+}
+.audit-mini-stat.mint .audit-mini-value { color: #0d9f5e; }
+.audit-mini-stat.orange .audit-mini-value { color: var(--audit-orange); }
+.audit-mini-label {
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #8b90a1;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.audit-table-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(71,54,254,0.06);
+}
+.audit-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--audit-white);
+  font-size: 13px;
+}
+.audit-table thead { background: var(--audit-blue); color: #fff; }
+.audit-table th {
+  padding: 11px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.audit-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--audit-grey-2);
+  vertical-align: top;
+}
+.audit-table tr:nth-child(even) td { background: #fafafa; }
+.audit-table tr:last-child td { border-bottom: none; }
+.audit-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.audit-badge.green { background: #d1fae5; color: #065f46; }
+.audit-badge.orange { background: #fff3ee; color: var(--audit-orange); }
+.audit-badge.blue { background: var(--audit-blue-light); color: var(--audit-blue-dark); }
+.audit-badge.grey { background: #f3f4f6; color: #374151; }
+.audit-row {
+  display: flex;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--audit-grey-2);
+  align-items: flex-start;
+}
+.audit-row:last-child { border-bottom: none; }
+.audit-row-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #fff3ee;
+  border: 1px solid #ffcdb8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.audit-row-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--audit-black);
+  margin-bottom: 4px;
+}
+.audit-flow {
+  display: grid;
+  gap: 12px;
+}
+.audit-step {
+  background: var(--audit-white);
+  border-radius: 14px;
+  padding: 18px 18px 18px 70px;
+  position: relative;
+  box-shadow: 0 2px 12px rgba(71,54,254,0.06);
+}
+.audit-step-num {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--audit-blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--audit-mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+.audit-step-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--audit-black);
+  margin-bottom: 4px;
+}
+.audit-output {
+  background: var(--audit-white);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(71,54,254,0.06);
+}
+.audit-output-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background: #fbfbff;
+  border-bottom: 1px solid var(--audit-grey-2);
+}
+.audit-output-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--audit-blue-light);
+  color: var(--audit-blue-dark);
+  font-size: 15px;
+  flex-shrink: 0;
+}
+.audit-output-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--audit-black);
+}
+.audit-output-sub {
+  font-size: 10px;
+  font-family: var(--audit-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8b90a1;
+}
+.audit-output-copy { padding: 14px 18px 18px; }
+.audit-callout {
+  background: linear-gradient(135deg, rgba(71,54,254,0.08), rgba(99,255,177,0.12));
+  border-left: 4px solid var(--audit-blue);
+  padding: 16px 18px;
+  border-radius: 0 12px 12px 0;
+  font-size: 14px;
+  color: var(--audit-blue-dark);
+  line-height: 1.75;
+}
+.audit-callout strong { color: var(--audit-black); }
+.audit-cta {
+  margin-top: 18px;
+  text-align: center;
+}
+.audit-cta .demo-shell {
+  max-width: none;
+  background: var(--audit-white);
+  border-color: var(--audit-grey-2);
+  box-shadow: 0 2px 12px rgba(71,54,254,0.06);
+}
+.audit-cta .eyebrow { color: var(--audit-blue); }
+.audit-cta .eyebrow::before { background: var(--audit-blue); }
+.audit-cta .demo-title { color: var(--audit-black); }
+.audit-cta .demo-copy { color: var(--audit-grey-3); }
+.audit-page footer {
+  border-top: 1px solid rgba(2,6,24,0.08);
+  background: transparent;
+}
+.audit-page .footer-copy,
+.audit-page .footer-links a { color: rgba(2,6,24,0.58); }
+.audit-page .footer-links a:hover { color: var(--audit-black); }
+@media (max-width: 980px) {
+  .audit-grid-2,
+  .audit-grid-3,
+  .audit-stat-grid,
+  .audit-check-grid,
+  .audit-output-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 760px) {
+  .audit-shell { padding: 0 0 32px; }
+  .audit-hero {
+    border-radius: 0;
+    padding: 30px 24px 28px;
+  }
+  .audit-score-hero {
+    margin: -24px 20px 0;
+    padding: 24px 22px;
+  }
+  .audit-content { padding: 34px 20px 20px; }
+  .audit-main { padding-top: 76px; }
+}
+</style>
 </head>
-<body>
+<body class="audit-page">
 <div id="progress-bar"></div>
 <nav id="navbar">
   <a href="/" class="nav-logo">JS<span>.</span></a>
@@ -30,110 +548,276 @@
   <a href="/contact/" class="mob-link">Contact</a>
   <a href="/contact/" class="mobile-cta">Work With Me</a>
 </div>
-<main>
-  <section class="hero">
-    <div class="container reveal">
-      <div class="eyebrow">Content Quality Automation</div>
-      <h1 class="hero-title">Content Audit Automation</h1>
-      <p class="hero-copy">Catch structural and discoverability issues before content problems compound in search performance.</p>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="meta-grid">
-        <div class="meta-card reveal">
-          <div class="meta-label">Goal</div>
-          <div class="meta-value">Objective</div>
-          <div class="meta-copy">Turn content QA into an automated workflow that highlights issues early and makes quality control scalable.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-1">
-          <div class="meta-label">Use Case</div>
-          <div class="meta-value">Workflow Fit</div>
-          <div class="meta-copy">Used when publishing teams want repeatable pre-publish or post-publish quality checks without adding manual QA overhead on every release.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-2">
-          <div class="meta-label">Time</div>
-          <div class="meta-value">Speed</div>
-          <div class="meta-copy">Removes recurring manual QA from go-live workflows and shortens feedback loops significantly.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-3">
-          <div class="meta-label">Commercial</div>
-          <div class="meta-value">Value</div>
-          <div class="meta-copy">Reduces rework, protects search performance, and lowers the cost of catching issues too late.</div>
+
+<main class="audit-main">
+  <div class="audit-shell">
+    <section class="audit-hero reveal visible">
+      <div class="audit-hero-top">
+        <div class="audit-logo">Content audit automation</div>
+        <div class="audit-badge">Internal audit engine</div>
+      </div>
+      <h1 class="audit-title">Full audit reports for landing pages and content systems — <span>powered by a 400+ point internal checker.</span></h1>
+      <p class="audit-subtitle">This was not just a checklist. It was an internal workflow built to generate deep page-level SEO, GEO, structure, trust, and editorial audit reports — then surface actionable fixes, rewrite suggestions, and scoring logic for every landing page.</p>
+      <div class="audit-meta">
+        <div class="audit-pill"><span>Mode</span>Landing page SEO/GEO audits</div>
+        <div class="audit-pill"><span>Mode</span>Editorial content quality audits</div>
+        <div class="audit-pill"><span>Output</span>Scores, gaps, fixes, rewrites</div>
+        <div class="audit-pill"><span>Scale</span>400+ checks per page</div>
+      </div>
+    </section>
+
+    <section class="audit-score-hero reveal visible">
+      <div class="audit-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="bg" cx="60" cy="60" r="51"></circle>
+          <circle class="fill" cx="60" cy="60" r="51"></circle>
+        </svg>
+        <div class="audit-ring-center">
+          <div class="audit-ring-number">400+</div>
+          <div class="audit-ring-denom">checks</div>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="eyebrow reveal">Process design</div>
-      <h2 class="section-title reveal">Visual representation of the workflow</h2>
-      <p class="section-sub reveal">This section acts as the process view for now. Once you share project images or diagrams, we can replace or extend these steps with visuals from the actual workflow.</p>
-      <div class="flow">
-        <div class="flow-step reveal">
-          <div class="flow-num">01</div>
-          <div>
-            <div class="flow-title">Trigger on publish</div>
-            <div class="flow-copy">Start checks automatically instead of waiting for someone to remember a manual audit.</div>
-          </div>
+      <div class="audit-score-copy">
+        <div class="audit-verdict">automation layer</div>
+        <div class="audit-score-title">One system, multiple audit formats</div>
+        <p class="audit-score-desc">The reference reports you shared show two visible output formats: a deep SEO/GEO landing-page audit and a structured editorial quality audit. Underneath that, the internal tool was being built to evaluate every landing page against 400+ factors automatically.</p>
+      </div>
+      <div class="audit-divider-stats">
+        <div class="audit-divider-stat">
+          <div class="audit-divider-num">14</div>
+          <div class="audit-divider-label">SEO/GEO sections</div>
         </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">02</div>
-          <div>
-            <div class="flow-title">Review structure</div>
-            <div class="flow-copy">Check headings, metadata, content patterns, and discoverability basics against defined rules.</div>
-          </div>
+        <div class="audit-divider-stat">
+          <div class="audit-divider-num">~139</div>
+          <div class="audit-divider-label">surfaced checks in sample</div>
         </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">03</div>
-          <div>
-            <div class="flow-title">Score issues</div>
-            <div class="flow-copy">Separate critical problems from minor improvements so teams know what to fix first.</div>
-          </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">04</div>
-          <div>
-            <div class="flow-title">Return actions</div>
-            <div class="flow-copy">Push back a usable audit output that editors and SEO owners can act on quickly.</div>
-          </div>
+        <div class="audit-divider-stat">
+          <div class="audit-divider-num">17</div>
+          <div class="audit-divider-label">editorial findings/actions</div>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="eyebrow reveal">Impact</div>
-      <div class="impact-grid">
-        <article class="impact-card reveal">
-          <h3>Process impact</h3>
-          <p>Trigger audits on launch, evaluate structure and discoverability signals, score issues, and hand back clear action points.</p>
+    </section>
+
+    <section class="audit-content">
+      <div class="audit-section-head">What gets checked</div>
+      <div class="audit-check-grid">
+        <article class="audit-card">
+          <h2 class="audit-card-title">Landing-page SEO and GEO factors</h2>
+          <ul class="audit-list">
+            <li>Meta tags, title relevance, snippet quality, and SERP fit.</li>
+            <li>Heading structure, query match, paragraph usefulness, and answer-first formatting.</li>
+            <li>Keyword coverage, semantic variants, entity presence, and local-intent alignment.</li>
+            <li>FAQ retrievability, citation readiness, AI Overview fit, and LLM answer extraction quality.</li>
+            <li>Internal linking opportunities, trust-signal consistency, conversion friction, and rewrite needs.</li>
+          </ul>
         </article>
-        <article class="impact-card reveal reveal-delay-1">
-          <h3>Time impact</h3>
-          <p>Removes recurring manual QA from go-live workflows and shortens feedback loops significantly.</p>
-        </article>
-        <article class="impact-card reveal reveal-delay-2">
-          <h3>Monetary or commercial impact</h3>
-          <p>Reduces rework, protects search performance, and lowers the cost of catching issues too late.</p>
+        <article class="audit-card">
+          <h2 class="audit-card-title">Editorial content-quality factors</h2>
+          <ul class="audit-list">
+            <li>Opening clarity, flow progression, decision-help quality, and close strength.</li>
+            <li>Audience fit, value addition, factual confidence, and commercial/editorial coherence.</li>
+            <li>Gap detection, unsupported claims, missing scenarios, and buyer-action framing.</li>
+            <li>Actionable suggestions with exact issue/fix mapping instead of vague editorial notes.</li>
+            <li>Rewrite recommendations designed for direct implementation, not just commentary.</li>
+          </ul>
         </article>
       </div>
-    </div>
-  </section>
-  <section class="demo-strip">
-    <div class="container">
-      <div class="demo-shell reveal">
-        <div class="eyebrow" style="justify-content:center;">Next layer</div>
-        <h2 class="demo-title">Live demo route prepared</h2>
-        <p class="demo-copy">The deeper walkthrough for this project can live at <code>/ai-automation/content-audit-automation/demo</code>. For now, this page explains the system objective, use case, and workflow shape clearly.</p>
-        <div class="cta-actions">
-          <a href="/ai-automation/content-audit-automation/demo/" class="btn-primary">Open Demo Placeholder</a>
-          <a href="/ai-automation/" class="btn-secondary">Back to AI Library</a>
+
+      <div class="audit-section-head">Reference report anatomy</div>
+      <div class="audit-stat-grid">
+        <article class="audit-mini-stat primary">
+          <div class="audit-mini-value">14</div>
+          <div class="audit-mini-label">Sections in the SEO/GEO sample</div>
+        </article>
+        <article class="audit-mini-stat mint">
+          <div class="audit-mini-value">96</div>
+          <div class="audit-mini-label">Tabular rows in the SEO/GEO sample</div>
+        </article>
+        <article class="audit-mini-stat orange">
+          <div class="audit-mini-value">33</div>
+          <div class="audit-mini-label">Bullet findings in the same report</div>
+        </article>
+        <article class="audit-mini-stat primary">
+          <div class="audit-mini-value">9</div>
+          <div class="audit-mini-label">Rewrite blocks in that sample</div>
+        </article>
+      </div>
+
+      <div class="audit-grid-2" style="margin-top:18px;">
+        <article class="audit-card">
+          <h2 class="audit-card-title">Sample 1 — SEO/GEO landing-page audit</h2>
+          <p class="audit-card-copy">The Brisbane C2B report is already a dense audit artifact. It breaks one page into a visible structure of scores, diagnosis, meta review, heading evaluation, keyword coverage, local SEO, process handling, FAQ analysis, internal linking, value-signal review, GEO readiness, priority fixes, and suggested rewrites.</p>
+          <div class="audit-table-wrap" style="margin-top:16px;">
+            <table class="audit-table">
+              <thead>
+                <tr>
+                  <th>Audit block</th>
+                  <th>Visible factors surfaced</th>
+                  <th>What it proves</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Heading &amp; paragraph audit</td>
+                  <td>13 section-level evaluations</td>
+                  <td>Each content block is scored for keyword fit, intent fit, GEO fit, verdict, and fix.</td>
+                </tr>
+                <tr>
+                  <td>Keyword coverage</td>
+                  <td>13 tracked terms/entities</td>
+                  <td>The report checks not just presence, but placement quality and missed semantic demand.</td>
+                </tr>
+                <tr>
+                  <td>Local SEO + FAQ + GEO</td>
+                  <td>28 visible rows across those modules</td>
+                  <td>Local trust, QLD specificity, FAQ retrievability, and AI-search extraction are treated as separate audit layers.</td>
+                </tr>
+                <tr>
+                  <td>Fixes + rewrites</td>
+                  <td>24 visible actions</td>
+                  <td>The output is implementation-ready, not just diagnostic.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+        <article class="audit-card">
+          <h2 class="audit-card-title">Sample 2 — editorial audit report</h2>
+          <p class="audit-card-copy">The service-history report shows the second mode: tighter editorial QA with score breakdowns, content gaps, and exact suggestion cards. It is lighter visually, but still structured like a decision-support tool rather than a loose content review.</p>
+          <div class="audit-row">
+            <div class="audit-row-icon">①</div>
+            <div>
+              <div class="audit-row-title">6 dimension scores</div>
+              <div class="audit-row-copy">Flow, value, opening quality, closing quality, market relevance, and competitor differentiation are evaluated separately.</div>
+            </div>
+          </div>
+          <div class="audit-row">
+            <div class="audit-row-icon">②</div>
+            <div>
+              <div class="audit-row-title">5 gap findings</div>
+              <div class="audit-row-copy">The report identifies missing scenarios, weak proof, decision ambiguity, outdated process coverage, and editorial-to-commercial disconnects.</div>
+            </div>
+          </div>
+          <div class="audit-row">
+            <div class="audit-row-icon">③</div>
+            <div>
+              <div class="audit-row-title">6 actionable suggestions</div>
+              <div class="audit-row-copy">Each suggestion maps issue → exact sentence/context → recommended fix, which makes execution much faster for content teams.</div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="audit-section-head">How the internal tool scaled this</div>
+      <div class="audit-grid-2">
+        <article class="audit-card">
+          <h2 class="audit-card-title">The important point is not the PDF-style report</h2>
+          <p class="audit-card-copy">The visible report is only the front-end artifact. The real system value comes from the internal checker underneath it — a page-level engine designed to inspect 400+ factors across SEO, GEO, structure, trust, conversion, local relevance, answer quality, linking, and editorial clarity.</p>
+          <div class="audit-callout" style="margin-top:16px;"><strong>Translation:</strong> instead of manually reviewing every landing page one by one, the system standardizes the audit logic and makes the output scalable, consistent, and comparable across pages.</div>
+        </article>
+        <article class="audit-card">
+          <h2 class="audit-card-title">Example factor families inside the 400+ point model</h2>
+          <ul class="audit-list">
+            <li>Metadata, titles, descriptions, and SERP message quality.</li>
+            <li>Heading hierarchy, paragraph utility, answer formatting, and snippet extraction quality.</li>
+            <li>Primary, secondary, and semantic keyword presence with context checks.</li>
+            <li>Local/regional entities, compliance/process mentions, and FAQ relevance by market.</li>
+            <li>Trust signals, testimonials, proof consistency, CTA friction, and conversion clarity.</li>
+            <li>Internal-link opportunities, cross-page routing, and related content pathways.</li>
+            <li>Editorial clarity, unsupported claims, scenario coverage, and rewrite priority.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="audit-section-head">Workflow design</div>
+      <div class="audit-flow">
+        <div class="audit-step">
+          <div class="audit-step-num">01</div>
+          <div class="audit-step-title">Parse the page and classify intent</div>
+          <p class="audit-step-copy">The system first determines what kind of page it is — transactional landing page, decision-help article, or another content type — because the audit logic changes by page job.</p>
+        </div>
+        <div class="audit-step">
+          <div class="audit-step-num">02</div>
+          <div class="audit-step-title">Run the multi-layer audit engine</div>
+          <p class="audit-step-copy">SEO, GEO, local-intent, trust, conversion, structural, and editorial checks run together instead of in disconnected review passes.</p>
+        </div>
+        <div class="audit-step">
+          <div class="audit-step-num">03</div>
+          <div class="audit-step-title">Score, classify, and prioritize</div>
+          <p class="audit-step-copy">The engine separates what is working, what is weak, what is missing, and what deserves immediate action versus later refinement.</p>
+        </div>
+        <div class="audit-step">
+          <div class="audit-step-num">04</div>
+          <div class="audit-step-title">Generate usable outputs</div>
+          <p class="audit-step-copy">Instead of a raw QA dump, teams get structured report sections, issue tables, gap summaries, fix lists, and suggested rewrites.</p>
         </div>
       </div>
-    </div>
-  </section>
+
+      <div class="audit-section-head">Output layers</div>
+      <div class="audit-output-grid">
+        <article class="audit-output">
+          <div class="audit-output-head">
+            <div class="audit-output-icon">📊</div>
+            <div>
+              <div class="audit-output-title">Score reports</div>
+              <div class="audit-output-sub">executive snapshot</div>
+            </div>
+          </div>
+          <div class="audit-output-copy">Clear scoring across SEO, GEO, LLM readiness, editorial quality, or other page-level dimensions depending on the report mode.</div>
+        </article>
+        <article class="audit-output">
+          <div class="audit-output-head">
+            <div class="audit-output-icon">🧩</div>
+            <div>
+              <div class="audit-output-title">Issue maps</div>
+              <div class="audit-output-sub">diagnostic layer</div>
+            </div>
+          </div>
+          <div class="audit-output-copy">Granular checks grouped by sections such as headings, keywords, FAQs, local trust, internal links, and content gaps.</div>
+        </article>
+        <article class="audit-output">
+          <div class="audit-output-head">
+            <div class="audit-output-icon">✍️</div>
+            <div>
+              <div class="audit-output-title">Rewrite suggestions</div>
+              <div class="audit-output-sub">execution layer</div>
+            </div>
+          </div>
+          <div class="audit-output-copy">Concrete rewrites and fix recommendations so teams can move directly from diagnosis to implementation.</div>
+        </article>
+      </div>
+
+      <div class="audit-section-head">Commercial value</div>
+      <div class="audit-grid-3">
+        <article class="audit-card">
+          <h2 class="audit-card-title">Process value</h2>
+          <p class="audit-card-copy">Standardizes page QA across teams, markets, and content formats instead of relying on memory or inconsistent manual reviews.</p>
+        </article>
+        <article class="audit-card">
+          <h2 class="audit-card-title">Time value</h2>
+          <p class="audit-card-copy">Compresses what would normally take multiple specialist passes into one structured audit workflow with ready-to-use outputs.</p>
+        </article>
+        <article class="audit-card">
+          <h2 class="audit-card-title">Strategic value</h2>
+          <p class="audit-card-copy">Improves search visibility, LLM readiness, local-page quality, and editorial consistency while making remediation much easier to prioritize.</p>
+        </article>
+      </div>
+
+      <section class="demo-strip audit-cta">
+        <div class="demo-shell reveal visible">
+          <div class="eyebrow" style="justify-content:center;">Next layer</div>
+          <h2 class="demo-title">This can later expand into page-by-page demos</h2>
+          <p class="demo-copy">The next step can live at <code>/ai-automation/content-audit-automation/demo</code>, where we show actual sample outputs, audit logic groups, and maybe even interactive factor breakdowns.</p>
+          <div class="cta-actions">
+            <a href="/ai-automation/content-audit-automation/demo/" class="btn-primary">Open Demo Route</a>
+            <a href="/ai-automation/" class="btn-secondary">Back to AI Library</a>
+          </div>
+        </div>
+      </section>
+    </section>
+  </div>
 </main>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">Jigyanshu Shah<span>.</span></div>
