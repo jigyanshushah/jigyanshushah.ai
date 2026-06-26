@@ -3,10 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jigyanshu Shah — Growth &amp; GTM Engineer</title>
-<meta name="description" content="Jigyanshu Shah is a Growth &amp; GTM Engineer building marketplace systems, automation pipelines, and AI-led operating leverage across Cars24 Australia, Rario, CoinSwitch, and Park+.">
+<title>Jigyanshu Shah | Growth &amp; GTM Engineer</title>
+<meta name="description" content="Growth and GTM operator building marketplace, SEO, CRM, reporting, and AI automation systems for scalable execution.">
 <link rel="canonical" href="https://jigyanshushah.ai/">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "name": "Jigyanshu Shah",
+      "jobTitle": "Growth & GTM Engineer",
+      "url": "https://jigyanshushah.ai/",
+      "email": "mailto:jigyanshushah69@gmail.com",
+      "sameAs": [
+        "https://www.linkedin.com/in/jigyanshu-shah/",
+        "https://github.com/jigyanshushah"
+      ],
+      "knowsAbout": [
+        "Growth Marketing",
+        "GTM",
+        "Marketplace Growth",
+        "SEO",
+        "GEO",
+        "CRM",
+        "AI Automation",
+        "CRO"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "name": "Jigyanshu Shah",
+      "url": "https://jigyanshushah.ai/"
+    }
+  ]
+}
+</script>
 <style>
 :root {
   --ink: #0a0b0d;
@@ -230,40 +263,59 @@ nav {
 }
 .hero-title {
   font-family: var(--syne);
-  font-size: clamp(52px, 7.4vw, 98px);
-  line-height: 0.92;
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  line-height: 0.95;
   letter-spacing: -0.07em;
   max-width: 760px;
-  margin-bottom: 20px;
+  margin-bottom: 14px;
 }
 .hero-title .signal { color: var(--signal); }
+.hero-subheadline {
+  max-width: 680px;
+  font-family: var(--syne);
+  font-size: clamp(24px, 3vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin-bottom: 14px;
+}
+.hero-punchline {
+  max-width: 540px;
+  color: var(--sand);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
 .hero-summary {
-  max-width: 620px;
-  font-size: 19px;
-  line-height: 1.82;
+  max-width: 760px;
+  font-size: 18px;
+  line-height: 1.75;
   color: var(--muted);
-  margin-bottom: 30px;
+  margin-bottom: 26px;
 }
 .hero-summary strong { color: var(--text); font-weight: 600; }
-.hero-chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 34px;
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 30px;
 }
-.hero-chip {
-  padding: 8px 15px;
-  border-radius: 999px;
-  border: 1px solid var(--line-strong);
+.pillar-card {
+  padding: 18px;
+  border: 1px solid var(--line);
   background: rgba(255,255,255,0.03);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
 }
-.hero-chip.hot {
-  border-color: rgba(255,90,54,0.32);
-  color: var(--signal);
-  background: rgba(255,90,54,0.08);
+.pillar-title {
+  font-family: var(--syne);
+  font-size: 18px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.pillar-copy {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--muted);
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
 .btn-primary,
@@ -291,12 +343,28 @@ nav {
   background: rgba(255,255,255,0.03);
 }
 .btn-secondary:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.24); }
+.positioning-block {
+  margin-top: 28px;
+  max-width: 760px;
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+}
+.positioning-block p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.positioning-block strong {
+  color: var(--text);
+  font-weight: 600;
+}
 
 .hero-panel {
   border: 1px solid var(--line);
   background:
     linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%);
-  padding: 28px;
+  padding: 32px;
   margin-top: 82px;
   position: relative;
   overflow: hidden;
@@ -324,36 +392,62 @@ nav {
   position: relative;
   z-index: 1;
   font-family: var(--syne);
-  font-size: 26px;
+  font-size: 24px;
   line-height: 1.08;
   letter-spacing: -0.04em;
   margin-bottom: 24px;
 }
-.signal-list {
+.signal-sections {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 14px;
+  gap: 18px;
 }
-.signal-item {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 14px;
-  padding-top: 14px;
+.signal-section {
+  padding-top: 18px;
   border-top: 1px solid var(--line);
 }
-.signal-key {
-  font-size: 11px;
-  text-transform: uppercase;
+.signal-section:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+.signal-section-label,
+.signal-card-label {
+  font-size: 0.7rem;
   letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.65;
   color: var(--muted-2);
+  margin-bottom: 10px;
 }
-.signal-value {
-  font-size: 14px;
+.signal-section-copy {
+  font-size: 1rem;
+  line-height: 1.6;
   color: var(--text);
-  line-height: 1.7;
 }
-.signal-value strong { color: var(--accent); font-weight: 700; }
+.signal-bullet-list {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+}
+.signal-bullet-list li {
+  position: relative;
+  padding-left: 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text);
+}
+.signal-bullet-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--signal);
+}
+.signal-bullet-list strong { color: var(--accent); font-weight: 700; }
 
 .proof-strip {
   border-top: 1px solid var(--line);
@@ -387,6 +481,29 @@ nav {
   font-size: 14px;
   color: var(--muted);
   line-height: 1.65;
+}
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+.audience-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 28px 26px;
+  min-height: 220px;
+}
+.audience-title {
+  font-family: var(--syne);
+  font-size: 22px;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
+  margin-bottom: 12px;
+}
+.audience-copy {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--muted);
 }
 
 .feature-grid {
@@ -696,10 +813,11 @@ footer {
   .feature-grid { grid-template-columns: 1fr; }
   .hero-panel { margin-top: 0; }
   .proof-grid,
-  .operating-grid,
+  .audience-grid,
   .systems-grid { grid-template-columns: repeat(2, 1fr); }
   .section-head,
   .timeline-card { grid-template-columns: 1fr; }
+  .pillar-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 840px) {
@@ -710,7 +828,7 @@ footer {
   .section { padding: 72px 0; }
   .hero { padding-top: 104px; min-height: auto; }
   .proof-grid,
-  .operating-grid,
+  .audience-grid,
   .systems-grid { grid-template-columns: 1fr; }
   .proof-card { border-right: none; border-bottom: 1px solid var(--line); }
   .proof-card:last-child { border-bottom: none; }
@@ -719,12 +837,15 @@ footer {
 }
 
 @media (max-width: 640px) {
-  .hero-title { font-size: 54px; }
+  .hero-title {
+    font-size: clamp(2.5rem, 12vw, 4rem);
+    line-height: 1;
+  }
   .hero-summary, .section-sub, .cta-copy { font-size: 16px; }
   .hero-panel,
   .feature-card,
   .feature-stack-card,
-  .operating-card,
+  .audience-card,
   .timeline-card,
   .system-card,
   .cta-shell { padding: 24px 20px; }
@@ -741,24 +862,24 @@ footer {
   <a href="/" class="nav-logo">JS<span>.</span></a>
   <ul class="nav-links">
     <li><a href="/" class="active">Home</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#ai-systems">AI Systems</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="/work/">Work</a></li>
+    <li><a href="/ai-systems/">AI Automation</a></li>
+    <li><a href="/experience/">Experience</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/contact/">Contact</a></li>
   </ul>
-  <a href="#contact" class="nav-cta">Let’s Talk</a>
+  <a href="/contact/" class="nav-cta">Work With Me</a>
   <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="/" class="mob-link">Home</a>
-  <a href="#work" class="mob-link">Work</a>
-  <a href="#ai-systems" class="mob-link">AI Systems</a>
-  <a href="#experience" class="mob-link">Experience</a>
-  <a href="#about" class="mob-link">About</a>
-  <a href="#contact" class="mob-link">Contact</a>
-  <a href="#contact" class="mobile-cta">Let’s Talk</a>
+  <a href="/work/" class="mob-link">Work</a>
+  <a href="/ai-systems/" class="mob-link">AI Automation</a>
+  <a href="/experience/" class="mob-link">Experience</a>
+  <a href="/about/" class="mob-link">About</a>
+  <a href="/contact/" class="mob-link">Contact</a>
+  <a href="/contact/" class="mobile-cta">Work With Me</a>
 </div>
 
 <div class="page-shell">
@@ -767,40 +888,58 @@ footer {
       <div class="container hero-grid">
         <div class="hero-copy">
           <div class="hero-kicker reveal">Operator intelligence for growth, GTM, and systems</div>
-          <h1 class="hero-title reveal reveal-delay-1">Growth &amp; GTM engineer<span class="signal">.</span><br>Built for scale, not slides.</h1>
-          <p class="hero-summary reveal reveal-delay-2">I build the operating layer between <strong>commercial strategy</strong> and <strong>technical execution</strong> — marketplace growth systems, automation pipelines, reporting infrastructure, and AI tools that remove bottlenecks instead of just describing them.</p>
-          <div class="hero-chip-row reveal reveal-delay-3">
-            <span class="hero-chip hot">Growth &amp; GTM Engineering</span>
-            <span class="hero-chip hot">Marketplace Systems</span>
-            <span class="hero-chip">Automation Ops</span>
-            <span class="hero-chip">SEO &amp; GEO</span>
-            <span class="hero-chip">Demand Gen &amp; CRO</span>
-            <span class="hero-chip">AI Workflow Design</span>
+          <h1 class="hero-title reveal reveal-delay-1">Growth &amp; GTM Engineer</h1>
+          <h2 class="hero-subheadline reveal reveal-delay-2">Marketplace Growth, AI Automation, SEO &amp; CRM Systems</h2>
+          <p class="hero-punchline reveal reveal-delay-2">Built for scale, not slides<span class="signal">.</span></p>
+          <p class="hero-summary reveal reveal-delay-3">I help growth teams turn messy marketplace, SEO, CRM, reporting, and AI workflow problems into working systems that improve <strong>visibility</strong>, <strong>conversion</strong>, and <strong>execution speed</strong>.</p>
+          <div class="pillar-grid reveal reveal-delay-4">
+            <div class="pillar-card">
+              <div class="pillar-title">Growth Systems</div>
+              <div class="pillar-copy">Marketplace growth, demand generation, CRO.</div>
+            </div>
+            <div class="pillar-card">
+              <div class="pillar-title">AI Automation</div>
+              <div class="pillar-copy">Workflow design, reporting automation, lead ops.</div>
+            </div>
+            <div class="pillar-card">
+              <div class="pillar-title">Search &amp; Discovery</div>
+              <div class="pillar-copy">SEO, GEO, and structured visibility systems.</div>
+            </div>
           </div>
           <div class="hero-actions reveal reveal-delay-4">
-            <a href="/projects" class="btn-primary">View Selected Work</a>
-            <a href="/ai-achievements" class="btn-secondary">See AI Systems</a>
+            <a href="/work/" class="btn-primary">View Selected Work</a>
+            <a href="/ai-systems/" class="btn-secondary">Explore AI Automation</a>
+          </div>
+          <div class="positioning-block reveal reveal-delay-4">
+            <p>I work at the intersection of <strong>growth</strong>, <strong>marketplace operations</strong>, <strong>SEO</strong>, <strong>CRM</strong>, and <strong>automation</strong>. My focus is not just strategy decks. I build the systems, workflows, dashboards, and experiments that make growth execution faster and more measurable.</p>
           </div>
         </div>
         <aside class="hero-panel reveal reveal-delay-2">
           <div class="panel-label">Current signal</div>
-          <div class="panel-title">Manager, Growth &amp; Marketing at Cars24 Australia.</div>
-          <div class="signal-list">
-            <div class="signal-item">
-              <div class="signal-key">Scope</div>
-              <div class="signal-value">Dealer marketplace growth, ecosystem expansion, product GTM, and performance-linked operating systems.</div>
+          <div class="panel-title">Manager, Growth &amp; Marketing — Cars24 Australia</div>
+          <div class="signal-sections">
+            <div class="signal-section">
+              <div class="signal-card-label">Current Signal</div>
+              <div class="signal-section-copy">Building marketplace, SEO, CRM, and operating systems for dealer growth and ecosystem expansion.</div>
             </div>
-            <div class="signal-item">
-              <div class="signal-key">Build</div>
-              <div class="signal-value"><strong>8+</strong> production-grade automation tools and data pipelines spanning VIN recall, QC, reporting, SEO scoring, and fraud checks.</div>
+            <div class="signal-section">
+              <div class="signal-card-label">Focus Areas</div>
+              <ul class="signal-bullet-list">
+                <li>Marketplace growth</li>
+                <li>SEO &amp; GEO</li>
+                <li>CRM and lifecycle systems</li>
+                <li>AI automation</li>
+                <li>Dealer ecosystem expansion</li>
+              </ul>
             </div>
-            <div class="signal-item">
-              <div class="signal-key">Proof</div>
-              <div class="signal-value">Shipped a recall pipeline covering <strong>5.4M VINs</strong>, replaced <strong>5.5 days/month</strong> of manual reporting, and reduced listing QC from <strong>5 days to 20 minutes</strong>.</div>
-            </div>
-            <div class="signal-item">
-              <div class="signal-key">Lead</div>
-              <div class="signal-value">Currently leading and mentoring a <strong>10-member</strong> team across growth, SEO, marketplace, and product marketing functions.</div>
+            <div class="signal-section">
+              <div class="signal-card-label">Proof</div>
+              <ul class="signal-bullet-list">
+                <li><strong>5.4M VINs</strong> processed through recall-check coverage</li>
+                <li><strong>5.5 days/month</strong> of manual work removed</li>
+                <li>Listing QC reduced from <strong>5 days to 20 minutes</strong></li>
+                <li>Led a <strong>10-member</strong> cross-functional team</li>
+              </ul>
             </div>
           </div>
         </aside>
@@ -810,76 +949,24 @@ footer {
     <section class="proof-strip">
       <div class="container proof-grid">
         <div class="proof-card reveal">
-          <div class="proof-label">Experience</div>
-          <div class="proof-value">5+</div>
-          <div class="proof-copy">Years across automotive, sports tech, fintech, crypto, and mobility-led products.</div>
+          <div class="proof-label">Proof</div>
+          <div class="proof-value">5.4M VINs</div>
+          <div class="proof-copy">Recall pipeline coverage built for vehicle checks and trust operations.</div>
         </div>
         <div class="proof-card reveal reveal-delay-1">
-          <div class="proof-label">Systems shipped</div>
-          <div class="proof-value">8+</div>
-          <div class="proof-copy">Production workflows, pipelines, and automation tools built to remove recurring operating drag.</div>
+          <div class="proof-label">Automation</div>
+          <div class="proof-value">5.5 days/month</div>
+          <div class="proof-copy">Manual reporting replaced with automation and repeatable operating workflows.</div>
         </div>
         <div class="proof-card reveal reveal-delay-2">
-          <div class="proof-label">Team leadership</div>
-          <div class="proof-value">10</div>
-          <div class="proof-copy">People led across growth, SEO, marketplace, analytics, and product marketing motion.</div>
+          <div class="proof-label">Speed</div>
+          <div class="proof-value">5 days → 20 min</div>
+          <div class="proof-copy">Listing QC turnaround reduced through workflow redesign and system improvements.</div>
         </div>
         <div class="proof-card reveal reveal-delay-3">
-          <div class="proof-label">Search impact</div>
-          <div class="proof-value">10x</div>
-          <div class="proof-copy">Organic acquisition lift through domain migration, information architecture, and structured SEO systems.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="work">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Selected work</div>
-          <div>
-            <h2 class="section-title">Systems that improve revenue, speed, and trust.</h2>
-            <p class="section-sub">The strongest thread across my work is simple: find the repeated commercial bottleneck, design the operating system behind it, and ship something durable enough that a team can rely on it every day.</p>
-          </div>
-        </div>
-        <div class="feature-grid">
-          <article class="feature-card reveal">
-            <div>
-              <div class="feature-type">Flagship case study</div>
-              <h3 class="feature-title">QC Automation Engine for dealer inventory.</h3>
-              <p class="feature-desc">Built a rules-first, AI-assisted quality control pipeline for Cars24 Australia that ingests dealer data, validates it against reference systems, scores readiness, and routes only the real exceptions into ops review.</p>
-              <div class="feature-highlights">
-                <span class="feature-highlight">Python + SQL</span>
-                <span class="feature-highlight">Claude API</span>
-                <span class="feature-highlight">Glasses API</span>
-                <span class="feature-highlight">Google Sheets ops layer</span>
-              </div>
-            </div>
-            <div class="feature-footer">
-              <div class="feature-metric">
-                <strong>5 days → 20 min</strong>
-                <span>Dealer QC turnaround</span>
-              </div>
-              <div class="feature-metric">
-                <strong>2 FTE freed</strong>
-                <span>Manual review capacity</span>
-              </div>
-              <a href="/projects/qc-automation" class="feature-link">Read case study →</a>
-            </div>
-          </article>
-          <div class="feature-stack">
-            <article class="feature-stack-card reveal reveal-delay-1">
-              <div class="stack-type">Trust infrastructure</div>
-              <h3 class="stack-title">VIN recall and odometer integrity systems.</h3>
-              <p class="stack-desc">Built recall lookup and tampering-detection workflows that reduce marketplace risk before questionable inventory reaches buyers.</p>
-              <a href="/projects/vehicle-recall-checker" class="stack-link">View recall checker →</a>
-            </article>
-            <article class="feature-stack-card reveal reveal-delay-2">
-              <div class="stack-type">Internal intelligence</div>
-              <h3 class="stack-title">Reporting, SEO audit, and service network automation.</h3>
-              <p class="stack-desc">Connected dashboards, scraper pipelines, and content QA systems that make GTM execution faster, cleaner, and less dependent on manual reporting cycles.</p>
-              <a href="/projects/service-history-scraper" class="stack-link">View service scraper →</a>
-            </article>
-          </div>
+          <div class="proof-label">Leadership</div>
+          <div class="proof-value">10-member team</div>
+          <div class="proof-copy">Led growth, SEO, marketplace, and product marketing functions across shared priorities.</div>
         </div>
       </div>
     </section>
@@ -887,32 +974,79 @@ footer {
     <section class="section" id="about">
       <div class="container">
         <div class="section-head reveal">
-          <div class="eyebrow">Operating model</div>
+          <div class="eyebrow">Who I help</div>
           <div>
-            <h2 class="section-title">How I build leverage.</h2>
-            <p class="section-sub">My strongest work sits at the intersection of product thinking, commercial accountability, and technical execution. I’m usually most useful when the business problem is cross-functional and the fix requires both clarity and systems design.</p>
+            <h2 class="section-title">Built for teams solving growth execution problems.</h2>
+            <p class="section-sub">This site should feel like a working operator’s portfolio, not a deck. The common thread is building systems that turn repeated friction into durable execution.</p>
           </div>
         </div>
-        <div class="operating-grid">
-          <div class="operating-card reveal">
-            <div class="operating-num">01</div>
-            <div class="operating-title">Find the bottleneck.</div>
-            <div class="operating-copy">I start with the place where revenue, speed, or trust is leaking — manual review, poor listing quality, unclear GTM feedback loops, or repeated reporting drag.</div>
+        <div class="audience-grid">
+          <article class="audience-card reveal">
+            <h3 class="audience-title">Marketplace teams</h3>
+            <p class="audience-copy">Built for supply, demand, dealer ecosystem, quality, and enquiry-flow problems that need both operating rigor and commercial judgment.</p>
+          </article>
+          <article class="audience-card reveal reveal-delay-1">
+            <h3 class="audience-title">Growth teams</h3>
+            <p class="audience-copy">Useful where SEO, GEO, CRM, and conversion leakage sit across multiple owners and need one practical execution layer.</p>
+          </article>
+          <article class="audience-card reveal reveal-delay-2">
+            <h3 class="audience-title">Operators replacing manual work</h3>
+            <p class="audience-copy">Best fit for workflows still held together by repeated reporting, ad hoc QA, and fragile approval loops.</p>
+          </article>
+          <article class="audience-card reveal reveal-delay-3">
+            <h3 class="audience-title">Founders and hiring teams</h3>
+            <p class="audience-copy">Relevant for teams looking for someone who can connect business context, technical systems, and execution accountability.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head reveal">
+          <div class="eyebrow">Selected Work</div>
+          <div>
+            <h2 class="section-title">Selected Work</h2>
+            <p class="section-sub">Built a recall-check pipeline covering 5.4M VINs, replacing 5.5 days/month of manual reporting. Reduced listing QC turnaround from 5 days to 20 minutes by improving workflow and operating systems.</p>
           </div>
-          <div class="operating-card reveal reveal-delay-1">
-            <div class="operating-num">02</div>
-            <div class="operating-title">Map the system, not just the task.</div>
-            <div class="operating-copy">That means understanding who touches the workflow, what decisions are made inside it, where data breaks, and what should be automated versus escalated.</div>
-          </div>
-          <div class="operating-card reveal reveal-delay-2">
-            <div class="operating-num">03</div>
-            <div class="operating-title">Build rules first, AI second.</div>
-            <div class="operating-copy">Deterministic logic should handle most of the volume. AI gets added where judgment, synthesis, fuzzy matching, or content generation actually improves outcomes.</div>
-          </div>
-          <div class="operating-card reveal reveal-delay-3">
-            <div class="operating-num">04</div>
-            <div class="operating-title">Make it usable for teams.</div>
-            <div class="operating-copy">The goal is not “a tool.” The goal is a system people adopt because it removes friction, clarifies priorities, and makes better decisions easier.</div>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <div>
+              <div class="feature-type">Marketplace systems</div>
+              <h3 class="feature-title">Dealer Marketplace Growth</h3>
+              <p class="feature-desc">Improved marketplace operating systems across supply, demand, dealer quality, and enquiry flow to make acquisition and conversion more reliable.</p>
+              <div class="feature-highlights">
+                <span class="feature-highlight">Marketplace ops</span>
+                <span class="feature-highlight">Dealer growth</span>
+                <span class="feature-highlight">GTM systems</span>
+              </div>
+            </div>
+            <div class="feature-footer">
+              <div class="feature-metric">
+                <strong>10-member team</strong>
+                <span>Cross-functional leadership</span>
+              </div>
+              <div class="feature-metric">
+                <strong>Multi-channel</strong>
+                <span>Supply, SEO, CRM, product</span>
+              </div>
+              <a href="/projects/" class="feature-link">View selected work →</a>
+            </div>
+          </article>
+          <div class="feature-stack">
+            <article class="feature-stack-card reveal reveal-delay-1">
+              <div class="stack-type">Automation pipeline</div>
+              <h3 class="stack-title">Recall Automation Pipeline</h3>
+              <p class="stack-desc">Built a VIN-level automation pipeline covering 5.4M vehicles and reducing manual reporting effort across trust and operations workflows.</p>
+              <a href="/projects/vehicle-recall-checker" class="stack-link">View project →</a>
+            </article>
+            <article class="feature-stack-card reveal reveal-delay-2">
+              <div class="stack-type">Workflow redesign</div>
+              <h3 class="stack-title">Listing QC Workflow</h3>
+              <p class="stack-desc">Reduced listing quality-control turnaround from 5 days to 20 minutes using rules-first automation, exception routing, and improved ops systems.</p>
+              <a href="/projects/qc-automation" class="stack-link">Read case study →</a>
+            </article>
           </div>
         </div>
       </div>
@@ -923,7 +1057,7 @@ footer {
         <div class="section-head reveal">
           <div class="eyebrow">Experience</div>
           <div>
-            <h2 class="section-title">Built across four very different operating environments.</h2>
+            <h2 class="section-title">Experience</h2>
             <p class="section-sub">Marketplace growth, IPL-scale consumer acquisition, crypto demand capture, and mobility product architecture all sharpened the same skill: building growth systems that connect top-line ambition to operational reality.</p>
           </div>
         </div>
@@ -965,12 +1099,12 @@ footer {
       </div>
     </section>
 
-    <section class="section" id="ai-systems">
+    <section class="section" id="ai-automation">
       <div class="container">
         <div class="section-head reveal">
-          <div class="eyebrow">AI systems</div>
+          <div class="eyebrow">AI Automation</div>
           <div>
-            <h2 class="section-title">AI in real workflows, not demo mode.</h2>
+            <h2 class="section-title">AI Automation Projects</h2>
             <p class="section-sub">The tools matter because they changed operating behavior: less manual review, clearer prioritization, faster reporting, and stronger trust controls across live business workflows.</p>
           </div>
         </div>
@@ -1019,11 +1153,11 @@ footer {
       <div class="container">
         <div class="cta-shell reveal">
           <div class="eyebrow" style="justify-content:center;">Next move</div>
-          <h2 class="cta-title">If the business has growth friction, I like building the system behind the fix.</h2>
-          <p class="cta-copy">Open to roles where growth, GTM, product thinking, and automation have to work together — especially where the opportunity is bigger than campaign management alone.</p>
+          <h2 class="cta-title">Contact</h2>
+          <p class="cta-copy">Open to growth, GTM, marketplace, SEO/GEO, and AI automation opportunities. If the business has growth friction, I like building the system behind the fix.</p>
           <div class="cta-actions">
-            <a href="/contact" class="btn-primary">Start a conversation</a>
-            <a href="/experience" class="btn-secondary">See full experience</a>
+            <a href="/contact/" class="btn-primary">Start a Conversation</a>
+            <a href="/experience/" class="btn-secondary">See Full Experience</a>
           </div>
         </div>
       </div>
@@ -1032,9 +1166,12 @@ footer {
 
   <footer>
     <div class="footer-inner">
-      <div class="footer-logo">JS<span>.</span></div>
-      <div class="footer-copy">Growth &amp; GTM Engineer · Gurgaon · Built for systems, strategy, and execution.</div>
+      <div class="footer-logo">Jigyanshu Shah<span>.</span></div>
+      <div class="footer-copy">Growth &amp; GTM Engineer · © 2026 Jigyanshu Shah</div>
       <div class="footer-links">
+        <a href="/work/">Work</a>
+        <a href="/ai-systems/">AI Automation</a>
+        <a href="/contact/">Contact</a>
         <a href="https://www.linkedin.com/in/jigyanshu-shah/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/jigyanshushah" target="_blank" rel="noopener">GitHub</a>
         <a href="mailto:jigyanshushah69@gmail.com">Email</a>
