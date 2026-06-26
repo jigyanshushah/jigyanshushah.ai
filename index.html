@@ -3,40 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jigyanshu Shah | Growth &amp; GTM Engineer</title>
-<meta name="description" content="Growth and GTM operator building marketplace, SEO, CRM, reporting, and AI automation systems for scalable execution.">
+<title>Jigyanshu Shah | Growth Marketer, GTM &amp; AI Automation</title>
+<meta name="description" content="Jigyanshu Shah is a curious growth marketer working across SEO, paid media, CRM, marketplace growth, GTM execution, and AI automation systems.">
 <link rel="canonical" href="https://jigyanshushah.ai/">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "name": "Jigyanshu Shah",
-      "jobTitle": "Growth & GTM Engineer",
-      "url": "https://jigyanshushah.ai/",
-      "email": "mailto:jigyanshushah69@gmail.com",
-      "sameAs": [
-        "https://www.linkedin.com/in/jigyanshu-shah/",
-        "https://github.com/jigyanshushah"
-      ],
-      "knowsAbout": [
-        "Growth Marketing",
-        "GTM",
-        "Marketplace Growth",
-        "SEO",
-        "GEO",
-        "CRM",
-        "AI Automation",
-        "CRO"
-      ]
-    },
-    {
-      "@type": "WebSite",
-      "name": "Jigyanshu Shah",
-      "url": "https://jigyanshushah.ai/"
-    }
+  "@type": "Person",
+  "name": "Jigyanshu Shah",
+  "jobTitle": "Growth Marketer",
+  "url": "https://jigyanshushah.ai",
+  "knowsAbout": [
+    "Growth Marketing",
+    "SEO",
+    "GEO",
+    "Paid Media",
+    "CRM",
+    "Marketplace Growth",
+    "GTM",
+    "AI Automation"
   ]
 }
 </script>
@@ -52,7 +38,6 @@
   --muted: #a9a39a;
   --muted-2: #70695f;
   --signal: #ff5a36;
-  --signal-deep: #ca4020;
   --accent: #d7ff64;
   --sand: #d9c8b0;
   --syne: 'Syne', system-ui, sans-serif;
@@ -74,9 +59,8 @@ body {
 }
 a { color: inherit; }
 #progress-bar { position: fixed; top: 0; left: 0; width: 0; height: 2px; background: var(--signal); z-index: 1000; transition: width 0.1s linear; }
-
 nav {
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -86,18 +70,17 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(10,11,13,0.72);
+  background: rgba(10,11,13,0.78);
   backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--line);
 }
 .nav-logo {
   font-family: var(--syne);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   text-decoration: none;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
 }
-.nav-logo span { color: var(--signal); }
 .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
 .nav-links a {
   text-decoration: none;
@@ -109,6 +92,7 @@ nav {
   transition: color 0.2s ease;
 }
 .nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-actions { display: flex; align-items: center; gap: 18px; }
 .nav-cta {
   display: inline-flex;
   align-items: center;
@@ -130,8 +114,7 @@ nav {
 .mobile-menu {
   display: none;
   position: fixed;
-  inset: 0;
-  top: 64px;
+  inset: 64px 0 0 0;
   z-index: 998;
   background: rgba(10,11,13,0.97);
   padding: 28px 24px;
@@ -157,50 +140,13 @@ nav {
   font-size: 15px;
   text-align: center;
 }
-
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal-delay-1 { transition-delay: 0.08s; }
 .reveal-delay-2 { transition-delay: 0.16s; }
 .reveal-delay-3 { transition-delay: 0.24s; }
-.reveal-delay-4 { transition-delay: 0.32s; }
-
-.page-shell { position: relative; }
-.page-shell::before,
-.page-shell::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-  border-radius: 50%;
-  filter: blur(24px);
-  opacity: 0.5;
-}
-.page-shell::before {
-  width: 380px;
-  height: 380px;
-  top: 120px;
-  right: -120px;
-  background: radial-gradient(circle, rgba(255,90,54,0.22), transparent 62%);
-}
-.page-shell::after {
-  width: 300px;
-  height: 300px;
-  left: -120px;
-  top: 58%;
-  background: radial-gradient(circle, rgba(215,255,100,0.12), transparent 62%);
-}
-
-.container { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
-.section { padding: 96px 0; }
-.section[id],
-.cta-band[id] { scroll-margin-top: 88px; }
-.section-head {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 32px;
-  align-items: start;
-  margin-bottom: 44px;
-}
+.container { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+.section { padding: 88px 0; }
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -210,6 +156,7 @@ nav {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--sand);
+  margin-bottom: 18px;
 }
 .eyebrow::before {
   content: "";
@@ -218,108 +165,62 @@ nav {
   height: 1px;
   background: var(--signal);
 }
+.section-head { margin-bottom: 34px; }
 .section-title {
   font-family: var(--syne);
-  font-size: clamp(34px, 5vw, 68px);
+  font-size: clamp(2rem, 4vw, 3.8rem);
   line-height: 0.98;
   letter-spacing: -0.05em;
   margin-bottom: 14px;
 }
 .section-sub {
-  max-width: 700px;
+  max-width: 720px;
   color: var(--muted);
   font-size: 17px;
   line-height: 1.8;
 }
-
 .hero {
-  min-height: 100vh;
-  padding-top: 136px;
-  padding-bottom: 72px;
+  min-height: calc(100vh - 64px);
   display: flex;
   align-items: center;
+  padding: 72px 0 56px;
 }
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(340px, 0.92fr);
-  gap: 48px;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+  gap: 34px;
   align-items: start;
-}
-.hero-copy { position: relative; z-index: 2; max-width: 780px; }
-.hero-kicker {
-  margin-bottom: 22px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,0.03);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
 }
 .hero-title {
   font-family: var(--syne);
-  font-size: clamp(3rem, 7vw, 6.5rem);
-  line-height: 0.95;
+  font-size: clamp(3rem, 8vw, 6.2rem);
+  line-height: 0.92;
   letter-spacing: -0.07em;
-  max-width: 760px;
   margin-bottom: 14px;
 }
-.hero-title .signal { color: var(--signal); }
-.hero-subheadline {
-  max-width: 680px;
+.hero-headline {
+  max-width: 740px;
   font-family: var(--syne);
-  font-size: clamp(24px, 3vw, 40px);
+  font-size: clamp(1.5rem, 3vw, 2.6rem);
   line-height: 1.08;
   letter-spacing: -0.04em;
+  margin-bottom: 16px;
+}
+.hero-copy {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.82;
   margin-bottom: 14px;
 }
-.hero-punchline {
-  max-width: 540px;
-  color: var(--sand);
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.5;
-  margin-bottom: 18px;
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 28px;
 }
-.hero-summary {
-  max-width: 760px;
-  font-size: 18px;
-  line-height: 1.75;
-  color: var(--muted);
-  margin-bottom: 26px;
-}
-.hero-summary strong { color: var(--text); font-weight: 600; }
-.pillar-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  margin-bottom: 30px;
-}
-.pillar-card {
-  padding: 18px;
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,0.03);
-}
-.pillar-title {
-  font-family: var(--syne);
-  font-size: 18px;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  margin-bottom: 8px;
-}
-.pillar-copy {
-  font-size: 13px;
-  line-height: 1.65;
-  color: var(--muted);
-}
-.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; }
-.btn-primary,
-.btn-secondary {
+.btn-primary, .btn-secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -332,10 +233,7 @@ nav {
   letter-spacing: 0.04em;
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
-.btn-primary {
-  background: var(--signal);
-  color: #fff8f2;
-}
+.btn-primary { background: var(--signal); color: #fff8f2; }
 .btn-primary:hover { transform: translateY(-2px); }
 .btn-secondary {
   border: 1px solid var(--line-strong);
@@ -343,101 +241,52 @@ nav {
   background: rgba(255,255,255,0.03);
 }
 .btn-secondary:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.24); }
-.positioning-block {
-  margin-top: 28px;
-  max-width: 760px;
-  padding: 22px 24px;
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
-}
-.positioning-block p {
-  font-size: 15px;
-  line-height: 1.8;
-  color: var(--muted);
-}
-.positioning-block strong {
-  color: var(--text);
+.text-link {
+  color: var(--sand);
+  text-decoration: none;
+  font-size: 14px;
   font-weight: 600;
 }
-
-.hero-panel {
+.text-link:hover { color: var(--text); }
+.hero-card {
   border: 1px solid var(--line);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.03) 100%);
-  padding: 32px;
-  margin-top: 82px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  padding: 28px;
   position: relative;
   overflow: hidden;
 }
-.hero-panel::before {
+.hero-card::before {
   content: "";
   position: absolute;
   inset: 0;
   background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 52px 52px;
-  opacity: 0.2;
+  background-size: 48px 48px;
+  opacity: 0.18;
   pointer-events: none;
 }
-.panel-label {
-  position: relative;
-  z-index: 1;
+.hero-card > * { position: relative; z-index: 1; }
+.hero-card-title {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted-2);
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
-.panel-title {
-  position: relative;
-  z-index: 1;
-  font-family: var(--syne);
-  font-size: 24px;
-  line-height: 1.08;
-  letter-spacing: -0.04em;
-  margin-bottom: 24px;
-}
-.signal-sections {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  gap: 18px;
-}
-.signal-section {
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-}
-.signal-section:first-child {
-  padding-top: 0;
-  border-top: none;
-}
-.signal-section-label,
-.signal-card-label {
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.65;
-  color: var(--muted-2);
-  margin-bottom: 10px;
-}
-.signal-section-copy {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--text);
-}
-.signal-bullet-list {
-  display: grid;
-  gap: 10px;
+.focus-list {
   list-style: none;
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
 }
-.signal-bullet-list li {
-  position: relative;
+.focus-list li {
   padding-left: 16px;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  position: relative;
+  font-size: 15px;
+  line-height: 1.7;
   color: var(--text);
 }
-.signal-bullet-list li::before {
+.focus-list li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -447,736 +296,417 @@ nav {
   border-radius: 50%;
   background: var(--signal);
 }
-.signal-bullet-list strong { color: var(--accent); font-weight: 700; }
-
-.proof-strip {
+.hero-card-footer {
+  padding-top: 18px;
   border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.proof-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
-.proof-card {
-  padding: 30px 28px;
-  border-right: 1px solid var(--line);
-}
-.proof-card:last-child { border-right: none; }
-.proof-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted-2);
-  margin-bottom: 10px;
-}
-.proof-value {
-  font-family: var(--syne);
-  font-size: 34px;
-  line-height: 1;
-  letter-spacing: -0.05em;
-  margin-bottom: 8px;
-}
-.proof-copy {
-  font-size: 14px;
   color: var(--muted);
-  line-height: 1.65;
-}
-.audience-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-}
-.audience-card {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  padding: 28px 26px;
-  min-height: 220px;
-}
-.audience-title {
-  font-family: var(--syne);
-  font-size: 22px;
-  line-height: 1.12;
-  letter-spacing: -0.04em;
-  margin-bottom: 12px;
-}
-.audience-copy {
   font-size: 14px;
-  line-height: 1.75;
-  color: var(--muted);
+  line-height: 1.7;
 }
-
-.feature-grid {
+.who-grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 4px;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 24px;
+  align-items: start;
 }
-.feature-card,
-.feature-stack-card {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  padding: 32px;
-}
-.feature-card {
-  min-height: 420px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.feature-type,
-.stack-type {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-.feature-title {
-  font-family: var(--syne);
-  font-size: clamp(28px, 3.2vw, 44px);
-  line-height: 1.02;
-  letter-spacing: -0.05em;
+.who-copy p {
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.82;
   margin-bottom: 14px;
 }
-.feature-desc {
-  max-width: 620px;
-  font-size: 16px;
-  line-height: 1.82;
-  color: var(--muted);
-  margin-bottom: 24px;
-}
-.feature-highlights {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 26px;
-}
-.feature-highlight {
-  padding: 7px 12px;
-  border-radius: 999px;
-  border: 1px solid var(--line-strong);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--muted);
-}
-.feature-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 20px;
-  flex-wrap: wrap;
-  padding-top: 22px;
-  border-top: 1px solid var(--line);
-}
-.feature-metric {
-  display: grid;
-  gap: 6px;
-}
-.feature-metric strong {
-  font-family: var(--syne);
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-.feature-metric span {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted-2);
-}
-.feature-link,
-.stack-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 700;
-}
-.feature-link:hover,
-.stack-link:hover { color: var(--signal); }
-
-.feature-stack {
-  display: grid;
-  gap: 4px;
-}
-.stack-title {
-  font-family: var(--syne);
-  font-size: 24px;
-  line-height: 1.1;
-  letter-spacing: -0.04em;
-  margin-bottom: 10px;
-}
-.stack-desc {
-  font-size: 14px;
-  line-height: 1.75;
-  color: var(--muted);
-  margin-bottom: 16px;
-}
-
-.operating-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-}
-.operating-card {
-  background: var(--panel);
+.who-copy p:last-child { margin-bottom: 0; }
+.side-note {
+  padding: 22px;
   border: 1px solid var(--line);
-  padding: 30px 28px;
-  min-height: 260px;
+  background: rgba(255,255,255,0.03);
+  color: var(--sand);
+  font-size: 15px;
+  line-height: 1.75;
 }
-.operating-num {
-  font-family: var(--syne);
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--signal);
-  letter-spacing: 0.08em;
-  margin-bottom: 18px;
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
 }
-.operating-title {
+.card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 28px;
+  min-height: 100%;
+}
+.card h3 {
   font-family: var(--syne);
   font-size: 22px;
   line-height: 1.08;
   letter-spacing: -0.04em;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
-.operating-copy {
-  font-size: 14px;
-  line-height: 1.8;
+.card p {
   color: var(--muted);
+  font-size: 14px;
+  line-height: 1.78;
+  margin-bottom: 18px;
 }
-
-.timeline-grid {
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+.card-link:hover { color: var(--signal); }
+.trait-grid {
   display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
 }
-.timeline-card {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  gap: 28px;
-  padding: 30px 32px;
-  background: var(--panel);
+.trait-card {
   border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+  padding: 28px;
 }
-.timeline-left {
-  display: grid;
-  align-content: start;
-  gap: 10px;
-}
-.timeline-company {
-  font-family: var(--syne);
-  font-size: 24px;
-  line-height: 1;
-  letter-spacing: -0.04em;
-}
-.timeline-role {
-  font-size: 14px;
-  color: var(--signal);
-  font-weight: 600;
-}
-.timeline-meta {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted-2);
-}
-.timeline-body p {
-  font-size: 15px;
-  line-height: 1.82;
-  color: var(--muted);
-  margin-bottom: 14px;
-}
-.timeline-body p:last-child { margin-bottom: 0; }
-.timeline-body strong { color: var(--text); font-weight: 700; }
-
-.systems-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
-}
-.system-card {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  padding: 28px 26px;
-  min-height: 260px;
-  display: flex;
-  flex-direction: column;
-}
-.system-num {
-  font-family: var(--syne);
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  color: var(--accent);
-  margin-bottom: 14px;
-}
-.system-title {
+.trait-card h3 {
   font-family: var(--syne);
   font-size: 22px;
-  line-height: 1.12;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin-bottom: 10px;
+}
+.trait-card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.78;
+}
+.philosophy-shell {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.03);
+  padding: 30px;
+  margin-bottom: 24px;
+}
+.philosophy-shell p {
+  max-width: 820px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.86;
+}
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+.philosophy-card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 28px;
+}
+.philosophy-card h3 {
+  font-family: var(--syne);
+  font-size: 22px;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  margin-bottom: 10px;
+}
+.philosophy-card p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.78;
+}
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+.explore-card {
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  padding: 30px 28px;
+}
+.explore-card h3 {
+  font-family: var(--syne);
+  font-size: 26px;
+  line-height: 1.04;
   letter-spacing: -0.04em;
   margin-bottom: 12px;
 }
-.system-desc {
+.explore-card p {
+  color: var(--muted);
   font-size: 14px;
-  line-height: 1.78;
-  color: var(--muted);
-  margin-bottom: 18px;
-  flex: 1;
+  line-height: 1.8;
+  margin-bottom: 20px;
 }
-.system-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.system-status::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
-.cta-band {
-  padding: 72px 0 56px;
-  text-align: center;
-}
-.cta-shell {
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 42px 36px;
-  border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
-}
-.cta-title {
-  font-family: var(--syne);
-  font-size: clamp(34px, 5vw, 64px);
-  line-height: 0.98;
-  letter-spacing: -0.05em;
-  margin-bottom: 16px;
-}
-.cta-copy {
-  max-width: 620px;
-  margin: 0 auto 28px;
-  font-size: 17px;
-  line-height: 1.82;
-  color: var(--muted);
-}
-.cta-actions {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
 footer {
   border-top: 1px solid var(--line);
   padding: 24px 40px 28px;
 }
 .footer-inner {
-  max-width: 1240px;
+  max-width: 1180px;
   margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1fr;
   gap: 18px;
-  flex-wrap: wrap;
+  align-items: center;
 }
-.footer-logo {
+.footer-title {
   font-family: var(--syne);
   font-size: 18px;
   font-weight: 800;
   letter-spacing: -0.04em;
+  margin-bottom: 4px;
 }
-.footer-logo span { color: var(--signal); }
-.footer-copy,
-.footer-links a {
+.footer-role, .footer-bottom, .footer-links a {
   font-size: 13px;
   color: var(--muted);
   text-decoration: none;
 }
-.footer-links {
+.footer-link-group {
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  justify-content: center;
 }
+.footer-link-group:last-child { justify-content: flex-end; }
 .footer-links a:hover { color: var(--text); }
-
-@media (max-width: 1100px) {
-  .hero-grid,
-  .feature-grid { grid-template-columns: 1fr; }
-  .hero-panel { margin-top: 0; }
-  .proof-grid,
-  .audience-grid,
-  .systems-grid { grid-template-columns: repeat(2, 1fr); }
-  .section-head,
-  .timeline-card { grid-template-columns: 1fr; }
-  .pillar-grid { grid-template-columns: 1fr; }
+.footer-bottom {
+  margin-top: 10px;
+  display: block;
 }
-
+@media (max-width: 1100px) {
+  .hero-grid, .who-grid, .card-grid, .trait-grid, .philosophy-grid, .explore-grid, .footer-inner { grid-template-columns: 1fr; }
+}
 @media (max-width: 840px) {
   nav { padding: 0 24px; }
   .nav-links, .nav-cta { display: none; }
   .nav-menu-btn { display: block; }
   .container { padding: 0 24px; }
   .section { padding: 72px 0; }
-  .hero { padding-top: 104px; min-height: auto; }
-  .proof-grid,
-  .audience-grid,
-  .systems-grid { grid-template-columns: 1fr; }
-  .proof-card { border-right: none; border-bottom: 1px solid var(--line); }
-  .proof-card:last-child { border-bottom: none; }
-  .cta-band { padding: 56px 0 40px; }
+  .hero { min-height: auto; padding: 40px 0 48px; }
   footer { padding: 24px 24px 28px; }
+  .footer-link-group, .footer-link-group:last-child { justify-content: flex-start; }
 }
-
 @media (max-width: 640px) {
-  .hero-title {
-    font-size: clamp(2.5rem, 12vw, 4rem);
-    line-height: 1;
-  }
-  .hero-summary, .section-sub, .cta-copy { font-size: 16px; }
-  .hero-panel,
-  .feature-card,
-  .feature-stack-card,
-  .audience-card,
-  .timeline-card,
-  .system-card,
-  .cta-shell { padding: 24px 20px; }
-  .hero-actions,
-  .cta-actions { flex-direction: column; align-items: stretch; }
+  .hero-title { font-size: clamp(2.7rem, 12vw, 4rem); line-height: 0.98; }
+  .hero-copy, .section-sub, .philosophy-shell p, .who-copy p { font-size: 16px; }
+  .hero-card, .card, .trait-card, .philosophy-card, .philosophy-shell, .explore-card, .side-note { padding: 24px 20px; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
   .btn-primary, .btn-secondary { width: 100%; }
 }
 </style>
 </head>
 <body>
 <div id="progress-bar"></div>
-
 <nav id="navbar">
-  <a href="/" class="nav-logo">JS<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="/" class="active">About</a></li>
-    <li><a href="/experience/">Experience</a></li>
-    <li><a href="/ai-automation/">AI Automations</a></li>
-    <li><a href="/contact/">Contact</a></li>
-  </ul>
-  <a href="/contact/" class="nav-cta">Work With Me</a>
-  <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  <a href="/" class="nav-logo">Jigyanshu Shah</a>
+  <div class="nav-actions">
+    <ul class="nav-links">
+      <li><a href="/" class="active">Home</a></li>
+      <li><a href="/experience/">Experience</a></li>
+      <li><a href="/ai-automation/">AI Automation</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ul>
+    <a href="/contact/" class="nav-cta">Contact Me</a>
+    <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  </div>
 </nav>
-
 <div class="mobile-menu" id="mobileMenu">
-  <a href="/" class="mob-link">About</a>
+  <a href="/" class="mob-link">Home</a>
   <a href="/experience/" class="mob-link">Experience</a>
-  <a href="/ai-automation/" class="mob-link">AI Automations</a>
+  <a href="/ai-automation/" class="mob-link">AI Automation</a>
   <a href="/contact/" class="mob-link">Contact</a>
-  <a href="/contact/" class="mobile-cta">Work With Me</a>
+  <a href="/contact/" class="mobile-cta">Contact Me</a>
 </div>
-
-<div class="page-shell">
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <div class="hero-kicker reveal">Operator intelligence for growth, GTM, and systems</div>
-          <h1 class="hero-title reveal reveal-delay-1">Growth &amp; GTM Engineer</h1>
-          <h2 class="hero-subheadline reveal reveal-delay-2">Marketplace Growth, AI Automation, SEO &amp; CRM Systems</h2>
-          <p class="hero-punchline reveal reveal-delay-2">Built for scale, not slides<span class="signal">.</span></p>
-          <p class="hero-summary reveal reveal-delay-3">I help growth teams turn messy marketplace, SEO, CRM, reporting, and AI workflow problems into working systems that improve <strong>visibility</strong>, <strong>conversion</strong>, and <strong>execution speed</strong>.</p>
-          <div class="pillar-grid reveal reveal-delay-4">
-            <div class="pillar-card">
-              <div class="pillar-title">Growth Systems</div>
-              <div class="pillar-copy">Marketplace growth, demand generation, CRO.</div>
-            </div>
-            <div class="pillar-card">
-              <div class="pillar-title">AI Automation</div>
-              <div class="pillar-copy">Workflow design, reporting automation, lead ops.</div>
-            </div>
-            <div class="pillar-card">
-              <div class="pillar-title">Search &amp; Discovery</div>
-              <div class="pillar-copy">SEO, GEO, and structured visibility systems.</div>
-            </div>
-          </div>
-          <div class="hero-actions reveal reveal-delay-4">
-            <a href="/ai-automation/" class="btn-primary">View AI Automations</a>
-            <a href="/ai-automation/" class="btn-secondary">Explore AI Automation</a>
-          </div>
-          <div class="positioning-block reveal reveal-delay-4">
-            <p>I work at the intersection of <strong>growth</strong>, <strong>marketplace operations</strong>, <strong>SEO</strong>, <strong>CRM</strong>, and <strong>automation</strong>. My focus is not just strategy decks. I build the systems, workflows, dashboards, and experiments that make growth execution faster and more measurable.</p>
-          </div>
-        </div>
-        <aside class="hero-panel reveal reveal-delay-2">
-          <div class="panel-label">Current signal</div>
-          <div class="panel-title">Manager, Growth &amp; Marketing — Cars24 Australia</div>
-          <div class="signal-sections">
-            <div class="signal-section">
-              <div class="signal-card-label">Current Signal</div>
-              <div class="signal-section-copy">Building marketplace, SEO, CRM, and operating systems for dealer growth and ecosystem expansion.</div>
-            </div>
-            <div class="signal-section">
-              <div class="signal-card-label">Focus Areas</div>
-              <ul class="signal-bullet-list">
-                <li>Marketplace growth</li>
-                <li>SEO &amp; GEO</li>
-                <li>CRM and lifecycle systems</li>
-                <li>AI automation</li>
-                <li>Dealer ecosystem expansion</li>
-              </ul>
-            </div>
-            <div class="signal-section">
-              <div class="signal-card-label">Proof</div>
-              <ul class="signal-bullet-list">
-                <li><strong>5.4M VINs</strong> processed through recall-check coverage</li>
-                <li><strong>5.5 days/month</strong> of manual work removed</li>
-                <li>Listing QC reduced from <strong>5 days to 20 minutes</strong></li>
-                <li>Led a <strong>10-member</strong> cross-functional team</li>
-              </ul>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
-
-    <section class="proof-strip">
-      <div class="container proof-grid">
-        <div class="proof-card reveal">
-          <div class="proof-label">Proof</div>
-          <div class="proof-value">5.4M VINs</div>
-          <div class="proof-copy">Recall pipeline coverage built for vehicle checks and trust operations.</div>
-        </div>
-        <div class="proof-card reveal reveal-delay-1">
-          <div class="proof-label">Automation</div>
-          <div class="proof-value">5.5 days/month</div>
-          <div class="proof-copy">Manual reporting replaced with automation and repeatable operating workflows.</div>
-        </div>
-        <div class="proof-card reveal reveal-delay-2">
-          <div class="proof-label">Speed</div>
-          <div class="proof-value">5 days → 20 min</div>
-          <div class="proof-copy">Listing QC turnaround reduced through workflow redesign and system improvements.</div>
-        </div>
-        <div class="proof-card reveal reveal-delay-3">
-          <div class="proof-label">Leadership</div>
-          <div class="proof-value">10-member team</div>
-          <div class="proof-copy">Led growth, SEO, marketplace, and product marketing functions across shared priorities.</div>
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow reveal">Growth Marketer · GTM · SEO · AI Automation</div>
+        <h1 class="hero-title reveal reveal-delay-1">Jigyanshu Shah</h1>
+        <p class="hero-headline reveal reveal-delay-1">A curious growth marketer building systems for acquisition, automation, and scale.</p>
+        <p class="hero-copy reveal reveal-delay-2">My name means curiosity, and that shows up in how I work. I like understanding where growth breaks, why users drop, how teams operate, and what systems can make execution faster.</p>
+        <p class="hero-copy reveal reveal-delay-2">I work across SEO, paid media, CRM, marketplace growth, GTM execution, and AI-led workflows — usually sitting between business problems and the systems needed to solve them.</p>
+        <div class="hero-actions reveal reveal-delay-3">
+          <a href="/experience/" class="btn-primary">View Experience</a>
+          <a href="/ai-automation/" class="btn-secondary">Explore AI Automation</a>
+          <a href="/contact/" class="text-link">Contact Me</a>
         </div>
       </div>
-    </section>
+      <aside class="hero-card reveal reveal-delay-2">
+        <div class="hero-card-title">Currently focused on</div>
+        <ul class="focus-list">
+          <li>Growth systems</li>
+          <li>Search visibility</li>
+          <li>Marketplace growth</li>
+          <li>CRM and lifecycle journeys</li>
+          <li>GTM execution</li>
+          <li>AI workflow automation</li>
+        </ul>
+        <div class="hero-card-footer">Built with curiosity, structure, and execution bias.</div>
+      </aside>
+    </div>
+  </section>
 
-    <section class="section" id="about">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Who I help</div>
-          <div>
-            <h2 class="section-title">Built for teams solving growth execution problems.</h2>
-            <p class="section-sub">This site should feel like a working operator’s portfolio, not a deck. The common thread is building systems that turn repeated friction into durable execution.</p>
-          </div>
-        </div>
-        <div class="audience-grid">
-          <article class="audience-card reveal">
-            <h3 class="audience-title">Marketplace teams</h3>
-            <p class="audience-copy">Built for supply, demand, dealer ecosystem, quality, and enquiry-flow problems that need both operating rigor and commercial judgment.</p>
-          </article>
-          <article class="audience-card reveal reveal-delay-1">
-            <h3 class="audience-title">Growth teams</h3>
-            <p class="audience-copy">Useful where SEO, GEO, CRM, and conversion leakage sit across multiple owners and need one practical execution layer.</p>
-          </article>
-          <article class="audience-card reveal reveal-delay-2">
-            <h3 class="audience-title">Operators replacing manual work</h3>
-            <p class="audience-copy">Best fit for workflows still held together by repeated reporting, ad hoc QA, and fragile approval loops.</p>
-          </article>
-          <article class="audience-card reveal reveal-delay-3">
-            <h3 class="audience-title">Founders and hiring teams</h3>
-            <p class="audience-copy">Relevant for teams looking for someone who can connect business context, technical systems, and execution accountability.</p>
-          </article>
-        </div>
+  <section class="section" id="who-i-am">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="section-title">Who I am</h2>
       </div>
-    </section>
-
-    <section class="section" id="work">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">AI Automations</div>
-          <div>
-            <h2 class="section-title">Selected automation systems</h2>
-            <p class="section-sub">Production workflows across QC, reporting, recall coverage, and growth operations — built to remove manual work and improve execution speed.</p>
-          </div>
+      <div class="who-grid">
+        <div class="who-copy reveal">
+          <p>I am a growth marketer with 6+ years of experience across marketing, marketplace operations, business execution, and automation.</p>
+          <p>I have worked across SEO, paid media, CRM, GTM, marketplace growth, and AI-led workflows. My work usually starts with a messy business problem: low visibility, weak conversion, manual reporting, slow execution, or unclear ownership.</p>
+          <p>I enjoy turning those problems into sharper systems — campaigns, workflows, dashboards, automations, landing pages, and operating rhythms that make growth easier to execute.</p>
         </div>
-        <div class="feature-grid">
-          <article class="feature-card reveal">
-            <div>
-              <div class="feature-type">Automation library</div>
-              <h3 class="feature-title">AI automation systems</h3>
-              <p class="feature-desc">A growing library of workflow systems built across marketplace operations, reporting, recall checks, and execution infrastructure.</p>
-              <div class="feature-highlights">
-                <span class="feature-highlight">QC automation</span>
-                <span class="feature-highlight">Reporting systems</span>
-                <span class="feature-highlight">Growth ops</span>
-              </div>
-            </div>
-            <div class="feature-footer">
-              <div class="feature-metric">
-                <strong>9 projects</strong>
-                <span>Structured as case-study pages</span>
-              </div>
-              <div class="feature-metric">
-                <strong>Scalable ops</strong>
-                <span>Systems over manual repetition</span>
-              </div>
-              <a href="/ai-automation/" class="feature-link">View AI automation library →</a>
-            </div>
-          </article>
-          <div class="feature-stack">
-            <article class="feature-stack-card reveal reveal-delay-1">
-              <div class="stack-type">Automation pipeline</div>
-              <h3 class="stack-title">Recall Automation Pipeline</h3>
-              <p class="stack-desc">Built a VIN-level automation pipeline covering 5.4M vehicles and reducing manual reporting effort across trust and operations workflows.</p>
-              <a href="/ai-automation/vehicle-recall-checker/" class="stack-link">View project →</a>
-            </article>
-            <article class="feature-stack-card reveal reveal-delay-2">
-              <div class="stack-type">Workflow redesign</div>
-              <h3 class="stack-title">Listing QC Workflow</h3>
-              <p class="stack-desc">Reduced listing quality-control turnaround from 5 days to 20 minutes using rules-first automation, exception routing, and improved ops systems.</p>
-              <a href="/ai-automation/qc-automation-engine/" class="stack-link">Read case study →</a>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="experience">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">Experience</div>
-          <div>
-            <h2 class="section-title">Experience</h2>
-            <p class="section-sub">Marketplace growth, IPL-scale consumer acquisition, crypto demand capture, and mobility product architecture all sharpened the same skill: building growth systems that connect top-line ambition to operational reality.</p>
-          </div>
-        </div>
-        <div class="timeline-grid">
-          <article class="timeline-card reveal">
-            <div class="timeline-left">
-              <div class="timeline-company">Cars24 Australia</div>
-              <div class="timeline-role">Manager · Growth &amp; Marketing</div>
-              <div class="timeline-meta">Oct 2023 — Present · Gurgaon</div>
-            </div>
-            <div class="timeline-body">
-              <p>Own GTM, marketplace growth, SEO, product launches, and operating infrastructure across dealer marketplace and adjacent ecosystem initiatives.</p>
-              <p><strong>Highlights:</strong> led a 10-member team, built VIN recall and QC systems, launched service products, created AI-led SEO and reporting workflows, and drove a domain migration that materially increased organic acquisition.</p>
-            </div>
-          </article>
-          <article class="timeline-card reveal reveal-delay-1">
-            <div class="timeline-left">
-              <div class="timeline-company">Rario</div>
-              <div class="timeline-role">Assistant Manager · Marketing</div>
-              <div class="timeline-meta">Nov 2022 — Oct 2023 · Gurgaon</div>
-            </div>
-            <div class="timeline-body">
-              <p>Ran acquisition and lifecycle growth in a high-pressure IPL environment across performance, referral, engagement, and content-supported demand generation.</p>
-              <p><strong>Highlights:</strong> managed a ~$500K media budget, drove 600K installs, cut CPA nearly in half, grew buyer acquisition through referral, and improved engagement 2–3x through lifecycle design.</p>
-            </div>
-          </article>
-          <article class="timeline-card reveal reveal-delay-2">
-            <div class="timeline-left">
-              <div class="timeline-company">CoinSwitch + Park+</div>
-              <div class="timeline-role">SEO, conversion, and product-led growth</div>
-              <div class="timeline-meta">2021 — 2022 · Bangalore / Gurgaon</div>
-            </div>
-            <div class="timeline-body">
-              <p>Built discoverability, conversion, and product growth foundations for crypto and mobility products where technical SEO, content architecture, and user intent mapping mattered to the business.</p>
-              <p><strong>Highlights:</strong> improved organic growth 3x at CoinSwitch and helped Park+ scale discoverability across nine product lines, including FASTag, RTO, insurance, and EV charging.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="ai-automation">
-      <div class="container">
-        <div class="section-head reveal">
-          <div class="eyebrow">AI Automation</div>
-          <div>
-            <h2 class="section-title">AI Automation Projects</h2>
-            <p class="section-sub">The tools matter because they changed operating behavior: less manual review, clearer prioritization, faster reporting, and stronger trust controls across live business workflows.</p>
-          </div>
-        </div>
-        <div class="systems-grid">
-          <article class="system-card reveal">
-            <div class="system-num">01</div>
-            <h3 class="system-title">QC Automation Engine</h3>
-            <p class="system-desc">Rules engine plus Claude-assisted scoring, description generation, image QC, and ops routing for dealer inventory readiness.</p>
-            <div class="system-status">Live at Cars24 AU</div>
-          </article>
-          <article class="system-card reveal reveal-delay-1">
-            <div class="system-num">02</div>
-            <h3 class="system-title">VIN Recall Pipeline</h3>
-            <p class="system-desc">VIN matching and recall retrieval system connecting multiple data sources to make trust checks instant instead of manual.</p>
-            <div class="system-status">5.4M VINs covered</div>
-          </article>
-          <article class="system-card reveal reveal-delay-2">
-            <div class="system-num">03</div>
-            <h3 class="system-title">AI Reporting Layer</h3>
-            <p class="system-desc">Automated reporting and data aggregation workflows replacing repeated manual report cycles across weekly, biweekly, and monthly cadences.</p>
-            <div class="system-status">5.5 days/month saved</div>
-          </article>
-          <article class="system-card reveal reveal-delay-1">
-            <div class="system-num">04</div>
-            <h3 class="system-title">SEO + GEO Audit Systems</h3>
-            <p class="system-desc">Post-publish and pre-publish scoring systems for content quality, search readiness, and landing page audit workflows.</p>
-            <div class="system-status">Built for internal teams</div>
-          </article>
-          <article class="system-card reveal reveal-delay-2">
-            <div class="system-num">05</div>
-            <h3 class="system-title">Odometer Tampering Detection</h3>
-            <p class="system-desc">Trust layer built to flag suspicious rollback patterns and stop compromised inventory from entering the buyer journey.</p>
-            <div class="system-status">Fraud prevention workflow</div>
-          </article>
-          <article class="system-card reveal reveal-delay-3">
-            <div class="system-num">06</div>
-            <h3 class="system-title">Service Network Intelligence</h3>
-            <p class="system-desc">Playwright-based service center mapping pipeline for OEM infrastructure research, data normalization, and strategic visibility.</p>
-            <div class="system-status">Data pipeline + export layer</div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-band" id="contact">
-      <div class="container">
-        <div class="cta-shell reveal">
-          <div class="eyebrow" style="justify-content:center;">Next move</div>
-          <h2 class="cta-title">Contact</h2>
-          <p class="cta-copy">Open to growth, GTM, marketplace, SEO/GEO, and AI automation opportunities. If the business has growth friction, I like building the system behind the fix.</p>
-          <div class="cta-actions">
-            <a href="/contact/" class="btn-primary">Start a Conversation</a>
-            <a href="/experience/" class="btn-secondary">See Full Experience</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-logo">Jigyanshu Shah<span>.</span></div>
-      <div class="footer-copy">Growth &amp; GTM Engineer · © 2026 Jigyanshu Shah</div>
-      <div class="footer-links">
-        <a href="/">About</a>
-        <a href="/experience/">Experience</a>
-        <a href="/ai-automation/">AI Automations</a>
-        <a href="/contact/">Contact</a>
-        <a href="https://www.linkedin.com/in/jigyanshu-shah/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/jigyanshushah" target="_blank" rel="noopener">GitHub</a>
-        <a href="mailto:jigyanshushah69@gmail.com">Email</a>
+        <aside class="side-note reveal reveal-delay-1">Curiosity is the starting point. Systems are usually the answer.</aside>
       </div>
     </div>
-  </footer>
-</div>
+  </section>
 
+  <section class="section" id="what-i-work-across">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="section-title">What I work across</h2>
+        <p class="section-sub">Growth rarely sits inside one channel. I like working across the full system — discovery, acquisition, conversion, retention, operations, and automation.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card reveal">
+          <h3>Growth Marketing</h3>
+          <p>Acquisition, conversion, funnel thinking, experimentation, and scalable growth systems.</p>
+          <a href="/experience/" class="card-link">View Experience →</a>
+        </article>
+        <article class="card reveal reveal-delay-1">
+          <h3>SEO &amp; GEO</h3>
+          <p>Search visibility, structured content, technical SEO, AI search readiness, and organic growth systems.</p>
+          <a href="/experience/" class="card-link">View Experience →</a>
+        </article>
+        <article class="card reveal reveal-delay-2">
+          <h3>Paid Media</h3>
+          <p>Campaign planning, performance measurement, CAC, CPA, ROAS, funnels, and optimization logic.</p>
+          <a href="/experience/" class="card-link">View Experience →</a>
+        </article>
+        <article class="card reveal">
+          <h3>CRM &amp; Lifecycle</h3>
+          <p>Lead nurturing, segmentation, retention journeys, lifecycle communication, and conversion workflows.</p>
+          <a href="/experience/" class="card-link">View Experience →</a>
+        </article>
+        <article class="card reveal reveal-delay-1">
+          <h3>Marketplace Growth</h3>
+          <p>Supply-demand balance, dealer ecosystems, listings, enquiries, marketplace quality, and operating loops.</p>
+          <a href="/experience/" class="card-link">View Experience →</a>
+        </article>
+        <article class="card reveal reveal-delay-2">
+          <h3>GTM Systems</h3>
+          <p>Launch planning, business cases, cross-functional execution, process design, and commercial operating systems.</p>
+          <a href="/experience/" class="card-link">View Experience →</a>
+        </article>
+        <article class="card reveal">
+          <h3>AI Automation</h3>
+          <p>Workflow automation for reporting, research, SEO, operations, productivity, and internal tools.</p>
+          <a href="/ai-automation/" class="card-link">Explore AI Automation →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="what-defines-me">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="section-title">What defines me</h2>
+        <p class="section-sub">The way I work is shaped by curiosity, systems thinking, and a bias for execution.</p>
+      </div>
+      <div class="trait-grid">
+        <article class="trait-card reveal">
+          <h3>Curiosity</h3>
+          <p>I like asking why until the actual problem becomes visible.</p>
+        </article>
+        <article class="trait-card reveal reveal-delay-1">
+          <h3>Systems Thinking</h3>
+          <p>I prefer repeatable workflows, tools, and operating loops over one-time fixes.</p>
+        </article>
+        <article class="trait-card reveal reveal-delay-2">
+          <h3>Execution Bias</h3>
+          <p>I like shipping, testing, measuring, and improving instead of waiting for perfect clarity.</p>
+        </article>
+        <article class="trait-card reveal reveal-delay-3">
+          <h3>Business + Technical Bridge</h3>
+          <p>I can translate business problems into workflows, dashboards, automations, and implementation logic.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="growth-thinking">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="section-title">How I think about growth</h2>
+      </div>
+      <div class="philosophy-shell reveal">
+        <p>Growth is not just campaigns, channels, or dashboards. Growth is the discipline of finding friction, understanding why it exists, and building systems that make execution faster, clearer, and more measurable. The best growth work connects customer behavior, business priorities, operating workflows, and measurement. That is the space I enjoy working in.</p>
+      </div>
+      <div class="philosophy-grid">
+        <article class="philosophy-card reveal">
+          <h3>Curiosity before conclusions</h3>
+          <p>I try to understand the real source of the problem before jumping into tactics.</p>
+        </article>
+        <article class="philosophy-card reveal reveal-delay-1">
+          <h3>Systems over patches</h3>
+          <p>A good solution should make the next execution cycle easier, not just solve the current issue.</p>
+        </article>
+        <article class="philosophy-card reveal reveal-delay-2">
+          <h3>Measurement with action</h3>
+          <p>Reporting only matters when it helps teams decide, prioritize, and move faster.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="explore-next">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2 class="section-title">Explore next</h2>
+        <p class="section-sub">Depending on what you are looking for, here are the best places to go next.</p>
+      </div>
+      <div class="explore-grid">
+        <article class="explore-card reveal">
+          <h3>Experience</h3>
+          <p>See my career journey, roles, achievements, selected proof points, and downloadable profile.</p>
+          <a href="/experience/" class="btn-primary">View Experience</a>
+        </article>
+        <article class="explore-card reveal reveal-delay-1">
+          <h3>AI Automation</h3>
+          <p>Explore the systems, workflows, and automation projects I have built or can build.</p>
+          <a href="/ai-automation/" class="btn-primary">Explore AI Automation</a>
+        </article>
+        <article class="explore-card reveal reveal-delay-2">
+          <h3>Contact</h3>
+          <p>Reach out for growth roles, SEO/GEO work, AI automation, GTM systems, or website projects.</p>
+          <a href="/contact/" class="btn-primary">Contact Me</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-title">Jigyanshu Shah</div>
+      <div class="footer-role">Growth Marketer · GTM · SEO · AI Automation</div>
+      <span class="footer-bottom">© 2026 Jigyanshu Shah</span>
+    </div>
+    <div class="footer-link-group footer-links">
+      <a href="/">Home</a>
+      <a href="/experience/">Experience</a>
+      <a href="/ai-automation/">AI Automation</a>
+      <a href="/contact/">Contact</a>
+    </div>
+    <div class="footer-link-group footer-links">
+      <a href="https://www.linkedin.com/in/jigyanshu-shah/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/jigyanshushah" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:jigyanshushah69@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
 <script>
 const progressBar = document.getElementById('progress-bar');
 window.addEventListener('scroll', () => {
