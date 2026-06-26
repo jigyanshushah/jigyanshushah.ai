@@ -4,12 +4,540 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QC Automation Engine | AI Automation by Jigyanshu Shah</title>
-<meta name="description" content="Automate dealer listing quality control so inventory can move faster without scaling manual review.">
+<meta name="description" content="A production-grade quality control engine for dealer inventory that compresses manual review into an exception-first workflow.">
 <link rel="canonical" href="https://jigyanshushah.ai/ai-automation/qc-automation-engine/">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/ai-automation.css">
+<style>
+.qc-page {
+  --qc-bg: #0a0d12;
+  --qc-surface: #10151d;
+  --qc-surface-2: #161c26;
+  --qc-border: rgba(130, 154, 190, 0.16);
+  --qc-border-strong: rgba(0, 229, 160, 0.26);
+  --qc-text: #eaf0f8;
+  --qc-muted: #95a0b5;
+  --qc-mono: 'JetBrains Mono', monospace;
+  --qc-sans: 'Outfit', sans-serif;
+  --qc-display: 'Syne', sans-serif;
+  --qc-green: #00e5a0;
+  --qc-orange: #ff6b35;
+  --qc-blue: #4736fe;
+  --qc-blue-soft: rgba(71, 54, 254, 0.18);
+  --qc-warn: #f5c842;
+  --qc-red: #ff4466;
+}
+.qc-page main {
+  background:
+    radial-gradient(circle at 85% 18%, rgba(71, 54, 254, 0.22), transparent 22%),
+    radial-gradient(circle at 12% 84%, rgba(0, 229, 160, 0.1), transparent 26%),
+    linear-gradient(180deg, #090b10 0%, #0b0f15 42%, #080a0f 100%);
+}
+.qc-shell {
+  padding: 128px 0 80px;
+  color: var(--qc-text);
+}
+.qc-shell .container {
+  max-width: 1260px;
+}
+.qc-frame {
+  border: 1px solid var(--qc-border);
+  background: linear-gradient(180deg, rgba(16, 21, 29, 0.98), rgba(10, 13, 18, 0.98));
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+}
+.qc-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 32px;
+  border-bottom: 1px solid var(--qc-border);
+}
+.qc-brand-copy .eyebrow {
+  color: var(--qc-green);
+  margin-bottom: 12px;
+}
+.qc-brand-copy .eyebrow::before {
+  background: var(--qc-green);
+}
+.qc-kicker {
+  font-family: var(--qc-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--qc-muted);
+  margin-bottom: 12px;
+}
+.qc-title {
+  font-family: var(--qc-display);
+  font-size: clamp(2.5rem, 5vw, 4.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  margin-bottom: 16px;
+}
+.qc-title span {
+  color: var(--qc-green);
+}
+.qc-subtitle {
+  max-width: 60ch;
+  color: var(--qc-muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+.qc-status {
+  min-width: 280px;
+  border: 1px solid rgba(0, 229, 160, 0.22);
+  background: rgba(0, 229, 160, 0.06);
+  padding: 16px 18px;
+}
+.qc-status-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--qc-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--qc-green);
+  margin-bottom: 10px;
+}
+.qc-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--qc-green);
+  box-shadow: 0 0 0 8px rgba(0, 229, 160, 0.08);
+}
+.qc-status-copy {
+  color: var(--qc-text);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.qc-status-copy strong {
+  color: #fff;
+}
+.qc-grid-noise {
+  position: relative;
+}
+.qc-grid-noise::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,229,160,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,160,0.035) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.55;
+}
+.qc-section {
+  position: relative;
+  padding: 28px 32px 32px;
+  border-bottom: 1px solid var(--qc-border);
+}
+.qc-section:last-child {
+  border-bottom: none;
+}
+.qc-section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-family: var(--qc-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--qc-green);
+}
+.qc-section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--qc-border);
+}
+.qc-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.qc-metric {
+  position: relative;
+  padding: 20px;
+  background: var(--qc-surface);
+  border: 1px solid var(--qc-border);
+  overflow: hidden;
+}
+.qc-metric::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+.qc-metric.green::before { background: var(--qc-green); }
+.qc-metric.orange::before { background: var(--qc-orange); }
+.qc-metric.blue::before { background: #7b9cff; }
+.qc-metric.yellow::before { background: var(--qc-warn); }
+.qc-metric-label {
+  font-family: var(--qc-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--qc-muted);
+  margin-bottom: 10px;
+}
+.qc-metric-value {
+  font-family: var(--qc-display);
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  margin-bottom: 10px;
+}
+.qc-metric-value.green { color: var(--qc-green); }
+.qc-metric-value.orange { color: var(--qc-orange); }
+.qc-metric-value.blue { color: #8fa8ff; }
+.qc-metric-value.yellow { color: var(--qc-warn); }
+.qc-metric-copy {
+  color: var(--qc-muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.qc-hero-grid,
+.qc-two-col,
+.qc-three-col,
+.qc-dashboard-grid {
+  display: grid;
+  gap: 18px;
+}
+.qc-hero-grid { grid-template-columns: 1.1fr 0.9fr; }
+.qc-two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.qc-three-col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.qc-dashboard-grid { grid-template-columns: 1.15fr 0.85fr; }
+.qc-card {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(22, 28, 38, 0.9), rgba(16, 21, 29, 0.94));
+  border: 1px solid var(--qc-border);
+  padding: 22px;
+}
+.qc-card-title {
+  font-family: var(--qc-display);
+  font-size: 24px;
+  letter-spacing: -0.04em;
+  margin-bottom: 10px;
+}
+.qc-card-copy,
+.qc-card li,
+.qc-table td,
+.qc-output-copy,
+.qc-step-copy {
+  color: var(--qc-muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
+.qc-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+.qc-list li {
+  position: relative;
+  padding-left: 18px;
+}
+.qc-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--qc-green);
+}
+.qc-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+.qc-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border: 1px solid var(--qc-border);
+  background: rgba(255,255,255,0.03);
+  color: var(--qc-text);
+  font-family: var(--qc-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.qc-chip.signal { border-color: rgba(0,229,160,0.18); color: var(--qc-green); }
+.qc-chip.warn { border-color: rgba(245,200,66,0.18); color: var(--qc-warn); }
+.qc-chip.orange { border-color: rgba(255,107,53,0.22); color: var(--qc-orange); }
+.qc-pipeline {
+  display: flex;
+  align-items: stretch;
+  overflow-x: auto;
+  gap: 0;
+  padding-bottom: 4px;
+}
+.qc-stage {
+  min-width: 180px;
+  flex: 1;
+  padding: 18px 14px;
+  text-align: center;
+}
+.qc-stage-num {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  border: 2px solid var(--qc-border);
+  background: var(--qc-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--qc-mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+.qc-stage.done .qc-stage-num { color: var(--qc-green); border-color: rgba(0,229,160,0.32); background: rgba(0,229,160,0.08); }
+.qc-stage.pending .qc-stage-num { color: var(--qc-warn); border-color: rgba(245,200,66,0.32); background: rgba(245,200,66,0.08); }
+.qc-stage-name {
+  font-family: var(--qc-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--qc-muted);
+  margin-bottom: 8px;
+}
+.qc-stage-title {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.qc-stage-copy {
+  color: var(--qc-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.qc-stage-arrow {
+  width: 28px;
+  flex: 0 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0,229,160,0.4);
+  font-size: 18px;
+}
+.qc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.qc-table th {
+  background: rgba(71, 54, 254, 0.2);
+  color: #fff;
+  padding: 11px 12px;
+  text-align: left;
+  font-family: var(--qc-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.qc-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--qc-border);
+  vertical-align: top;
+}
+.qc-table tr:last-child td { border-bottom: none; }
+.qc-field {
+  color: #fff;
+  font-family: var(--qc-mono);
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.qc-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-family: var(--qc-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.qc-badge.pass { background: rgba(0,229,160,0.12); color: var(--qc-green); }
+.qc-badge.review { background: rgba(245,200,66,0.12); color: var(--qc-warn); }
+.qc-badge.fail { background: rgba(255,68,102,0.12); color: var(--qc-red); }
+.qc-badge.fix { background: rgba(123,156,255,0.12); color: #8fa8ff; }
+.qc-rule-grid {
+  display: grid;
+  gap: 10px;
+}
+.qc-rule-row {
+  display: grid;
+  grid-template-columns: 1fr 92px 160px;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid var(--qc-border);
+  background: rgba(255,255,255,0.025);
+}
+.qc-rule-title {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.qc-rule-note {
+  font-family: var(--qc-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--qc-muted);
+}
+.qc-ai-tag {
+  text-align: center;
+  padding: 6px 8px;
+  font-family: var(--qc-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--qc-border);
+}
+.qc-ai-tag.yes { color: #8fa8ff; background: rgba(123,156,255,0.08); }
+.qc-ai-tag.no { color: var(--qc-muted); background: rgba(255,255,255,0.03); }
+.qc-ai-tag.partial { color: var(--qc-warn); background: rgba(245,200,66,0.08); }
+.qc-rationale {
+  font-family: var(--qc-mono);
+  font-size: 10px;
+  color: var(--qc-muted);
+  line-height: 1.6;
+}
+.qc-output-grid {
+  display: grid;
+  gap: 12px;
+}
+.qc-output {
+  border: 1px solid var(--qc-border);
+  background: rgba(255,255,255,0.025);
+}
+.qc-output-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--qc-border);
+}
+.qc-output-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  background: var(--qc-surface-2);
+}
+.qc-output-title {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.qc-output-sub {
+  color: var(--qc-muted);
+  font-family: var(--qc-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.qc-output-copy { padding: 14px 18px 18px; }
+.qc-steps {
+  display: grid;
+  gap: 10px;
+}
+.qc-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border: 1px solid var(--qc-border);
+  background: rgba(255,255,255,0.025);
+}
+.qc-step-num {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  border-radius: 50%;
+  background: var(--qc-blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--qc-mono);
+  font-size: 11px;
+  font-weight: 700;
+}
+.qc-step-title {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.qc-callout {
+  padding: 16px 18px;
+  border-left: 3px solid var(--qc-green);
+  background: rgba(0,229,160,0.08);
+  color: #c9fbe9;
+  font-size: 14px;
+  line-height: 1.75;
+}
+.qc-callout strong { color: #fff; }
+.qc-cta {
+  text-align: center;
+  padding: 24px 0 4px;
+}
+.qc-cta .demo-shell {
+  max-width: none;
+  background: linear-gradient(180deg, rgba(16,21,29,0.95), rgba(12,16,22,0.95));
+  border-color: var(--qc-border);
+}
+.qc-cta .demo-title,
+.qc-cta .demo-copy {
+  color: var(--qc-text);
+}
+.qc-cta .demo-copy { opacity: 0.9; }
+@media (max-width: 1080px) {
+  .qc-top,
+  .qc-hero-grid,
+  .qc-two-col,
+  .qc-three-col,
+  .qc-dashboard-grid,
+  .qc-metrics {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+  .qc-top { align-items: stretch; }
+  .qc-status { min-width: 0; }
+}
+@media (max-width: 760px) {
+  .qc-shell { padding: 104px 0 48px; }
+  .qc-top,
+  .qc-section { padding: 22px 20px; }
+  .qc-rule-row { grid-template-columns: 1fr; }
+  .qc-pipeline { display: grid; gap: 10px; overflow: visible; }
+  .qc-stage-arrow { display: none; }
+  .qc-stage { min-width: 0; border: 1px solid var(--qc-border); background: rgba(255,255,255,0.025); }
+}
+</style>
 </head>
-<body>
+<body class="qc-page">
 <div id="progress-bar"></div>
 <nav id="navbar">
   <a href="/" class="nav-logo">JS<span>.</span></a>
@@ -30,110 +558,348 @@
   <a href="/contact/" class="mob-link">Contact</a>
   <a href="/contact/" class="mobile-cta">Work With Me</a>
 </div>
+
 <main>
-  <section class="hero">
-    <div class="container reveal">
-      <div class="eyebrow">Operations Automation</div>
-      <h1 class="hero-title">QC Automation Engine</h1>
-      <p class="hero-copy">Automate dealer listing quality control so inventory can move faster without scaling manual review.</p>
-    </div>
-  </section>
-  <section class="section">
+  <section class="qc-shell">
     <div class="container">
-      <div class="meta-grid">
-        <div class="meta-card reveal">
-          <div class="meta-label">Goal</div>
-          <div class="meta-value">Objective</div>
-          <div class="meta-copy">Replace a multi-day manual QC cycle with a production workflow that clears straightforward listings automatically and escalates only true exceptions.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-1">
-          <div class="meta-label">Use Case</div>
-          <div class="meta-value">Workflow Fit</div>
-          <div class="meta-copy">Used when marketplace inventory needs rules-first checks, exception routing, and consistent quality decisions across thousands of listings.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-2">
-          <div class="meta-label">Time</div>
-          <div class="meta-value">Speed</div>
-          <div class="meta-copy">Processes 2,000+ records in about 20 minutes instead of 5+ days of manual work.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-3">
-          <div class="meta-label">Commercial</div>
-          <div class="meta-value">Value</div>
-          <div class="meta-copy">Reduced recurring review effort and freed meaningful ops capacity that would otherwise stay tied up in low-leverage QC work.</div>
-        </div>
+      <div class="qc-frame qc-grid-noise reveal visible">
+        <header class="qc-top">
+          <div class="qc-brand-copy">
+            <div class="eyebrow">Operations Automation</div>
+            <div class="qc-kicker">Cars24 AU · Inventory quality control system</div>
+            <h1 class="qc-title">QC Automation <span>Engine</span></h1>
+            <p class="qc-subtitle">A production workflow that takes inventory QC out of endless spreadsheet review and turns it into a rules-first, exception-driven operating system for marketplace listings.</p>
+          </div>
+          <aside class="qc-status">
+            <div class="qc-status-line"><span class="qc-dot"></span> live operating logic</div>
+            <p class="qc-status-copy"><strong>Core job:</strong> clear straightforward listings automatically, route only edge cases to humans, and return a publish-ready decision trail for ops teams.</p>
+          </aside>
+        </header>
+
+        <section class="qc-section">
+          <div class="qc-section-label">Impact snapshot</div>
+          <div class="qc-metrics">
+            <article class="qc-metric green">
+              <div class="qc-metric-label">Processing window</div>
+              <div class="qc-metric-value green">20 min</div>
+              <p class="qc-metric-copy">Reduced a manual QC cycle that previously stretched across multiple days into one fast operating pass.</p>
+            </article>
+            <article class="qc-metric orange">
+              <div class="qc-metric-label">Manual baseline</div>
+              <div class="qc-metric-value orange">5 days</div>
+              <p class="qc-metric-copy">The original process relied on people reviewing listing after listing without a scalable decision framework.</p>
+            </article>
+            <article class="qc-metric blue">
+              <div class="qc-metric-label">Batch capacity</div>
+              <div class="qc-metric-value blue">2,000+</div>
+              <p class="qc-metric-copy">Handles large inventory sets consistently, which makes launch readiness and backlog clearance operationally realistic.</p>
+            </article>
+            <article class="qc-metric yellow">
+              <div class="qc-metric-label">Review model</div>
+              <div class="qc-metric-value yellow">Exception-first</div>
+              <p class="qc-metric-copy">Teams spend time only on uncertain or failed records instead of reviewing every listing from scratch.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="qc-section">
+          <div class="qc-section-label">System framing</div>
+          <div class="qc-hero-grid">
+            <article class="qc-card">
+              <h2 class="qc-card-title">What the engine actually solves</h2>
+              <p class="qc-card-copy">Inventory quality is usually not blocked by lack of effort. It gets blocked because every record needs the same repetitive checks, but the business still needs consistent judgment, faster turnaround, and usable outputs for downstream teams.</p>
+              <ul class="qc-list">
+                <li>Standardizes field-level QC rules across title, pricing, attributes, imagery, and listing readiness.</li>
+                <li>Separates hard failures from fixable issues and genuine human-review exceptions.</li>
+                <li>Creates a dependable operating layer between raw inventory data and publishable marketplace listings.</li>
+              </ul>
+              <div class="qc-chip-row">
+                <span class="qc-chip signal">Rule engine</span>
+                <span class="qc-chip signal">Ops routing</span>
+                <span class="qc-chip orange">Exception handling</span>
+                <span class="qc-chip warn">Human review</span>
+              </div>
+            </article>
+            <article class="qc-card">
+              <h2 class="qc-card-title">Business objective</h2>
+              <p class="qc-card-copy">Move from a person-dependent QA queue to a repeatable system that protects listing quality while increasing throughput.</p>
+              <div class="qc-steps" style="margin-top:18px;">
+                <div class="qc-step">
+                  <div class="qc-step-num">01</div>
+                  <div>
+                    <div class="qc-step-title">Shrink turnaround time</div>
+                    <p class="qc-step-copy">Inventory should not wait days to become market-ready when the majority of checks are deterministic.</p>
+                  </div>
+                </div>
+                <div class="qc-step">
+                  <div class="qc-step-num">02</div>
+                  <div>
+                    <div class="qc-step-title">Improve decision consistency</div>
+                    <p class="qc-step-copy">Every listing should be measured against the same logic, not reviewer mood, speed, or tribal knowledge.</p>
+                  </div>
+                </div>
+                <div class="qc-step">
+                  <div class="qc-step-num">03</div>
+                  <div>
+                    <div class="qc-step-title">Free ops bandwidth</div>
+                    <p class="qc-step-copy">Human time should go to edge cases, process improvements, and release quality, not repetitive checklist work.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="qc-section">
+          <div class="qc-section-label">Pipeline view</div>
+          <div class="qc-card">
+            <div class="qc-pipeline">
+              <div class="qc-stage done">
+                <div class="qc-stage-num">01</div>
+                <div class="qc-stage-name">ingest</div>
+                <div class="qc-stage-title">Pull listing payload</div>
+                <p class="qc-stage-copy">Bring inventory fields, dealer inputs, and listing metadata into one normalized QC layer.</p>
+              </div>
+              <div class="qc-stage-arrow">→</div>
+              <div class="qc-stage done">
+                <div class="qc-stage-num">02</div>
+                <div class="qc-stage-name">validate</div>
+                <div class="qc-stage-title">Run rule checks</div>
+                <p class="qc-stage-copy">Test mandatory fields, thresholds, formatting, and known readiness conditions at scale.</p>
+              </div>
+              <div class="qc-stage-arrow">→</div>
+              <div class="qc-stage done">
+                <div class="qc-stage-num">03</div>
+                <div class="qc-stage-name">classify</div>
+                <div class="qc-stage-title">Score issue severity</div>
+                <p class="qc-stage-copy">Separate pass, auto-fix, review, and fail states so ops action becomes immediately obvious.</p>
+              </div>
+              <div class="qc-stage-arrow">→</div>
+              <div class="qc-stage pending">
+                <div class="qc-stage-num">04</div>
+                <div class="qc-stage-name">route</div>
+                <div class="qc-stage-title">Escalate exceptions</div>
+                <p class="qc-stage-copy">Send only uncertain cases to humans with enough context to act quickly instead of re-diagnosing.</p>
+              </div>
+              <div class="qc-stage-arrow">→</div>
+              <div class="qc-stage done">
+                <div class="qc-stage-num">05</div>
+                <div class="qc-stage-name">output</div>
+                <div class="qc-stage-title">Return ready-to-use outputs</div>
+                <p class="qc-stage-copy">Feed publish status, issue logs, and review queues back into operational systems and reporting.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="qc-section">
+          <div class="qc-section-label">Decision system</div>
+          <div class="qc-two-col">
+            <article class="qc-card">
+              <h2 class="qc-card-title">Representative field logic</h2>
+              <table class="qc-table">
+                <thead>
+                  <tr>
+                    <th>Field</th>
+                    <th>What gets checked</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="qc-field">listing_title</div>
+                      <div class="qc-rule-note">Primary user-facing summary</div>
+                    </td>
+                    <td>Length, duplication, forbidden patterns, readability, and consistency with vehicle attributes.</td>
+                    <td><span class="qc-badge review">review</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="qc-field">price_data</div>
+                      <div class="qc-rule-note">Commercial trust signal</div>
+                    </td>
+                    <td>Presence, impossible ranges, format mismatches, and logic breaks against expected commercial rules.</td>
+                    <td><span class="qc-badge fail">fail</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="qc-field">vehicle_attributes</div>
+                      <div class="qc-rule-note">Specs and metadata</div>
+                    </td>
+                    <td>Missing mandatory values, attribute conflicts, and schema alignment across required listing fields.</td>
+                    <td><span class="qc-badge fix">auto-fix</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="qc-field">media_completeness</div>
+                      <div class="qc-rule-note">Visual listing readiness</div>
+                    </td>
+                    <td>Count thresholds, missing key views, and basic completeness checks before listing release.</td>
+                    <td><span class="qc-badge review">review</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="qc-field">listing_status</div>
+                      <div class="qc-rule-note">Publish outcome</div>
+                    </td>
+                    <td>Combines all upstream checks into pass, hold, or escalation actions for downstream teams.</td>
+                    <td><span class="qc-badge pass">pass</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </article>
+            <article class="qc-card">
+              <h2 class="qc-card-title">Where rules win and where AI helps</h2>
+              <div class="qc-rule-grid">
+                <div class="qc-rule-row">
+                  <div>
+                    <div class="qc-rule-title">Missing fields, schema breaks, value thresholds</div>
+                    <div class="qc-rule-note">Deterministic checks with near-zero ambiguity</div>
+                  </div>
+                  <div class="qc-ai-tag no">AI no</div>
+                  <div class="qc-rationale">Fast, cheap, and reliable as explicit logic.</div>
+                </div>
+                <div class="qc-rule-row">
+                  <div>
+                    <div class="qc-rule-title">Title quality and content clarity</div>
+                    <div class="qc-rule-note">Needs judgment, not only presence checks</div>
+                  </div>
+                  <div class="qc-ai-tag partial">partial</div>
+                  <div class="qc-rationale">AI can assist review quality while hard rules still enforce structure.</div>
+                </div>
+                <div class="qc-rule-row">
+                  <div>
+                    <div class="qc-rule-title">Image or listing-context anomaly review</div>
+                    <div class="qc-rule-note">Useful when simple rules miss nuanced problems</div>
+                  </div>
+                  <div class="qc-ai-tag yes">AI yes</div>
+                  <div class="qc-rationale">Good fit for confidence scoring and edge-case triage support.</div>
+                </div>
+                <div class="qc-rule-row">
+                  <div>
+                    <div class="qc-rule-title">Final ops routing</div>
+                    <div class="qc-rule-note">Business logic plus human-review guardrails</div>
+                  </div>
+                  <div class="qc-ai-tag partial">partial</div>
+                  <div class="qc-rationale">AI can summarize, but routing thresholds should stay operationally explicit.</div>
+                </div>
+              </div>
+              <div class="qc-callout" style="margin-top:16px;">
+                <strong>Design principle:</strong> use AI where judgment creates leverage, but keep final operational state transitions legible, auditable, and rules-backed.
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="qc-section">
+          <div class="qc-section-label">Ops dashboard</div>
+          <div class="qc-dashboard-grid">
+            <article class="qc-card">
+              <h2 class="qc-card-title">How the workflow lands operationally</h2>
+              <div class="qc-steps">
+                <div class="qc-step">
+                  <div class="qc-step-num">A</div>
+                  <div>
+                    <div class="qc-step-title">Batch arrives</div>
+                    <p class="qc-step-copy">Raw inventory enters the QC layer from listing or data systems instead of going straight into manual review.</p>
+                  </div>
+                </div>
+                <div class="qc-step">
+                  <div class="qc-step-num">B</div>
+                  <div>
+                    <div class="qc-step-title">Checks fire automatically</div>
+                    <p class="qc-step-copy">Mandatory business rules, formatting logic, and readiness tests create a structured issue map per listing.</p>
+                  </div>
+                </div>
+                <div class="qc-step">
+                  <div class="qc-step-num">C</div>
+                  <div>
+                    <div class="qc-step-title">Listings get classified</div>
+                    <p class="qc-step-copy">Pass, fail, auto-fix, and review states make it clear what needs no touch, what needs support, and what must be held.</p>
+                  </div>
+                </div>
+                <div class="qc-step">
+                  <div class="qc-step-num">D</div>
+                  <div>
+                    <div class="qc-step-title">Humans only handle the edge</div>
+                    <p class="qc-step-copy">Reviewers focus on nuanced exceptions instead of burning time on straightforward listings that should have been auto-cleared.</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="qc-card">
+              <h2 class="qc-card-title">Primary outputs</h2>
+              <div class="qc-output-grid">
+                <div class="qc-output">
+                  <div class="qc-output-head">
+                    <div class="qc-output-icon">⚙️</div>
+                    <div>
+                      <div class="qc-output-title">QC decision payload</div>
+                      <div class="qc-output-sub">listing-level result state</div>
+                    </div>
+                  </div>
+                  <div class="qc-output-copy">A structured result for each listing with pass, hold, review, and fix actions that downstream teams can consume immediately.</div>
+                </div>
+                <div class="qc-output">
+                  <div class="qc-output-head">
+                    <div class="qc-output-icon">📋</div>
+                    <div>
+                      <div class="qc-output-title">Exception queue</div>
+                      <div class="qc-output-sub">human review surface</div>
+                    </div>
+                  </div>
+                  <div class="qc-output-copy">A cleaner work queue where only ambiguous or genuinely broken records need people, dramatically reducing review noise.</div>
+                </div>
+                <div class="qc-output">
+                  <div class="qc-output-head">
+                    <div class="qc-output-icon">📈</div>
+                    <div>
+                      <div class="qc-output-title">Operational reporting</div>
+                      <div class="qc-output-sub">throughput and issue visibility</div>
+                    </div>
+                  </div>
+                  <div class="qc-output-copy">Clear visibility into failure categories, processing volumes, backlog risk, and where the process still needs improvement.</div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="qc-section">
+          <div class="qc-section-label">Commercial outcome</div>
+          <div class="qc-three-col">
+            <article class="qc-card">
+              <h2 class="qc-card-title">Process gain</h2>
+              <p class="qc-card-copy">The work turned a loosely managed QC queue into a real operating system with traceable states, reliable routing, and repeatable standards.</p>
+            </article>
+            <article class="qc-card">
+              <h2 class="qc-card-title">Time gain</h2>
+              <p class="qc-card-copy">The shift from roughly five days of manual handling to around twenty minutes changes how quickly inventory can move toward readiness.</p>
+            </article>
+            <article class="qc-card">
+              <h2 class="qc-card-title">Economic gain</h2>
+              <p class="qc-card-copy">The value is not just saved hours. It is the ability to redeploy team attention into exceptions, throughput, and marketplace quality at scale.</p>
+            </article>
+          </div>
+        </section>
       </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="eyebrow reveal">Process design</div>
-      <h2 class="section-title reveal">Visual representation of the workflow</h2>
-      <p class="section-sub reveal">This section acts as the process view for now. Once you share project images or diagrams, we can replace or extend these steps with visuals from the actual workflow.</p>
-      <div class="flow">
-        <div class="flow-step reveal">
-          <div class="flow-num">01</div>
-          <div>
-            <div class="flow-title">Ingest listing data</div>
-            <div class="flow-copy">Pull vehicle and listing fields into one working pipeline so every record is checked against the same operating logic.</div>
+
+      <section class="demo-strip qc-cta">
+        <div class="demo-shell reveal visible">
+          <div class="eyebrow" style="justify-content:center; color: var(--qc-green);">Next layer</div>
+          <h2 class="demo-title">Demo route stays ready for the deeper walkthrough</h2>
+          <p class="demo-copy">This page now tells the operating story properly. The next layer can live at <code>/ai-automation/qc-automation-engine/demo</code> where we later plug in the real demo, screens, or process simulation.</p>
+          <div class="cta-actions">
+            <a href="/ai-automation/qc-automation-engine/demo/" class="btn-primary">Open Demo Route</a>
+            <a href="/ai-automation/" class="btn-secondary">Back to AI Library</a>
           </div>
         </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">02</div>
-          <div>
-            <div class="flow-title">Score and validate</div>
-            <div class="flow-copy">Run rules-first checks, then layer AI-assisted validation where judgment improves output quality.</div>
-          </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">03</div>
-          <div>
-            <div class="flow-title">Route exceptions</div>
-            <div class="flow-copy">Auto-clear clean listings and surface only failed or uncertain records to manual review.</div>
-          </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">04</div>
-          <div>
-            <div class="flow-title">Track readiness</div>
-            <div class="flow-copy">Return clear outputs teams can use immediately for publication, rework, and reporting.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="eyebrow reveal">Impact</div>
-      <div class="impact-grid">
-        <article class="impact-card reveal">
-          <h3>Process impact</h3>
-          <p>Ingest listing data, run rules and AI-assisted checks, classify readiness, route failures, and surface a usable output for ops teams.</p>
-        </article>
-        <article class="impact-card reveal reveal-delay-1">
-          <h3>Time impact</h3>
-          <p>Processes 2,000+ records in about 20 minutes instead of 5+ days of manual work.</p>
-        </article>
-        <article class="impact-card reveal reveal-delay-2">
-          <h3>Monetary or commercial impact</h3>
-          <p>Reduced recurring review effort and freed meaningful ops capacity that would otherwise stay tied up in low-leverage QC work.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-  <section class="demo-strip">
-    <div class="container">
-      <div class="demo-shell reveal">
-        <div class="eyebrow" style="justify-content:center;">Next layer</div>
-        <h2 class="demo-title">Live demo route prepared</h2>
-        <p class="demo-copy">The deeper walkthrough for this project can live at <code>/ai-automation/qc-automation-engine/demo</code>. For now, this page explains the system objective, use case, and workflow shape clearly.</p>
-        <div class="cta-actions">
-          <a href="/ai-automation/qc-automation-engine/demo/" class="btn-primary">Open Demo Placeholder</a>
-          <a href="/ai-automation/" class="btn-secondary">Back to AI Library</a>
-        </div>
-      </div>
+      </section>
     </div>
   </section>
 </main>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-logo">Jigyanshu Shah<span>.</span></div>
