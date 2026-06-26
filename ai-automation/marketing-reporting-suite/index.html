@@ -4,12 +4,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marketing Reporting Suite | AI Automation by Jigyanshu Shah</title>
-<meta name="description" content="Automate recurring reporting across SEO, CRM, and performance channels into one reliable operating system.">
+<meta name="description" content="A cross-channel reporting operating system connecting Google Ads, GSC, HubSpot, SEO, CRM, and Snowflake into one reliable decision layer.">
 <link rel="canonical" href="https://jigyanshushah.ai/ai-automation/marketing-reporting-suite/">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/ai-automation.css">
+<style>
+.reporting-page main{background:linear-gradient(180deg,#0a0c10 0%,#0d1118 100%)}
+.reporting-wrap{padding:112px 0 56px}.reporting-wrap .container{max-width:1240px}
+.reporting-hero{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,#101625 0%,#172338 45%,#0f151f 100%);padding:36px 40px}
+.reporting-hero:before{content:"";position:absolute;top:-120px;right:-40px;width:320px;height:320px;border-radius:50%;background:rgba(255,90,54,.16)}
+.reporting-hero:after{content:"";position:absolute;bottom:-110px;left:38%;width:240px;height:240px;border-radius:50%;background:rgba(215,255,100,.06)}
+.reporting-hero-grid,.reporting-grid-2,.reporting-grid-3,.reporting-metrics,.reporting-stack,.reporting-flow,.reporting-impact{display:grid;gap:18px}
+.reporting-hero-grid{grid-template-columns:1.12fr .88fr;position:relative;z-index:1}
+.reporting-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.reporting-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.reporting-metrics{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:24px}
+.reporting-stack{grid-template-columns:repeat(4,minmax(0,1fr))}
+.reporting-flow{grid-template-columns:repeat(4,minmax(0,1fr))}
+.reporting-impact{grid-template-columns:1.1fr .9fr}
+.reporting-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--sand);margin-bottom:12px}
+.reporting-eyebrow:before{content:"";display:block;width:24px;height:1px;background:var(--signal)}
+.reporting-title{font-family:var(--syne);font-size:clamp(2.5rem,5vw,4.8rem);line-height:.94;letter-spacing:-.06em;margin-bottom:16px}
+.reporting-title span,.reporting-card.kpi .reporting-value,.reporting-chip strong,.reporting-step-num,.reporting-panel strong{color:var(--accent)}
+.reporting-sub{max-width:60ch;color:rgba(255,255,255,.8);font-size:16px;line-height:1.8}
+.reporting-panel,.reporting-card,.reporting-step,.reporting-board,.reporting-rail{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04)}
+.reporting-panel{padding:22px}
+.reporting-panel h3,.reporting-card-title,.reporting-rail h3{font-family:var(--syne);font-size:22px;letter-spacing:-.04em;margin-bottom:10px}
+.reporting-panel p,.reporting-copy,.reporting-list li,.reporting-step p,.reporting-rail p,.reporting-board p{color:var(--muted);font-size:14px;line-height:1.75}
+.reporting-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.reporting-chip{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);border-radius:999px;padding:8px 12px;font-size:12px;color:var(--text)}
+.reporting-card{padding:22px}
+.reporting-card.kpi{padding:20px;background:#121823}
+.reporting-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8f98a8;margin-bottom:8px}
+.reporting-value{font-family:var(--syne);font-size:32px;line-height:1;letter-spacing:-.05em;margin-bottom:8px}
+.reporting-section{padding:34px 0 0}
+.reporting-step{padding:22px;min-height:100%}
+.reporting-step-num{font-family:var(--syne);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.reporting-step h3{font-family:var(--syne);font-size:20px;letter-spacing:-.04em;margin-bottom:8px}
+.reporting-board{padding:24px;background:linear-gradient(180deg,rgba(255,255,255,.06) 0%,rgba(255,255,255,.03) 100%)}
+.reporting-board-head{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:22px}
+.reporting-board-title{font-family:var(--syne);font-size:28px;letter-spacing:-.05em}
+.reporting-board-meta{display:flex;gap:10px;flex-wrap:wrap}
+.reporting-badge{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,90,54,.12);border:1px solid rgba(255,90,54,.2);color:#ffd6cb}
+.reporting-badge.good{background:rgba(215,255,100,.08);border-color:rgba(215,255,100,.18);color:#e8ffc2}
+.reporting-stack-card{padding:18px;border:1px solid rgba(255,255,255,.08);background:#111722}
+.reporting-stack-card h4{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8f98a8;margin-bottom:10px}
+.reporting-stack-card p{color:var(--muted);font-size:13px;line-height:1.7}
+.reporting-list{list-style:none;display:grid;gap:10px}
+.reporting-list li{position:relative;padding-left:18px}
+.reporting-list li:before{content:"";position:absolute;left:0;top:.72em;width:7px;height:7px;border-radius:50%;background:var(--signal)}
+.reporting-rail{padding:22px;background:#101620}
+.reporting-rail + .reporting-rail{margin-top:18px}
+.reporting-divider{height:1px;background:rgba(255,255,255,.08);margin:16px 0}
+.reporting-callout{border-left:4px solid var(--signal);background:rgba(255,90,54,.08);padding:16px 18px;color:#ffd7cf;font-size:14px;line-height:1.7}
+.reporting-callout strong{color:#fff}
+.reporting-cta{padding-top:26px;text-align:center}
+@media(max-width:980px){.reporting-hero-grid,.reporting-grid-2,.reporting-grid-3,.reporting-metrics,.reporting-stack,.reporting-flow,.reporting-impact{grid-template-columns:1fr}}
+@media(max-width:760px){.reporting-wrap{padding:96px 0 44px}.reporting-hero,.reporting-board{padding:28px 22px}}
+</style>
 </head>
-<body>
+<body class="reporting-page">
 <div id="progress-bar"></div>
 <nav id="navbar">
   <a href="/" class="nav-logo">JS<span>.</span></a>
@@ -22,7 +76,6 @@
   <a href="/contact/" class="nav-cta">Work With Me</a>
   <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
 </nav>
-
 <div class="mobile-menu" id="mobileMenu">
   <a href="/" class="mob-link">About</a>
   <a href="/experience/" class="mob-link">Experience</a>
@@ -31,108 +84,138 @@
   <a href="/contact/" class="mobile-cta">Work With Me</a>
 </div>
 <main>
-  <section class="hero">
-    <div class="container reveal">
-      <div class="eyebrow">Reporting Automation</div>
-      <h1 class="hero-title">Marketing Reporting Suite</h1>
-      <p class="hero-copy">Automate recurring reporting across SEO, CRM, and performance channels into one reliable operating system.</p>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="meta-grid">
-        <div class="meta-card reveal">
-          <div class="meta-label">Goal</div>
-          <div class="meta-value">Objective</div>
-          <div class="meta-copy">Create a scheduled reporting layer that standardizes inputs, cuts manual effort, and makes channel visibility faster and more reliable.</div>
+<section class="reporting-wrap">
+  <div class="container">
+    <div class="reporting-hero reveal visible">
+      <div class="reporting-hero-grid">
+        <div>
+          <div class="reporting-eyebrow">Cross-channel reporting automation</div>
+          <h1 class="reporting-title">Turning fragmented channel data into a <span>single operating rhythm</span></h1>
+          <p class="reporting-sub">This was built to remove repeated reporting assembly across SEO, CRM, paid media, and warehouse data. Instead of rebuilding the same view every week, the suite created one reporting layer that connected Google Ads, GSC, HubSpot, and Snowflake into a system leaders could actually run on.</p>
+          <div class="reporting-metrics">
+            <div class="reporting-card kpi"><div class="reporting-label">Time saved</div><div class="reporting-value">5.5 days</div><div class="reporting-copy">Manual reporting effort removed per month.</div></div>
+            <div class="reporting-card kpi"><div class="reporting-label">Core sources</div><div class="reporting-value">4+</div><div class="reporting-copy">Google Ads, GSC, HubSpot, Snowflake, plus channel-level rollups.</div></div>
+            <div class="reporting-card kpi"><div class="reporting-label">Operating use</div><div class="reporting-value">Weekly+</div><div class="reporting-copy">Built for recurring refreshes, not one-off dashboard theatre.</div></div>
+            <div class="reporting-card kpi"><div class="reporting-label">Decision gain</div><div class="reporting-value">Faster</div><div class="reporting-copy">Less reconciliation, more time spent on action and diagnosis.</div></div>
+          </div>
         </div>
-        <div class="meta-card reveal reveal-delay-1">
-          <div class="meta-label">Use Case</div>
-          <div class="meta-value">Workflow Fit</div>
-          <div class="meta-copy">Used when teams need consistent channel reporting from Google Ads, GSC, HubSpot, and Snowflake without rebuilding decks and spreadsheets every cycle.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-2">
-          <div class="meta-label">Time</div>
-          <div class="meta-value">Speed</div>
-          <div class="meta-copy">Saves roughly 5.5 days per month of repeated reporting work.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-3">
-          <div class="meta-label">Commercial</div>
-          <div class="meta-value">Value</div>
-          <div class="meta-copy">Reduces analyst and manager time spent on manual report assembly and improves decision speed across channel owners.</div>
-        </div>
+        <aside class="reporting-panel">
+          <h3>Why this mattered</h3>
+          <p>Marketing reporting usually breaks in the same places: inconsistent definitions, exports living in different tools, and weekly deck labour that keeps good people stuck in formatting mode.</p>
+          <div class="reporting-divider"></div>
+          <p><strong>What this solved:</strong> one reporting spine for CRM, SEO, and performance teams, with cleaner definitions and repeatable refresh logic.</p>
+          <div class="reporting-chips">
+            <div class="reporting-chip"><strong>SEO</strong> visibility + landing-page demand</div>
+            <div class="reporting-chip"><strong>CRM</strong> funnel + lifecycle output</div>
+            <div class="reporting-chip"><strong>Paid</strong> spend + conversion clarity</div>
+            <div class="reporting-chip"><strong>Warehouse</strong> trusted rollups</div>
+          </div>
+        </aside>
       </div>
     </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="eyebrow reveal">Process design</div>
-      <h2 class="section-title reveal">Visual representation of the workflow</h2>
-      <p class="section-sub reveal">This section acts as the process view for now. Once you share project images or diagrams, we can replace or extend these steps with visuals from the actual workflow.</p>
-      <div class="flow">
-        <div class="flow-step reveal">
-          <div class="flow-num">01</div>
-          <div>
-            <div class="flow-title">Connect sources</div>
-            <div class="flow-copy">Bring together Google Ads, GSC, HubSpot, and Snowflake into one repeatable reporting layer.</div>
+
+    <div class="reporting-section">
+      <div class="reporting-impact">
+        <article class="reporting-board reveal">
+          <div class="reporting-board-head">
+            <div>
+              <div class="reporting-eyebrow">System view</div>
+              <h2 class="reporting-board-title">What the reporting stack actually connected</h2>
+            </div>
+            <div class="reporting-board-meta">
+              <div class="reporting-badge">Before · scattered exports</div>
+              <div class="reporting-badge good">After · one operating layer</div>
+            </div>
           </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">02</div>
-          <div>
-            <div class="flow-title">Normalize metrics</div>
-            <div class="flow-copy">Align naming, channel definitions, and logic so teams stop debating source-of-truth issues.</div>
+          <div class="reporting-stack">
+            <div class="reporting-stack-card"><h4>Input layer</h4><p>Google Ads, GSC, HubSpot, and Snowflake feeds were pulled into one recurring reporting environment instead of sitting in separate logins and isolated exports.</p></div>
+            <div class="reporting-stack-card"><h4>Logic layer</h4><p>Channel naming, KPI mapping, and source-of-truth definitions were normalized so reporting stopped becoming an argument about whose sheet was “right”.</p></div>
+            <div class="reporting-stack-card"><h4>Output layer</h4><p>Leadership views, channel summaries, and recurring reporting tables were generated in a consistent format that teams could reuse across weeks and months.</p></div>
+            <div class="reporting-stack-card"><h4>Action layer</h4><p>The point was not just visibility. It was faster diagnosis across SEO, CRM, and paid teams so performance issues were found earlier and discussed with shared context.</p></div>
           </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">03</div>
-          <div>
-            <div class="flow-title">Automate refreshes</div>
-            <div class="flow-copy">Run scheduled updates instead of manual exports, copying, and formatting every week or month.</div>
-          </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">04</div>
-          <div>
-            <div class="flow-title">Distribute reporting</div>
-            <div class="flow-copy">Send outputs to the right people in a format they can actually use for decisions.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="eyebrow reveal">Impact</div>
-      <div class="impact-grid">
-        <article class="impact-card reveal">
-          <h3>Process impact</h3>
-          <p>Connect paid, search, CRM, and warehouse sources, normalize definitions, automate refreshes, and distribute outputs to the right stakeholders.</p>
         </article>
-        <article class="impact-card reveal reveal-delay-1">
-          <h3>Time impact</h3>
-          <p>Saves roughly 5.5 days per month of repeated reporting work.</p>
-        </article>
-        <article class="impact-card reveal reveal-delay-2">
-          <h3>Monetary or commercial impact</h3>
-          <p>Reduces analyst and manager time spent on manual report assembly and improves decision speed across channel owners.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-  <section class="demo-strip">
-    <div class="container">
-      <div class="demo-shell reveal">
-        <div class="eyebrow" style="justify-content:center;">Next layer</div>
-        <h2 class="demo-title">Live demo route prepared</h2>
-        <p class="demo-copy">The deeper walkthrough for this project can live at <code>/ai-automation/marketing-reporting-suite/demo</code>. For now, this page explains the system objective, use case, and workflow shape clearly.</p>
-        <div class="cta-actions">
-          <a href="/ai-automation/marketing-reporting-suite/demo/" class="btn-primary">Open Demo Placeholder</a>
-          <a href="/ai-automation/" class="btn-secondary">Back to AI Library</a>
+        <div>
+          <article class="reporting-rail reveal">
+            <h3>What changed in process terms</h3>
+            <ul class="reporting-list">
+              <li>Stopped repeated copy-paste reporting from multiple platforms.</li>
+              <li>Reduced channel reconciliation work before every weekly review.</li>
+              <li>Created one reporting rhythm shared across performance, SEO, and CRM.</li>
+              <li>Moved effort from formatting output to understanding why numbers moved.</li>
+            </ul>
+          </article>
+          <article class="reporting-rail reveal reveal-delay-1">
+            <h3>Commercial value</h3>
+            <p>Saving 5.5 days per month is useful, but the bigger gain is management bandwidth. When leads and channel owners trust the same definitions, decisions get made earlier and wasted reporting loops shrink.</p>
+          </article>
+          <article class="reporting-rail reveal reveal-delay-2">
+            <h3>Best way to frame it</h3>
+            <div class="reporting-callout"><strong>This was an operating system for marketing visibility</strong> — not just a dashboard, and definitely not another polished report that still depended on manual stitching underneath.</div>
+          </article>
         </div>
       </div>
     </div>
-  </section>
+
+    <div class="reporting-section">
+      <div class="reporting-eyebrow reveal">Workflow breakdown</div>
+      <h2 class="section-title reveal">How the reporting workflow was structured</h2>
+      <p class="section-sub reveal">The value was in how sources, definitions, refreshes, and stakeholder outputs were sequenced. That structure made the reporting dependable.</p>
+      <div class="reporting-flow">
+        <article class="reporting-step reveal">
+          <div class="reporting-step-num">01 · ingest</div>
+          <h3>Pull channel data in</h3>
+          <p>Connect search, CRM, paid, and warehouse sources so the reporting process starts from consistent raw inputs rather than scattered spreadsheets.</p>
+        </article>
+        <article class="reporting-step reveal reveal-delay-1">
+          <div class="reporting-step-num">02 · normalize</div>
+          <h3>Fix the naming and logic layer</h3>
+          <p>Standardize channel definitions, KPI logic, and reporting cuts so leadership and operators stop seeing different stories from different exports.</p>
+        </article>
+        <article class="reporting-step reveal reveal-delay-2">
+          <div class="reporting-step-num">03 · refresh</div>
+          <h3>Automate the recurring cycle</h3>
+          <p>Replace manual rework with scheduled refreshes and repeatable templates, turning a task people dreaded into a stable cadence.</p>
+        </article>
+        <article class="reporting-step reveal reveal-delay-3">
+          <div class="reporting-step-num">04 · distribute</div>
+          <h3>Route the right view to the right owner</h3>
+          <p>Expose the same system in stakeholder-specific outputs so channel owners, managers, and leadership all operate from the same reporting base.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="reporting-section">
+      <div class="reporting-grid-3">
+        <article class="reporting-card reveal">
+          <h2 class="reporting-card-title">Goal</h2>
+          <p class="reporting-copy">Create one dependable reporting layer across SEO, CRM, performance, and warehouse sources so recurring reviews stop depending on manual analyst assembly.</p>
+        </article>
+        <article class="reporting-card reveal reveal-delay-1">
+          <h2 class="reporting-card-title">Use case</h2>
+          <p class="reporting-copy">Used when channel teams need aligned metrics from Google Ads, GSC, HubSpot, and Snowflake without rebuilding the same update deck, sheet, or dashboard every cycle.</p>
+        </article>
+        <article class="reporting-card reveal reveal-delay-2">
+          <h2 class="reporting-card-title">Outcome</h2>
+          <p class="reporting-copy">Removed roughly 5.5 days of repeated monthly work and improved decision speed by making reporting cleaner, earlier, and easier to trust.</p>
+        </article>
+      </div>
+    </div>
+
+    <section class="demo-strip reporting-cta">
+      <div class="container">
+        <div class="demo-shell reveal visible">
+          <div class="eyebrow" style="justify-content:center;">Next layer</div>
+          <h2 class="demo-title">The project page now tells the real story</h2>
+          <p class="demo-copy">The deeper walkthrough can still expand at <code>/ai-automation/marketing-reporting-suite/demo</code>, but the main page now frames the system as real reporting infrastructure rather than a generic automation placeholder.</p>
+          <div class="cta-actions">
+            <a href="/ai-automation/marketing-reporting-suite/demo/" class="btn-primary">Open Demo Route</a>
+            <a href="/ai-automation/" class="btn-secondary">Back to AI Library</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
 </main>
 <footer>
   <div class="footer-inner">

@@ -4,12 +4,65 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reddit Community Intelligence | AI Automation by Jigyanshu Shah</title>
-<meta name="description" content="Turn scattered Reddit monitoring into a structured workflow for discovery, response, and tracking.">
+<meta name="description" content="A structured Reddit intelligence workflow for finding relevant community conversations, triaging response opportunities, and routing action into team workflows.">
 <link rel="canonical" href="https://jigyanshushah.ai/ai-automation/reddit-community-intelligence/">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/ai-automation.css">
+<style>
+.reddit-page main{background:linear-gradient(180deg,#090b10 0%,#0b0e14 100%)}
+.reddit-wrap{padding:112px 0 56px}.reddit-wrap .container{max-width:1240px}
+.reddit-hero{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,#14101d 0%,#21163a 42%,#111723 100%);padding:36px 40px}
+.reddit-hero:before{content:"";position:absolute;right:-70px;top:-90px;width:320px;height:320px;border-radius:50%;background:rgba(255,90,54,.13)}
+.reddit-hero:after{content:"";position:absolute;left:34%;bottom:-120px;width:250px;height:250px;border-radius:50%;background:rgba(215,255,100,.06)}
+.reddit-hero-grid,.reddit-grid-2,.reddit-grid-3,.reddit-metrics,.reddit-stream,.reddit-states,.reddit-impact{display:grid;gap:18px}
+.reddit-hero-grid{grid-template-columns:1.08fr .92fr;position:relative;z-index:1}
+.reddit-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.reddit-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.reddit-metrics{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:24px}
+.reddit-stream{grid-template-columns:repeat(4,minmax(0,1fr))}
+.reddit-states{grid-template-columns:1.08fr .92fr}
+.reddit-impact{grid-template-columns:repeat(3,minmax(0,1fr))}
+.reddit-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#d8c9ff;margin-bottom:12px}
+.reddit-eyebrow:before{content:"";display:block;width:24px;height:1px;background:var(--signal)}
+.reddit-title{font-family:var(--syne);font-size:clamp(2.5rem,5vw,4.8rem);line-height:.94;letter-spacing:-.06em;margin-bottom:16px}
+.reddit-title span,.reddit-card.kpi .reddit-value,.reddit-stage-num,.reddit-panel strong,.reddit-note strong{color:#d7ff64}
+.reddit-sub{max-width:60ch;color:rgba(255,255,255,.8);font-size:16px;line-height:1.8}
+.reddit-panel,.reddit-card,.reddit-stage,.reddit-window,.reddit-note{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04)}
+.reddit-panel,.reddit-window{padding:22px}
+.reddit-panel h3,.reddit-card-title,.reddit-window h3{font-family:var(--syne);font-size:22px;letter-spacing:-.04em;margin-bottom:10px}
+.reddit-panel p,.reddit-copy,.reddit-list li,.reddit-stage p,.reddit-window p,.reddit-note p{color:var(--muted);font-size:14px;line-height:1.75}
+.reddit-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.reddit-tag{border-radius:999px;border:1px solid rgba(255,255,255,.1);padding:8px 12px;font-size:12px;background:rgba(255,255,255,.04);color:var(--text)}
+.reddit-card{padding:22px}
+.reddit-card.kpi{padding:20px;background:#121623}
+.reddit-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8f98a8;margin-bottom:8px}
+.reddit-value{font-family:var(--syne);font-size:32px;line-height:1;letter-spacing:-.05em;margin-bottom:8px}
+.reddit-section{padding:34px 0 0}
+.reddit-window-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.reddit-window-title{font-family:var(--syne);font-size:28px;letter-spacing:-.05em}
+.reddit-statuses{display:flex;gap:10px;flex-wrap:wrap}
+.reddit-status{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(255,255,255,.1)}
+.reddit-status:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--signal)}
+.reddit-status.good{color:#e8ffc2;border-color:rgba(215,255,100,.18);background:rgba(215,255,100,.08)}
+.reddit-status.good:before{background:#d7ff64}
+.reddit-status.warn{color:#ffd9cf;border-color:rgba(255,90,54,.18);background:rgba(255,90,54,.08)}
+.reddit-lane{padding:18px;border:1px solid rgba(255,255,255,.08);background:#111723}
+.reddit-lane h4{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8f98a8;margin-bottom:10px}
+.reddit-lane p{color:var(--muted);font-size:13px;line-height:1.7}
+.reddit-stage{padding:22px}
+.reddit-stage-num{font-family:var(--syne);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.reddit-stage h3{font-family:var(--syne);font-size:20px;letter-spacing:-.04em;margin-bottom:8px}
+.reddit-list{list-style:none;display:grid;gap:10px}
+.reddit-list li{position:relative;padding-left:18px}
+.reddit-list li:before{content:"";position:absolute;left:0;top:.72em;width:7px;height:7px;border-radius:50%;background:var(--signal)}
+.reddit-note{padding:18px;background:rgba(255,90,54,.07)}
+.reddit-divider{height:1px;background:rgba(255,255,255,.08);margin:16px 0}
+.reddit-cta{padding-top:26px;text-align:center}
+@media(max-width:980px){.reddit-hero-grid,.reddit-grid-2,.reddit-grid-3,.reddit-metrics,.reddit-stream,.reddit-states,.reddit-impact{grid-template-columns:1fr}}
+@media(max-width:760px){.reddit-wrap{padding:96px 0 44px}.reddit-hero,.reddit-window,.reddit-panel{padding:28px 22px}}
+</style>
 </head>
-<body>
+<body class="reddit-page">
 <div id="progress-bar"></div>
 <nav id="navbar">
   <a href="/" class="nav-logo">JS<span>.</span></a>
@@ -22,7 +75,6 @@
   <a href="/contact/" class="nav-cta">Work With Me</a>
   <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
 </nav>
-
 <div class="mobile-menu" id="mobileMenu">
   <a href="/" class="mob-link">About</a>
   <a href="/experience/" class="mob-link">Experience</a>
@@ -31,108 +83,133 @@
   <a href="/contact/" class="mobile-cta">Work With Me</a>
 </div>
 <main>
-  <section class="hero">
-    <div class="container reveal">
-      <div class="eyebrow">Community Intelligence</div>
-      <h1 class="hero-title">Reddit Community Intelligence</h1>
-      <p class="hero-copy">Turn scattered Reddit monitoring into a structured workflow for discovery, response, and tracking.</p>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="meta-grid">
-        <div class="meta-card reveal">
-          <div class="meta-label">Goal</div>
-          <div class="meta-value">Objective</div>
-          <div class="meta-copy">Create an end-to-end system that surfaces relevant threads, suggests responses, and keeps engagement from disappearing into ad hoc browsing.</div>
+<section class="reddit-wrap">
+  <div class="container">
+    <div class="reddit-hero reveal visible">
+      <div class="reddit-hero-grid">
+        <div>
+          <div class="reddit-eyebrow">Community intelligence workflow</div>
+          <h1 class="reddit-title">From noisy Reddit browsing to a <span>usable response pipeline</span></h1>
+          <p class="reddit-sub">This project was about turning scattered Reddit monitoring into an operating workflow: find the right community threads, filter noise, route relevant opportunities into team channels, and track whether response actually happened. The value was not “AI replies”. The value was structured market and brand intelligence that could move fast without becoming spammy or chaotic.</p>
+          <div class="reddit-metrics">
+            <div class="reddit-card kpi"><div class="reddit-label">Primary job</div><div class="reddit-value">Detect</div><div class="reddit-copy">Spot relevant community conversations before they disappear into manual browsing.</div></div>
+            <div class="reddit-card kpi"><div class="reddit-label">Workflow fit</div><div class="reddit-value">Slack</div><div class="reddit-copy">Push triaged posts into the team’s operating environment for action.</div></div>
+            <div class="reddit-card kpi"><div class="reddit-label">Decision value</div><div class="reddit-value">Faster</div><div class="reddit-copy">Reduce lag between discovery, review, response, and follow-up.</div></div>
+            <div class="reddit-card kpi"><div class="reddit-label">Risk control</div><div class="reddit-value">Filtered</div><div class="reddit-copy">Keep low-signal and off-brand threads from wasting attention.</div></div>
+          </div>
         </div>
-        <div class="meta-card reveal reveal-delay-1">
-          <div class="meta-label">Use Case</div>
-          <div class="meta-value">Workflow Fit</div>
-          <div class="meta-copy">Used when a team needs to find relevant conversations, decide where to engage, and track whether community responses are happening consistently.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-2">
-          <div class="meta-label">Time</div>
-          <div class="meta-value">Speed</div>
-          <div class="meta-copy">Cuts manual scanning time and reduces lag between finding a relevant thread and responding to it.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-3">
-          <div class="meta-label">Commercial</div>
-          <div class="meta-value">Value</div>
-          <div class="meta-copy">Improves community response efficiency and reduces repeated research effort for the same type of conversations.</div>
-        </div>
+        <aside class="reddit-panel">
+          <h3>What this was really solving</h3>
+          <p>Reddit can hold some of the highest-intent product and brand conversations, but teams usually discover them too late, answer inconsistently, or never learn from the patterns.</p>
+          <div class="reddit-divider"></div>
+          <p><strong>This system creates a workflow</strong> for discovery, triage, suggested action, and follow-through — so community intelligence becomes an operating function instead of a random task someone remembers to do.</p>
+          <div class="reddit-tags">
+            <div class="reddit-tag">brand mentions</div>
+            <div class="reddit-tag">product pain points</div>
+            <div class="reddit-tag">competitor comparisons</div>
+            <div class="reddit-tag">response routing</div>
+          </div>
+        </aside>
       </div>
     </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="eyebrow reveal">Process design</div>
-      <h2 class="section-title reveal">Visual representation of the workflow</h2>
-      <p class="section-sub reveal">This section acts as the process view for now. Once you share project images or diagrams, we can replace or extend these steps with visuals from the actual workflow.</p>
-      <div class="flow">
-        <div class="flow-step reveal">
-          <div class="flow-num">01</div>
-          <div>
-            <div class="flow-title">Collect threads</div>
-            <div class="flow-copy">Continuously gather relevant Reddit discussions tied to clear topic or brand signals.</div>
+
+    <div class="reddit-section">
+      <div class="reddit-states">
+        <article class="reddit-window reveal">
+          <div class="reddit-window-head">
+            <div>
+              <div class="reddit-eyebrow">System map</div>
+              <h2 class="reddit-window-title">How the workflow handled community conversations</h2>
+            </div>
+            <div class="reddit-statuses">
+              <div class="reddit-status warn">Before · ad hoc browsing</div>
+              <div class="reddit-status good">After · triaged pipeline</div>
+            </div>
           </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">02</div>
-          <div>
-            <div class="flow-title">Filter relevance</div>
-            <div class="flow-copy">Reduce noise so only useful posts move forward for attention and possible response.</div>
+          <div class="reddit-stream">
+            <div class="reddit-lane"><h4>Discovery</h4><p>Continuously surface threads tied to relevant product, category, or brand intent instead of relying on someone to manually search when they have time.</p></div>
+            <div class="reddit-lane"><h4>Triage</h4><p>Filter out noise, duplicates, and low-value mentions so only meaningful posts move into the response queue.</p></div>
+            <div class="reddit-lane"><h4>Routing</h4><p>Push curated threads and suggested next steps into Slack or the team workflow so the right owner sees them quickly.</p></div>
+            <div class="reddit-lane"><h4>Tracking</h4><p>Record whether the thread was answered, ignored, escalated, or turned into a deeper content or product insight.</p></div>
           </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">03</div>
-          <div>
-            <div class="flow-title">Route to Slack</div>
-            <div class="flow-copy">Deliver curated posts with suggested responses directly into the operating workflow.</div>
-          </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">04</div>
-          <div>
-            <div class="flow-title">Track outcomes</div>
-            <div class="flow-copy">Log whether a thread was answered, how it was handled, and what follow-up was needed.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="eyebrow reveal">Impact</div>
-      <div class="impact-grid">
-        <article class="impact-card reveal">
-          <h3>Process impact</h3>
-          <p>Scrape and filter relevant posts, route them to Slack with suggested replies, then track what was answered and what happened next.</p>
         </article>
-        <article class="impact-card reveal reveal-delay-1">
-          <h3>Time impact</h3>
-          <p>Cuts manual scanning time and reduces lag between finding a relevant thread and responding to it.</p>
-        </article>
-        <article class="impact-card reveal reveal-delay-2">
-          <h3>Monetary or commercial impact</h3>
-          <p>Improves community response efficiency and reduces repeated research effort for the same type of conversations.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-  <section class="demo-strip">
-    <div class="container">
-      <div class="demo-shell reveal">
-        <div class="eyebrow" style="justify-content:center;">Next layer</div>
-        <h2 class="demo-title">Live demo route prepared</h2>
-        <p class="demo-copy">The deeper walkthrough for this project can live at <code>/ai-automation/reddit-community-intelligence/demo</code>. For now, this page explains the system objective, use case, and workflow shape clearly.</p>
-        <div class="cta-actions">
-          <a href="/ai-automation/reddit-community-intelligence/demo/" class="btn-primary">Open Demo Placeholder</a>
-          <a href="/ai-automation/" class="btn-secondary">Back to AI Library</a>
+        <div>
+          <article class="reddit-panel reveal">
+            <h3>Why this matters commercially</h3>
+            <ul class="reddit-list">
+              <li>Reduces repeated manual research for the same themes showing up across threads.</li>
+              <li>Improves response consistency where intent and community trust matter.</li>
+              <li>Creates a reusable signal source for brand, growth, content, and product teams.</li>
+              <li>Turns community observations into an owned internal feedback loop.</li>
+            </ul>
+          </article>
+          <article class="reddit-note reveal reveal-delay-1" style="margin-top:18px;">
+            <p><strong>Best framing:</strong> this is community intelligence infrastructure, not just “Reddit monitoring” and not an excuse to automate low-quality replies. The point is better signal capture and cleaner team action.</p>
+          </article>
         </div>
       </div>
     </div>
-  </section>
+
+    <div class="reddit-section">
+      <div class="reddit-eyebrow reveal">Workflow breakdown</div>
+      <h2 class="section-title reveal">What the pipeline did step by step</h2>
+      <p class="section-sub reveal">The structure below is the real operating logic: collect signals, reduce noise, route only what matters, and keep a record of action taken.</p>
+      <div class="reddit-grid-2">
+        <article class="reddit-stage reveal">
+          <div class="reddit-stage-num">01 · collect</div>
+          <h3>Capture relevant threads</h3>
+          <p>Search or scrape for community posts tied to clear topic, brand, and category intent so the team sees emerging conversations earlier.</p>
+        </article>
+        <article class="reddit-stage reveal reveal-delay-1">
+          <div class="reddit-stage-num">02 · filter</div>
+          <h3>Reduce low-signal noise</h3>
+          <p>Remove irrelevant, repetitive, or non-actionable threads before they can overload operators or make the workflow feel noisy.</p>
+        </article>
+        <article class="reddit-stage reveal reveal-delay-2">
+          <div class="reddit-stage-num">03 · route</div>
+          <h3>Push into team workflow</h3>
+          <p>Send curated posts, context, and suggested responses into Slack or the operating channel where action is already happening.</p>
+        </article>
+        <article class="reddit-stage reveal reveal-delay-3">
+          <div class="reddit-stage-num">04 · learn</div>
+          <h3>Track response and insight</h3>
+          <p>Log whether a post was answered, who handled it, and whether it created a reusable content, support, or product learning.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="reddit-section">
+      <div class="reddit-impact">
+        <article class="reddit-card reveal">
+          <h2 class="reddit-card-title">Goal</h2>
+          <p class="reddit-copy">Create a structured system for discovering and acting on Reddit conversations without relying on inconsistent manual browsing.</p>
+        </article>
+        <article class="reddit-card reveal reveal-delay-1">
+          <h2 class="reddit-card-title">Use case</h2>
+          <p class="reddit-copy">Used when brand, content, or growth teams need to identify high-signal discussions, respond appropriately, and keep track of what happened next.</p>
+        </article>
+        <article class="reddit-card reveal reveal-delay-2">
+          <h2 class="reddit-card-title">Outcome</h2>
+          <p class="reddit-copy">Cuts manual scanning time, reduces lag between discovery and response, and turns community conversations into a more dependable intelligence input.</p>
+        </article>
+      </div>
+    </div>
+
+    <section class="demo-strip reddit-cta">
+      <div class="container">
+        <div class="demo-shell reveal visible">
+          <div class="eyebrow" style="justify-content:center;">Next layer</div>
+          <h2 class="demo-title">The page is now positioned as a workflow, not a placeholder</h2>
+          <p class="demo-copy">We can still build the deeper walkthrough at <code>/ai-automation/reddit-community-intelligence/demo</code>, but the main page now explains the operating value clearly and with better visual structure.</p>
+          <div class="cta-actions">
+            <a href="/ai-automation/reddit-community-intelligence/demo/" class="btn-primary">Open Demo Route</a>
+            <a href="/ai-automation/" class="btn-secondary">Back to AI Library</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
 </main>
 <footer>
   <div class="footer-inner">
