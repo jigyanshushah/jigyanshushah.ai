@@ -3,152 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Service History Scraper | AI Automation by Jigyanshu Shah</title>
-<meta name="description" content="Map OEM-authorized service networks in a structured, repeatable format for operational and ecosystem use.">
+<title>Service History Intelligence | AI Automation by Jigyanshu Shah</title>
+<meta name="description" content="A VIN-level service history intelligence layer for Cars24, built as internal decision support first and B2B infrastructure next.">
 <link rel="canonical" href="https://jigyanshushah.ai/ai-automation/service-history-scraper/">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/ai-automation.css">
+<style>
+.service-page main{background:linear-gradient(180deg,#0a0c10 0%,#0c0f14 100%)}
+.service-wrap{padding:112px 0 56px}.service-wrap .container{max-width:1240px}
+.service-hero{background:linear-gradient(135deg,#2b2098,#4736fe 62%,#6b5fff);padding:36px 40px;border:1px solid rgba(255,255,255,.08);position:relative;overflow:hidden}.service-hero:before{content:"";position:absolute;right:-80px;top:-90px;width:320px;height:320px;border-radius:50%;background:#63ffb1;opacity:.1}.service-hero:after{content:"";position:absolute;left:42%;bottom:-120px;width:240px;height:240px;border-radius:50%;background:#fff;opacity:.05}.service-hero-grid,.service-grid-2,.service-grid-3,.service-metrics{display:grid;gap:18px}.service-hero-grid{grid-template-columns:1.15fr .85fr;position:relative;z-index:1}.service-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.service-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}.service-metrics{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:22px}.service-title{font-family:var(--syne);font-size:clamp(2.5rem,5vw,4.6rem);line-height:.95;letter-spacing:-.06em;margin-bottom:14px}.service-title span,.service-eyebrow,.service-card.kpi .service-value{color:#63ffb1}.service-eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}.service-eyebrow:before{content:"";display:block;width:24px;height:1px;background:#63ffb1}.service-sub{max-width:60ch;color:rgba(255,255,255,.8);font-size:16px;line-height:1.8}.service-panel,.service-card,.service-table-wrap{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04)}.service-panel{padding:20px}.service-panel h3,.service-card-title{font-family:var(--syne);font-size:22px;letter-spacing:-.04em;margin-bottom:10px}.service-panel p,.service-copy,.service-table td,.service-list li{color:var(--muted);font-size:14px;line-height:1.75}.service-card{padding:22px}.service-card.kpi{padding:20px;background:#121722}.service-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8f98a8;margin-bottom:8px}.service-value{font-family:var(--syne);font-size:32px;line-height:1;letter-spacing:-.05em;margin-bottom:8px}.service-section{padding:34px 0 0}.service-list{list-style:none;display:grid;gap:10px;margin-top:14px}.service-list li{position:relative;padding-left:18px}.service-list li:before{content:"";position:absolute;left:0;top:.72em;width:7px;height:7px;border-radius:50%;background:#63ffb1}.service-table-wrap{overflow:auto}.service-table{width:100%;border-collapse:collapse}.service-table th{background:#2b2098;color:#fff;padding:11px 12px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.08em}.service-table td{padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.08);vertical-align:top}.service-table tr:nth-child(even) td{background:rgba(255,255,255,.02)}.service-callout{border-left:4px solid #ff4f01;background:rgba(255,79,1,.08);padding:16px 18px;color:#ffd7c8;font-size:14px;line-height:1.7}.service-callout strong{color:#fff}.service-roadmap{display:grid;gap:12px}.service-phase{border:1px solid rgba(255,255,255,.08);background:#111723;padding:18px}.service-phase h3{font-size:15px;font-weight:700;margin-bottom:8px}.service-phase p{color:var(--muted);font-size:14px;line-height:1.7}.service-phase small{display:block;color:#8f98a8;margin-top:8px}.service-cta{padding-top:26px;text-align:center}@media(max-width:980px){.service-hero-grid,.service-grid-2,.service-grid-3,.service-metrics{grid-template-columns:1fr}}@media(max-width:760px){.service-wrap{padding:96px 0 44px}.service-hero{padding:28px 22px}}
+</style>
 </head>
-<body>
+<body class="service-page">
 <div id="progress-bar"></div>
 <nav id="navbar">
   <a href="/" class="nav-logo">JS<span>.</span></a>
-  <ul class="nav-links">
-    <li><a href="/">About</a></li>
-    <li><a href="/experience/">Experience</a></li>
-    <li><a href="/ai-automation/" class="active">AI Automations</a></li>
-    <li><a href="/contact/">Contact</a></li>
-  </ul>
+  <ul class="nav-links"><li><a href="/">About</a></li><li><a href="/experience/">Experience</a></li><li><a href="/ai-automation/" class="active">AI Automations</a></li><li><a href="/contact/">Contact</a></li></ul>
   <a href="/contact/" class="nav-cta">Work With Me</a>
   <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
 </nav>
-
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/" class="mob-link">About</a>
-  <a href="/experience/" class="mob-link">Experience</a>
-  <a href="/ai-automation/" class="mob-link">AI Automations</a>
-  <a href="/contact/" class="mob-link">Contact</a>
-  <a href="/contact/" class="mobile-cta">Work With Me</a>
-</div>
+<div class="mobile-menu" id="mobileMenu"><a href="/" class="mob-link">About</a><a href="/experience/" class="mob-link">Experience</a><a href="/ai-automation/" class="mob-link">AI Automations</a><a href="/contact/" class="mob-link">Contact</a><a href="/contact/" class="mobile-cta">Work With Me</a></div>
 <main>
-  <section class="hero">
-    <div class="container reveal">
-      <div class="eyebrow">Research Automation</div>
-      <h1 class="hero-title">Service History Scraper</h1>
-      <p class="hero-copy">Map OEM-authorized service networks in a structured, repeatable format for operational and ecosystem use.</p>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="meta-grid">
-        <div class="meta-card reveal">
-          <div class="meta-label">Goal</div>
-          <div class="meta-value">Objective</div>
-          <div class="meta-copy">Automate dealership and service-center research so the team gets reliable network visibility faster.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-1">
-          <div class="meta-label">Use Case</div>
-          <div class="meta-value">Workflow Fit</div>
-          <div class="meta-copy">Used when dealership and service-center network data needs to be collected at scale across brands without manual browsing and copy-paste research.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-2">
-          <div class="meta-label">Time</div>
-          <div class="meta-value">Speed</div>
-          <div class="meta-copy">Replaces hours of manual brand-by-brand research with a repeatable collection workflow.</div>
-        </div>
-        <div class="meta-card reveal reveal-delay-3">
-          <div class="meta-label">Commercial</div>
-          <div class="meta-value">Value</div>
-          <div class="meta-copy">Cuts the cost of repetitive ecosystem research and makes data available for downstream ops and strategy decisions.</div>
+<section class="service-wrap"><div class="container">
+  <div class="service-hero reveal visible">
+    <div class="service-hero-grid">
+      <div>
+        <div class="service-eyebrow">Australia · service history intelligence</div>
+        <h1 class="service-title">Building the <span>service history layer</span> Australia is missing</h1>
+        <p class="service-sub">This project was not about scraping for the sake of scraping. It was about creating a VIN-level service history and logbook intelligence layer — internal decision support first, B2B infrastructure next, and consumer trust outputs later.</p>
+        <div class="service-metrics">
+          <div class="service-card kpi"><div class="service-label">Strategic role</div><div class="service-value">No incumbent</div><div class="service-copy">No player in AU owns structured service-history depth at scale.</div></div>
+          <div class="service-card kpi"><div class="service-label">Launch shape</div><div class="service-value">~6 months</div><div class="service-copy">Exploration first, then MVP once DMS economics validate.</div></div>
+          <div class="service-card kpi"><div class="service-label">Economics</div><div class="service-value">$6–8.4M</div><div class="service-copy">Annualised EBITDA potential from the business case reference.</div></div>
+          <div class="service-card kpi"><div class="service-label">Core moat</div><div class="service-value">VIN layer</div><div class="service-copy">Service events, odometer logic, recall evidence, and inspection signals.</div></div>
         </div>
       </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="eyebrow reveal">Process design</div>
-      <h2 class="section-title reveal">Visual representation of the workflow</h2>
-      <p class="section-sub reveal">This section acts as the process view for now. Once you share project images or diagrams, we can replace or extend these steps with visuals from the actual workflow.</p>
-      <div class="flow">
-        <div class="flow-step reveal">
-          <div class="flow-num">01</div>
-          <div>
-            <div class="flow-title">Target sources</div>
-            <div class="flow-copy">Identify OEM service locator pages and the best route to structured extraction.</div>
-          </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">02</div>
-          <div>
-            <div class="flow-title">Extract data</div>
-            <div class="flow-copy">Use rendered-page and request-level strategies to capture the right fields.</div>
-          </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">03</div>
-          <div>
-            <div class="flow-title">Normalize output</div>
-            <div class="flow-copy">Clean, deduplicate, and structure records into usable operational datasets.</div>
-          </div>
-        </div>
-        <div class="flow-step reveal">
-          <div class="flow-num">04</div>
-          <div>
-            <div class="flow-title">Publish datasets</div>
-            <div class="flow-copy">Export data for teams working on service visibility, ecosystem mapping, or trust workflows.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="container">
-      <div class="eyebrow reveal">Impact</div>
-      <div class="impact-grid">
-        <article class="impact-card reveal">
-          <h3>Process impact</h3>
-          <p>Use Playwright and structured extraction logic to collect service-center data, normalize it, and output usable datasets.</p>
-        </article>
-        <article class="impact-card reveal reveal-delay-1">
-          <h3>Time impact</h3>
-          <p>Replaces hours of manual brand-by-brand research with a repeatable collection workflow.</p>
-        </article>
-        <article class="impact-card reveal reveal-delay-2">
-          <h3>Monetary or commercial impact</h3>
-          <p>Cuts the cost of repetitive ecosystem research and makes data available for downstream ops and strategy decisions.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-  <section class="demo-strip">
-    <div class="container">
-      <div class="demo-shell reveal">
-        <div class="eyebrow" style="justify-content:center;">Next layer</div>
-        <h2 class="demo-title">Live demo route prepared</h2>
-        <p class="demo-copy">The deeper walkthrough for this project can live at <code>/ai-automation/service-history-scraper/demo</code>. For now, this page explains the system objective, use case, and workflow shape clearly.</p>
-        <div class="cta-actions">
-          <a href="/ai-automation/service-history-scraper/demo/" class="btn-primary">Open Demo Placeholder</a>
-          <a href="/ai-automation/" class="btn-secondary">Back to AI Library</a>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">Jigyanshu Shah<span>.</span></div>
-    <div class="footer-copy">Growth &amp; GTM Engineer · © 2026 Jigyanshu Shah</div>
-    <div class="footer-links">
-      <a href="/">About</a>
-      <a href="/experience/">Experience</a>
-      <a href="/ai-automation/">AI Automations</a>
-      <a href="/contact/">Contact</a>
-      <a href="https://www.linkedin.com/in/jigyanshu-shah/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/jigyanshushah" target="_blank" rel="noopener">GitHub</a>
-      <a href="mailto:jigyanshushah69@gmail.com">Email</a>
+      <aside class="service-panel">
+        <h3>What this actually meant</h3>
+        <p><strong>Not:</strong> another generic car-history report.</p>
+        <p><strong>Yes:</strong> a service history / logbook repository that can enrich Cars24 decisions, future CHR outputs, and partner products.</p>
+        <p><strong>First move:</strong> business discovery across OEM, dealer, workshop, and DMS workflows — then a structured ingestion layer.</p>
+      </aside>
     </div>
   </div>
-</footer>
+
+  <div class="service-section">
+    <div class="service-grid-3">
+      <article class="service-card reveal"><h2 class="service-card-title">Why build this</h2><p class="service-copy">Used-car buyers, sellers, dealers, and internal Cars24 teams do not have a simple, trusted way to verify whether a vehicle has been serviced properly, whether the logbook is complete, and whether service records align with odometer, recall, and inspection signals.</p></article>
+      <article class="service-card reveal reveal-delay-1"><h2 class="service-card-title">Cars24 advantage</h2><p class="service-copy">Cars24 can seed the database before partnerships scale it, using internal inspection data, marketplace odometer history, recall infrastructure, and uploaded service records.</p></article>
+      <article class="service-card reveal reveal-delay-2"><h2 class="service-card-title">Real unlock</h2><p class="service-copy">This becomes a B2B data infrastructure layer for dealers, lenders, warranty providers, finance, and service partners — not just a consumer feature.</p></article>
+    </div>
+  </div>
+
+  <div class="service-section">
+    <div class="service-grid-2">
+      <article class="service-card reveal">
+        <h2 class="service-card-title">Build the missing layer, not a duplicate report</h2>
+        <ul class="service-list">
+          <li>Layer 1: existing broader vehicle history / CHR signals.</li>
+          <li>Layer 2: service history repository with logbooks, invoices, and service events.</li>
+          <li>Layer 3: service confidence logic based on recency, completeness, and consistency.</li>
+          <li>Layer 4: B2B outputs for dealers, lenders, warranty partners, and internal teams.</li>
+        </ul>
+        <div class="service-callout" style="margin-top:16px;"><strong>Important:</strong> the gap to own is service history and logbook depth, not another PPSR-style report.</div>
+      </article>
+      <article class="service-card reveal reveal-delay-1">
+        <h2 class="service-card-title">What the repository contains</h2>
+        <div class="service-table-wrap">
+          <table class="service-table">
+            <thead><tr><th>Layer</th><th>Meaning</th><th>Example source</th></tr></thead>
+            <tbody>
+              <tr><td>Logbook record</td><td>Scheduled maintenance entry</td><td>Uploaded service book or dealer record</td></tr>
+              <tr><td>Service invoice</td><td>Workshop/dealer invoice</td><td>Customer upload or service-centre export</td></tr>
+              <tr><td>OEM/dealer service</td><td>Authorised service record</td><td>Dealer networks / OEM systems</td></tr>
+              <tr><td>Recall service action</td><td>Evidence recall repair was completed</td><td>OEM/dealer confirmation</td></tr>
+              <tr><td>Odometer at service</td><td>KM reading at service event</td><td>Invoice, logbook, inspection, listing</td></tr>
+              <tr><td>Service consistency</td><td>Whether history is recent and complete</td><td>Calculated confidence logic</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="service-section">
+    <article class="service-card reveal">
+      <h2 class="service-card-title">Data-source map and why scraping mattered</h2>
+      <p class="service-copy">The scraping / discovery piece existed because service records are fragmented across OEM systems, dealer DMS tools, workshop software, uploaded documents, and Cars24’s own internal layers. Mapping those sources was part of building the service-history foundation.</p>
+      <div class="service-table-wrap" style="margin-top:16px;">
+        <table class="service-table">
+          <thead><tr><th>Priority</th><th>Source</th><th>Data provided</th><th>Why it matters</th></tr></thead>
+          <tbody>
+            <tr><td>P0</td><td>Cars24 inspection data</td><td>Condition, odometer, defects, photos</td><td>Already internal and immediately usable.</td></tr>
+            <tr><td>P0</td><td>Customer-uploaded logbooks / invoices</td><td>Service evidence</td><td>Fastest way to seed the VIN timeline.</td></tr>
+            <tr><td>P0</td><td>Recall-check data</td><td>Recall campaigns and VIN match</td><td>Useful matching layer for service completion evidence.</td></tr>
+            <tr><td>P1</td><td>Workshop / service-centre discovery</td><td>DMS list, exportability, workflow reality</td><td>Turns theory into a scalable ingestion path.</td></tr>
+            <tr><td>P2</td><td>OEM / dealer partnerships</td><td>Authorised service records</td><td>High-value but harder to unlock.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </div>
+
+  <div class="service-section">
+    <h2 class="section-title reveal">Phased roadmap</h2>
+    <div class="service-roadmap">
+      <div class="service-phase reveal"><h3>Phase 0 · discovery and mapping</h3><p>Interview OEM, dealer, and workshop stakeholders; validate service workflows; map DMS tools; review current CHR output; and document what data is realistically accessible.</p><small>Output: source map, access assumptions, shortlist, and open questions.</small></div>
+      <div class="service-phase reveal reveal-delay-1"><h3>Phase 1 · internal repository foundation</h3><p>Create a VIN-level structure for service and logbook evidence before any public product. Define service-event schema, confidence rules, upload fields, and recall-service matching logic.</p><small>Output: internal repository prototype for buy, pricing, and inspection support.</small></div>
+      <div class="service-phase reveal reveal-delay-2"><h3>Phase 2 · assisted ingestion</h3><p>Use OCR, manual review, and structured extraction to turn uploaded logbooks, invoices, recall certificates, and notes into normalized service records.</p><small>Output: structured service timeline with confidence labels.</small></div>
+      <div class="service-phase reveal reveal-delay-3"><h3>Phase 3+ · DMS pilots and B2B layer</h3><p>Pilot with service centres or DMS providers, then package the repository into dealer, lender, warranty, and partner outputs once data quality and economics hold.</p><small>Output: partner-facing service-history intelligence layer.</small></div>
+    </div>
+  </div>
+
+  <section class="demo-strip service-cta"><div class="container"><div class="demo-shell reveal visible"><div class="eyebrow" style="justify-content:center;color:#63ffb1;">Next layer</div><h2 class="demo-title">This page now holds the business-case story</h2><p class="demo-copy">The deeper walkthrough can still live at <code>/ai-automation/service-history-scraper/demo</code>, but the main page now reflects the real strategic scope behind the project.</p><div class="cta-actions"><a href="/ai-automation/service-history-scraper/demo/" class="btn-primary">Open Demo Route</a><a href="/ai-automation/" class="btn-secondary">Back to AI Library</a></div></div></div></section>
+</div></section>
+</main>
+<footer><div class="footer-inner"><div class="footer-logo">Jigyanshu Shah<span>.</span></div><div class="footer-copy">Growth &amp; GTM Engineer · © 2026 Jigyanshu Shah</div><div class="footer-links"><a href="/">About</a><a href="/experience/">Experience</a><a href="/ai-automation/">AI Automations</a><a href="/contact/">Contact</a><a href="https://www.linkedin.com/in/jigyanshu-shah/" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/jigyanshushah" target="_blank" rel="noopener">GitHub</a><a href="mailto:jigyanshushah69@gmail.com">Email</a></div></div></footer>
 <script src="/assets/ai-automation.js"></script>
-</body>
-</html>
+</body></html>
