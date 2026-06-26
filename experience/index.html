@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Experience | Jigyanshu Shah — Growth &amp; Marketing Career</title>
+<meta name="description" content="5+ years of growth experience across Cars24 Australia, Rario, CoinSwitch, and Park+. Marketplace, Web3/Sports Tech, crypto, and super-app verticals.">
+<link rel="canonical" href="https://jigyanshushah.ai/experience">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #080808;
+  --carbon: #111111;
+  --surface: #181818;
+  --steel: #252525;
+  --divider: #2c2c2c;
+  --ivory: #F2F2F2;
+  --mist: #9A9A9A;
+  --smoke: #505050;
+  --crimson: #C91A33;
+  --flame: #E8243C;
+  --acid: #B8F03C;
+  --white: #FFFFFF;
+  --syne: 'Syne', system-ui, sans-serif;
+  --outfit: 'Outfit', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--void); color: var(--ivory); font-family: var(--outfit); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+/* SCROLL PROGRESS */
+#progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--flame); z-index: 1000; width: 0%; transition: width 0.1s linear; }
+
+/* NAV */
+nav {
+  position: fixed; top: 2px; left: 0; right: 0; z-index: 999;
+  background: rgba(8,8,8,0.88); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--divider);
+  padding: 0 48px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { font-family: var(--syne); font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--flame); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--mist); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ivory); }
+.nav-cta {
+  padding: 8px 20px; background: var(--flame); color: #fff;
+  font-family: var(--outfit); font-weight: 600; font-size: 13px;
+  border: none; border-radius: 100px; cursor: pointer; text-decoration: none;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.85; }
+.nav-menu-btn { display: none; background: none; border: none; color: var(--ivory); cursor: pointer; font-size: 22px; }
+.mobile-menu {
+  display: none; position: fixed; inset: 0; top: 58px;
+  background: rgba(8,8,8,0.97); z-index: 998; padding: 40px 28px;
+  flex-direction: column; gap: 0;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a { display: block; padding: 18px 0; font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--ivory); text-decoration: none; border-bottom: 1px solid var(--divider); transition: color 0.2s; }
+.mobile-menu a:hover { color: var(--flame); }
+.mobile-menu .mobile-cta { margin-top: 32px; display: inline-flex; padding: 14px 32px; background: var(--flame); color: #fff; border-radius: 100px; font-weight: 600; font-size: 16px; text-decoration: none; }
+
+/* REVEAL ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* PAGE HERO */
+.page-hero {
+  padding-top: 56px;
+  position: relative; overflow: hidden;
+  min-height: 200px;
+  display: flex; align-items: center;
+  border-bottom: 1px solid var(--divider);
+}
+.page-hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(var(--divider) 1px, transparent 1px), linear-gradient(90deg, var(--divider) 1px, transparent 1px);
+  background-size: 72px 72px; opacity: 0.2; pointer-events: none;
+}
+.page-hero-glow {
+  position: absolute; width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,26,51,0.08) 0%, transparent 65%);
+  top: -200px; right: -100px; pointer-events: none;
+}
+.page-hero-inner {
+  position: relative; z-index: 2;
+  padding: 48px 48px;
+  width: 100%;
+}
+.page-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--flame); margin-bottom: 16px;
+}
+.page-hero-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--flame); }
+.page-hero h1 {
+  font-family: var(--syne); font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.04em;
+  color: var(--white); margin-bottom: 12px;
+}
+.page-hero-sub {
+  font-size: 16px; color: var(--mist); font-weight: 300;
+}
+
+/* SECTION BASE */
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--flame); margin-bottom: 18px;
+}
+.section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--flame); }
+.section-title {
+  font-family: var(--syne); font-size: clamp(32px, 4.5vw, 54px);
+  font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+  color: var(--white); margin-bottom: 16px;
+}
+
+/* EXPERIENCE SECTION */
+.exp-section { border-top: 1px solid var(--divider); background: var(--carbon); }
+.exp-inner { max-width: 1200px; margin: 0 auto; padding: 88px 48px; }
+.timeline { display: flex; flex-direction: column; gap: 4px; }
+.exp-card {
+  background: var(--surface); padding: 36px 40px;
+  border-left: 3px solid var(--steel);
+  transition: border-color 0.3s;
+  position: relative;
+}
+.exp-card:hover { border-color: var(--flame); }
+.exp-card.current { border-left-color: var(--flame); }
+.exp-card.current::before {
+  content: 'CURRENT';
+  position: absolute; top: 20px; right: 24px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--acid); background: rgba(184,240,60,0.08);
+  padding: 4px 10px; border-radius: 3px;
+}
+.exp-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+.exp-company-info { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.exp-logo-wrap {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 44px; padding: 4px 12px;
+  background: rgba(255,255,255,0.05); border: 1px solid var(--divider);
+  border-radius: 8px; flex-shrink: 0; overflow: hidden;
+}
+.exp-logo-wrap.light { background: rgba(255,255,255,0.92); border-color: rgba(255,255,255,0.12); }
+.exp-logo { height: 30px; width: auto; object-fit: contain; max-width: 130px; display: block; }
+.exp-logo-text {
+  font-family: var(--syne); font-size: 15px; font-weight: 800;
+  color: #C85C2B; letter-spacing: -0.02em; line-height: 1;
+}
+.exp-company-link {
+  font-family: var(--syne); font-size: 22px; font-weight: 700;
+  color: var(--white); text-decoration: none; transition: color 0.2s;
+}
+.exp-company-link:hover { color: var(--flame); }
+.exp-duration { font-size: 13px; color: var(--smoke); font-weight: 400; padding-top: 4px; white-space: nowrap; }
+.exp-role { font-size: 15px; color: var(--flame); font-weight: 500; margin-bottom: 12px; }
+.exp-desc { font-size: 14px; color: var(--mist); line-height: 1.75; margin-bottom: 20px; font-weight: 300; font-style: italic; border-left: 2px solid var(--steel); padding-left: 16px; }
+.exp-achievements { display: flex; flex-direction: column; gap: 8px; }
+.exp-achievement {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 14px; color: var(--mist); line-height: 1.6;
+}
+.exp-achievement::before { content: '→'; color: var(--flame); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+.exp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.exp-tag {
+  padding: 4px 12px; border-radius: 100px;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.04em;
+  background: var(--carbon); color: var(--smoke); border: 1px solid var(--divider);
+}
+
+/* EARLIER WORK */
+.earlier-section { border-top: 1px solid var(--divider); }
+.earlier-inner { max-width: 1200px; margin: 0 auto; padding: 88px 48px; }
+.earlier-grid { display: flex; flex-direction: column; gap: 3px; margin-top: 48px; }
+.earlier-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 32px; background: var(--carbon);
+  border-left: 3px solid var(--steel);
+  transition: border-color 0.2s, background 0.2s;
+  flex-wrap: wrap; gap: 12px;
+}
+.earlier-item:hover { border-left-color: var(--flame); background: var(--surface); }
+.earlier-left { display: flex; flex-direction: column; gap: 4px; }
+.earlier-company { font-family: var(--syne); font-size: 15px; font-weight: 700; color: var(--white); }
+.earlier-role-text { font-size: 13px; color: var(--flame); font-weight: 500; }
+.earlier-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; flex-wrap: wrap; }
+.earlier-meta { font-size: 12px; color: var(--smoke); }
+
+/* RESUME STRIP */
+.resume-strip {
+  border-top: 1px solid var(--divider);
+  background: var(--carbon);
+  text-align: center;
+  padding: 88px 48px;
+}
+.resume-strip-inner { max-width: 560px; margin: 0 auto; }
+.resume-strip-heading {
+  font-family: var(--syne); font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800; letter-spacing: -0.03em; color: var(--white);
+  margin-bottom: 16px;
+}
+.resume-strip-desc { font-size: 16px; color: var(--mist); font-weight: 300; line-height: 1.75; margin-bottom: 36px; }
+.resume-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: var(--flame); color: #fff;
+  font-family: var(--outfit); font-weight: 600; font-size: 15px;
+  border-radius: 100px; text-decoration: none; transition: transform 0.2s, opacity 0.2s;
+}
+.btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: transparent; color: var(--ivory);
+  font-family: var(--outfit); font-weight: 600; font-size: 15px;
+  border: 1px solid var(--steel); border-radius: 100px; text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.btn-outline:hover { border-color: var(--ivory); transform: translateY(-2px); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--divider); padding: 40px 48px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.footer-logo { font-family: var(--syne); font-weight: 800; font-size: 18px; letter-spacing: -0.03em; color: var(--white); }
+.footer-logo span { color: var(--flame); }
+.footer-mid { font-size: 13px; color: var(--smoke); text-align: center; }
+.footer-domain { font-size: 13px; color: var(--mist); font-family: 'Courier New', monospace; letter-spacing: 0.04em; }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  nav { padding: 0 28px; }
+  .nav-links { display: none; }
+  .nav-menu-btn { display: block; }
+  .exp-inner { padding: 64px 28px; }
+  .earlier-inner { padding: 64px 28px; }
+  .resume-strip { padding: 64px 28px; }
+  .page-hero-inner { padding: 40px 28px; }
+  footer { padding: 32px 28px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .exp-inner { padding: 52px 20px; }
+  .earlier-inner { padding: 52px 20px; }
+  .resume-strip { padding: 52px 20px; }
+  .page-hero-inner { padding: 32px 20px; }
+  .exp-card { padding: 24px 20px; }
+  .exp-card.current::before { display: none; }
+  .earlier-item { padding: 16px 20px; }
+  footer { flex-direction: column; text-align: center; padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">JS<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/about">About</a></li>
+    <li><a href="/experience" class="active">Experience</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/ai-achievements">AI Work</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="nav-cta">Hire me →</a>
+  <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/about" class="mob-link">About</a>
+  <a href="/experience" class="mob-link">Experience</a>
+  <a href="/projects" class="mob-link">Projects</a>
+  <a href="/ai-achievements" class="mob-link">AI Work</a>
+  <a href="/contact" class="mob-link">Contact</a>
+  <a href="/contact" class="mobile-cta">Hire me →</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-grid-bg"></div>
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-inner">
+    <div class="page-hero-eyebrow">Experience</div>
+    <h1>Work Experience</h1>
+    <p class="page-hero-sub">Five years. Four industries. Built for what's next.</p>
+  </div>
+</div>
+
+<!-- CURRENT & RECENT ROLES -->
+<section class="exp-section">
+  <div class="exp-inner">
+    <div class="reveal"><div class="section-tag">Current &amp; Recent Roles</div></div>
+    <h2 class="section-title reveal">Where I've<br>built things.</h2>
+
+    <div class="timeline">
+
+      <!-- CARS24 -->
+      <div class="exp-card current reveal">
+        <div class="exp-header">
+          <div class="exp-company-info">
+            <div class="exp-logo-wrap">
+              <img src="/assets/logos/cars24.png" alt="Cars24 Australia" class="exp-logo">
+            </div>
+            <div>
+              <a href="https://www.cars24.com.au" target="_blank" rel="noopener" class="exp-company-link">CARS24 Australia ↗</a>
+              <div class="exp-role">Manager — Growth &amp; Marketing · Gurgaon</div>
+            </div>
+          </div>
+          <div class="exp-duration">Oct 2023 – Present</div>
+        </div>
+        <div class="exp-desc">Growth and ecosystem operator co-owning GTM strategy for Cars24 Australia's dealer marketplace — accountable for category performance, demand generation, and multi-vertical expansion from strategy through to unit economics.</div>
+        <div class="exp-achievements">
+          <div class="exp-achievement">Co-own growth and GTM strategy for Cars24 Australia's dealer marketplace in partnership with business leadership — contributing to demand &amp; supply planning, customer segmentation, positioning, channel prioritisation, and revenue-linked forecasting.</div>
+          <div class="exp-achievement">Own upper-funnel to lower-funnel metrics — demand generation, conversion funnel performance, CRO, and experimentation to improve lead quality, inquiry relevance, and downstream monetisation.</div>
+          <div class="exp-achievement">Spearheading multi-vertical ecosystem launch encompassing a natively built app, web platform, and agent network — driving product-market validation, GTM roadmap, and cross-functional alignment across product, design, and operations.</div>
+          <div class="exp-achievement">Influencing ECM strategy (~3 enquiries per car/month), listing quality standards, dealer selection, and inventory decisions to balance demand generation with monetisation efficiency.</div>
+          <div class="exp-achievement">Enabled delivery of 700+ qualified dealer leads over the last 3 months while improving marketplace trust through stronger listing standards, structured feedback loops, and tighter experience controls.</div>
+          <div class="exp-achievement">Supported business expansion through launch of RWC as a service line and validation of adjacent opportunities including inspection and ownership-related services.</div>
+          <div class="exp-achievement">Led domain migration from cars24.com/au to cars24.com.au — 10x increase in organic acquisition across categories; ~850 C2B and ~450 B2C organic leads per month.</div>
+          <div class="exp-achievement">Awarded 2024 Yearly Best Performer – Growth &amp; Marketing.</div>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">GTM Strategy</span>
+          <span class="exp-tag">Marketplace Growth</span>
+          <span class="exp-tag">Ecosystem</span>
+          <span class="exp-tag">LTV/CAC</span>
+          <span class="exp-tag">CRO</span>
+          <span class="exp-tag">Demand Generation</span>
+          <span class="exp-tag">Technical SEO</span>
+        </div>
+      </div>
+
+      <!-- RARIO -->
+      <div class="exp-card reveal reveal-delay-1">
+        <div class="exp-header">
+          <div class="exp-company-info">
+            <div class="exp-logo-wrap light">
+              <img src="/assets/logos/rario.png" alt="Rario" class="exp-logo" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+              <span class="exp-logo-text" style="display:none;">RARIO</span>
+            </div>
+            <div>
+              <a href="https://www.rario.com" target="_blank" rel="noopener" class="exp-company-link">Rario ↗</a>
+              <div class="exp-role">Assistant Manager — Marketing · Gurgaon</div>
+            </div>
+          </div>
+          <div class="exp-duration">Nov 2022 – Oct 2023</div>
+        </div>
+        <div class="exp-desc">Led user acquisition and lifecycle growth during high-demand IPL cycles — owning scale, efficiency, and conversion outcomes across paid, referral, and engagement journeys for India's leading cricket NFT marketplace.</div>
+        <div class="exp-achievements">
+          <div class="exp-achievement">Drove user acquisition and lifecycle growth during high-demand IPL cycles across paid, referral-led, and engagement journeys — with ownership across scale, efficiency, and conversion outcomes.</div>
+          <div class="exp-achievement">Managed performance marketing during IPL season — overseeing ~$500K in media budgets and driving 600K installs across digital channels.</div>
+          <div class="exp-achievement">Reduced CPA from $40–50 to $20–25 through channel optimisation, funnel improvements, and sharper acquisition mix decisions.</div>
+          <div class="exp-achievement">Acquired 21K+ new buyers through referral-led growth strategies while maintaining ~28% buyer conversion.</div>
+          <div class="exp-achievement">Designed and optimised lifecycle journeys to improve activation and repeat engagement — contributing to a 2–3x uplift in user engagement over three months.</div>
+          <div class="exp-achievement">Built influencer-led acquisition funnels and landing journeys to improve install quality and downstream buyer behaviour.</div>
+          <div class="exp-achievement">Scaled organic demand during IPL — 150% increase in traffic, delivering 623.7K impressions and 271.7K clicks.</div>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">Performance Marketing</span>
+          <span class="exp-tag">Lifecycle</span>
+          <span class="exp-tag">Referral Growth</span>
+          <span class="exp-tag">Web3 / Sports Tech</span>
+          <span class="exp-tag">IPL</span>
+        </div>
+      </div>
+
+      <!-- COINSWITCH -->
+      <div class="exp-card reveal reveal-delay-2">
+        <div class="exp-header">
+          <div class="exp-company-info">
+            <div class="exp-logo-wrap light">
+              <img src="/assets/logos/coinswitch.gif" alt="CoinSwitch" class="exp-logo">
+            </div>
+            <div>
+              <a href="https://coinswitch.co" target="_blank" rel="noopener" class="exp-company-link">CoinSwitch ↗</a>
+              <div class="exp-role">Senior SEO Associate · Bangalore</div>
+            </div>
+          </div>
+          <div class="exp-duration">Jun 2022 – Nov 2022</div>
+        </div>
+        <div class="exp-desc">Drove organic acquisition and conversion growth for India's largest crypto exchange through SEO-led demand capture, landing page optimisation, and web-to-app discoverability improvements.</div>
+        <div class="exp-achievements">
+          <div class="exp-achievement">Drove organic user acquisition and conversion growth through SEO-led demand capture, landing page optimisation, and web-to-app discoverability improvements.</div>
+          <div class="exp-achievement">Developed category communication strategy for CRM — helped the team see measurable uplift in engagement.</div>
+          <div class="exp-achievement">Improved organic acquisition 3x by optimising high-intent landing pages, increasing CTR, and driving incremental installs and registrations.</div>
+          <div class="exp-achievement">Strengthened technical foundations to improve crawl efficiency, page performance, and discoverability across key acquisition journeys.</div>
+          <div class="exp-achievement">Worked across SEO and ASO levers to improve web-to-app visibility and conversion flow across product ecosystems.</div>
+          <div class="exp-achievement">Optimised internal linking and content architecture to improve engagement depth and user navigation across growth surfaces.</div>
+          <div class="exp-achievement">Built reporting frameworks to track acquisition, installs, and engagement performance.</div>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">Technical SEO</span>
+          <span class="exp-tag">ASO</span>
+          <span class="exp-tag">CRO</span>
+          <span class="exp-tag">Fintech / Crypto</span>
+          <span class="exp-tag">CRM</span>
+        </div>
+      </div>
+
+      <!-- PARK+ -->
+      <div class="exp-card reveal reveal-delay-3">
+        <div class="exp-header">
+          <div class="exp-company-info">
+            <div class="exp-logo-wrap">
+              <img src="/assets/logos/parkplus.jpg" alt="Park+" class="exp-logo">
+            </div>
+            <div>
+              <a href="https://www.parkplus.io" target="_blank" rel="noopener" class="exp-company-link">Park+ ↗</a>
+              <div class="exp-role">SEO Analyst · Gurgaon</div>
+            </div>
+          </div>
+          <div class="exp-duration">Mar 2021 – Jun 2022</div>
+        </div>
+        <div class="exp-desc">Built discoverability and acquisition foundations for a Super-App spanning 9 product lines — from FASTag and Challan to EV Charging and Insurance — across both web and app journeys.</div>
+        <div class="exp-achievements">
+          <div class="exp-achievement">Supported growth across multiple digital product lines by building site architecture, acquisition-focused content structures, and discoverability foundations for both web and app journeys.</div>
+          <div class="exp-achievement">Created URL and content architecture for new and existing business verticals — aligning site structure with user journeys and search demand.</div>
+          <div class="exp-achievement">Enabled growth across 9 product lines: FASTag, Challan, Parking, RTO, Fuel Price, New Cars, Insurance, Park+ for Business, and EV Charging.</div>
+          <div class="exp-achievement">Worked closely with product and design teams to launch new verticals and improve user-facing acquisition journeys.</div>
+          <div class="exp-achievement">Achieved top-3 rankings in FASTag, Challan, RTO, and Parking categories; top-10 across additional growth verticals.</div>
+          <div class="exp-achievement">Led content strategy across major categories to improve discoverability, acquisition, and category visibility.</div>
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">SEO Architecture</span>
+          <span class="exp-tag">Content Strategy</span>
+          <span class="exp-tag">Super-App / Mobility</span>
+          <span class="exp-tag">Product SEO</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EARLIER WORK -->
+<section class="earlier-section">
+  <div class="earlier-inner">
+    <div class="reveal"><div class="section-tag">Earlier Work</div></div>
+    <h2 class="section-title reveal">Before the<br>main act.</h2>
+    <p class="reveal" style="font-size:16px;color:var(--mist);font-weight:300;max-width:580px;line-height:1.7;margin-bottom:0;">Freelance and early-career roles spanning crypto, media, NGO, and employee experience — across New York, Chennai, Mumbai, and Bangalore.</p>
+    <div class="earlier-grid">
+      <div class="earlier-item reveal reveal-delay-1">
+        <div class="earlier-left">
+          <div class="earlier-company">Martian Wallet</div>
+          <div class="earlier-role-text">SEM &amp; SEO Consultant</div>
+        </div>
+        <div class="earlier-right">
+          <span class="earlier-meta">New York</span>
+          <span class="earlier-meta">·</span>
+          <span class="earlier-meta">1 year</span>
+          <span class="exp-tag">Crypto / Web3</span>
+        </div>
+      </div>
+      <div class="earlier-item reveal reveal-delay-2">
+        <div class="earlier-left">
+          <div class="earlier-company">Sharing Stories</div>
+          <div class="earlier-role-text">SEM &amp; SEO Consultant</div>
+        </div>
+        <div class="earlier-right">
+          <span class="earlier-meta">Chennai</span>
+          <span class="earlier-meta">·</span>
+          <span class="earlier-meta">1 year</span>
+          <span class="exp-tag">Media</span>
+        </div>
+      </div>
+      <div class="earlier-item reveal reveal-delay-3">
+        <div class="earlier-left">
+          <div class="earlier-company">Save the Paws</div>
+          <div class="earlier-role-text">Social Media Marketing Consultant</div>
+        </div>
+        <div class="earlier-right">
+          <span class="earlier-meta">Mumbai</span>
+          <span class="earlier-meta">·</span>
+          <span class="earlier-meta">6 months</span>
+          <span class="exp-tag">NGO</span>
+        </div>
+      </div>
+      <div class="earlier-item reveal reveal-delay-4">
+        <div class="earlier-left">
+          <div class="earlier-company">d'frens</div>
+          <div class="earlier-role-text">Account Manager · Event Co-ordinator · Video Editor</div>
+        </div>
+        <div class="earlier-right">
+          <span class="earlier-meta">Bangalore</span>
+          <span class="earlier-meta">·</span>
+          <span class="earlier-meta">1.5 years</span>
+          <span class="exp-tag">Employee Experience</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUME STRIP -->
+<section class="resume-strip">
+  <div class="resume-strip-inner reveal">
+    <h2 class="resume-strip-heading">Want the full picture?</h2>
+    <p class="resume-strip-desc">Download my resume or connect on LinkedIn for the complete story.</p>
+    <div class="resume-btns">
+      <a href="/assets/resume.pdf" class="btn-primary">Download Resume →</a>
+      <a href="https://www.linkedin.com/in/jigyanshu-shah/" target="_blank" rel="noopener" class="btn-outline">LinkedIn →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">JS<span>.</span></div>
+  <div class="footer-mid">© 2026 Jigyanshu Shah · All rights reserved</div>
+  <div class="footer-domain">jigyanshushah.ai</div>
+</footer>
+
+<script>
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+});
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+menuBtn.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mobileMenu.classList.toggle('open', menuOpen);
+  menuBtn.textContent = menuOpen ? '✕' : '☰';
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link, .mobile-cta').forEach(a => {
+  a.addEventListener('click', () => {
+    menuOpen = false; mobileMenu.classList.remove('open');
+    menuBtn.textContent = '☰'; document.body.style.overflow = '';
+  });
+});
+</script>
+</body>
+</html>

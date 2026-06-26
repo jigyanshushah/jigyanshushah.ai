@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Jigyanshu Shah | Growth Operator &amp; AI Builder</title>
+<meta name="description" content="Growth operator with 5+ years across marketplace, Web3, fintech, and mobility. Six AI tools in production. Currently driving ecosystem strategy at Cars24 Australia.">
+<link rel="canonical" href="https://jigyanshushah.ai/about">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #080808;
+  --carbon: #111111;
+  --surface: #181818;
+  --steel: #252525;
+  --divider: #2c2c2c;
+  --ivory: #F2F2F2;
+  --mist: #9A9A9A;
+  --smoke: #505050;
+  --crimson: #C91A33;
+  --flame: #E8243C;
+  --acid: #B8F03C;
+  --white: #FFFFFF;
+  --syne: 'Syne', system-ui, sans-serif;
+  --outfit: 'Outfit', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--void); color: var(--ivory); font-family: var(--outfit); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+/* SCROLL PROGRESS */
+#progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--flame); z-index: 1000; width: 0%; transition: width 0.1s linear; }
+
+/* NAV */
+nav {
+  position: fixed; top: 2px; left: 0; right: 0; z-index: 999;
+  background: rgba(8,8,8,0.88); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--divider);
+  padding: 0 48px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { font-family: var(--syne); font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--flame); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--mist); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ivory); }
+.nav-cta {
+  padding: 8px 20px; background: var(--flame); color: #fff;
+  font-family: var(--outfit); font-weight: 600; font-size: 13px;
+  border: none; border-radius: 100px; cursor: pointer; text-decoration: none;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.85; }
+.nav-menu-btn { display: none; background: none; border: none; color: var(--ivory); cursor: pointer; font-size: 22px; }
+.mobile-menu {
+  display: none; position: fixed; inset: 0; top: 58px;
+  background: rgba(8,8,8,0.97); z-index: 998; padding: 40px 28px;
+  flex-direction: column; gap: 0;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a { display: block; padding: 18px 0; font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--ivory); text-decoration: none; border-bottom: 1px solid var(--divider); transition: color 0.2s; }
+.mobile-menu a:hover { color: var(--flame); }
+.mobile-menu .mobile-cta { margin-top: 32px; display: inline-flex; padding: 14px 32px; background: var(--flame); color: #fff; border-radius: 100px; font-weight: 600; font-size: 16px; text-decoration: none; }
+
+/* REVEAL ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* PAGE HERO */
+.page-hero {
+  padding-top: 56px;
+  position: relative; overflow: hidden;
+  min-height: 200px;
+  display: flex; align-items: center;
+  border-bottom: 1px solid var(--divider);
+}
+.page-hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(var(--divider) 1px, transparent 1px), linear-gradient(90deg, var(--divider) 1px, transparent 1px);
+  background-size: 72px 72px; opacity: 0.2; pointer-events: none;
+}
+.page-hero-glow {
+  position: absolute; width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,26,51,0.08) 0%, transparent 65%);
+  top: -200px; right: -100px; pointer-events: none;
+}
+.page-hero-inner {
+  position: relative; z-index: 2;
+  padding: 48px 48px;
+  width: 100%;
+}
+.page-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--flame); margin-bottom: 16px;
+}
+.page-hero-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--flame); }
+.page-hero h1 {
+  font-family: var(--syne); font-size: clamp(36px, 5vw, 64px);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.04em;
+  color: var(--white); margin-bottom: 12px;
+}
+.page-hero-sub {
+  font-size: 16px; color: var(--mist); font-weight: 300;
+}
+
+/* SECTION BASE */
+.section { padding: 88px 48px; max-width: 1200px; margin: 0 auto; }
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--flame); margin-bottom: 18px;
+}
+.section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--flame); }
+.section-title {
+  font-family: var(--syne); font-size: clamp(32px, 4.5vw, 54px);
+  font-weight: 800; line-height: 1.05; letter-spacing: -0.03em;
+  color: var(--white); margin-bottom: 16px;
+}
+
+/* ABOUT INTRO GRID */
+.about-intro { border-top: 1px solid var(--divider); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+.about-text p { font-size: 16px; color: var(--mist); font-weight: 300; line-height: 1.85; margin-bottom: 20px; }
+.about-text p strong { color: var(--ivory); font-weight: 600; }
+.about-text p .red { color: var(--flame); font-weight: 600; }
+.about-stat-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px; margin-top: 36px; }
+.about-stat { background: var(--carbon); padding: 24px 20px; }
+.stat-num { font-family: var(--syne); font-size: 36px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 6px; }
+.stat-num span { color: var(--flame); }
+.stat-label { font-size: 12px; color: var(--smoke); text-transform: uppercase; letter-spacing: 0.08em; }
+.about-pillars { display: flex; flex-direction: column; gap: 3px; }
+.about-pillar {
+  background: var(--carbon); padding: 28px 32px;
+  border-left: 3px solid var(--steel);
+  transition: border-color 0.2s, background 0.2s;
+}
+.about-pillar:hover { border-color: var(--flame); background: var(--surface); }
+.pillar-label { font-family: var(--syne); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+.pillar-desc { font-size: 14px; color: var(--mist); font-weight: 300; line-height: 1.7; }
+
+/* APPROACH SECTION */
+.approach-section { border-top: 1px solid var(--divider); background: var(--carbon); }
+.approach-inner { max-width: 1200px; margin: 0 auto; padding: 88px 48px; }
+.approach-cards { display: flex; flex-direction: column; gap: 3px; margin-top: 48px; }
+.approach-card {
+  background: var(--surface); padding: 40px 44px;
+  border-left: 3px solid var(--steel);
+  transition: border-color 0.2s, background 0.2s;
+}
+.approach-card:hover { border-left-color: var(--flame); background: var(--carbon); }
+.approach-card-label {
+  font-family: var(--syne); font-size: 20px; font-weight: 700;
+  color: var(--white); margin-bottom: 12px;
+}
+.approach-card-label span { color: var(--flame); }
+.approach-card-desc { font-size: 15px; color: var(--mist); font-weight: 300; line-height: 1.8; max-width: 760px; }
+
+/* CTA STRIP */
+.cta-strip {
+  border-top: 1px solid var(--divider);
+  background: var(--carbon);
+  text-align: center;
+  padding: 88px 48px;
+}
+.cta-strip-inner { max-width: 640px; margin: 0 auto; }
+.cta-strip-heading {
+  font-family: var(--syne); font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800; letter-spacing: -0.03em; color: var(--white);
+  margin-bottom: 16px;
+}
+.cta-strip-sub { font-size: 16px; color: var(--mist); font-weight: 300; line-height: 1.75; margin-bottom: 36px; }
+.cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: var(--flame); color: #fff;
+  font-family: var(--outfit); font-weight: 600; font-size: 15px;
+  border-radius: 100px; text-decoration: none; transition: transform 0.2s, opacity 0.2s;
+}
+.btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: transparent; color: var(--ivory);
+  font-family: var(--outfit); font-weight: 600; font-size: 15px;
+  border: 1px solid var(--steel); border-radius: 100px; text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.btn-outline:hover { border-color: var(--ivory); transform: translateY(-2px); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--divider); padding: 40px 48px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.footer-logo { font-family: var(--syne); font-weight: 800; font-size: 18px; letter-spacing: -0.03em; color: var(--white); }
+.footer-logo span { color: var(--flame); }
+.footer-mid { font-size: 13px; color: var(--smoke); text-align: center; }
+.footer-domain { font-size: 13px; color: var(--mist); font-family: 'Courier New', monospace; letter-spacing: 0.04em; }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  nav { padding: 0 28px; }
+  .nav-links { display: none; }
+  .nav-menu-btn { display: block; }
+  .section { padding: 64px 28px; }
+  .page-hero-inner { padding: 40px 28px; }
+  .approach-inner { padding: 64px 28px; }
+  .cta-strip { padding: 64px 28px; }
+  .about-grid { grid-template-columns: 1fr; gap: 48px; }
+  footer { padding: 32px 28px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .section { padding: 52px 20px; }
+  .page-hero-inner { padding: 32px 20px; }
+  .approach-inner { padding: 52px 20px; }
+  .cta-strip { padding: 52px 20px; }
+  .approach-card { padding: 28px 24px; }
+  .about-stat-row { grid-template-columns: 1fr 1fr; }
+  footer { flex-direction: column; text-align: center; padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">JS<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/about" class="active">About</a></li>
+    <li><a href="/experience">Experience</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/ai-achievements">AI Work</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="nav-cta">Hire me →</a>
+  <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/about" class="mob-link">About</a>
+  <a href="/experience" class="mob-link">Experience</a>
+  <a href="/projects" class="mob-link">Projects</a>
+  <a href="/ai-achievements" class="mob-link">AI Work</a>
+  <a href="/contact" class="mob-link">Contact</a>
+  <a href="/contact" class="mobile-cta">Hire me →</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-grid-bg"></div>
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-inner">
+    <div class="page-hero-eyebrow">About</div>
+    <h1>About Jigyanshu Shah</h1>
+    <p class="page-hero-sub">Growth Operator · AI Builder · Marketplace Specialist</p>
+  </div>
+</div>
+
+<!-- SECTION 1: The person behind the brand -->
+<section class="about-intro">
+  <div class="section">
+    <div class="reveal"><div class="section-tag">The person behind the brand.</div></div>
+    <div class="about-grid">
+      <div>
+        <div class="about-text">
+          <p class="reveal reveal-delay-1">I'm a <strong>growth operator</strong> — the kind who owns category performance, builds the commercial infrastructure behind it, and ships AI tools that actually run in production. Currently driving <span class="red">ecosystem strategy</span> at Cars24 Australia — spanning marketplace GTM, product launches, and multi-vertical expansion.</p>
+          <p class="reveal reveal-delay-2">Beyond the day job, I build things. <strong>Six AI tools</strong> shipped and in active use — from QC automation and fraud detection to content auditing and community intelligence. Built prompt-first, running in real workflows, used by real teams.</p>
+          <p class="reveal reveal-delay-3">Five years across Auto Marketplace, Web3/Sports Tech, Fintech/Crypto, and Super-App/Mobility — this site is the proof of work.</p>
+        </div>
+        <div class="about-stat-row reveal reveal-delay-4">
+          <div class="about-stat">
+            <div class="stat-num">5<span>+</span></div>
+            <div class="stat-label">Years in growth</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num">4</div>
+            <div class="stat-label">Industries</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num">6</div>
+            <div class="stat-label">AI tools shipped</div>
+          </div>
+          <div class="about-stat">
+            <div class="stat-num">700<span>+</span></div>
+            <div class="stat-label">Leads in 90 days</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="about-pillars reveal reveal-delay-2">
+          <div class="about-pillar">
+            <div class="pillar-label">Business-First Growth</div>
+            <div class="pillar-desc">Category performance, LTV/CAC, monetisation strategy. I don't run campaigns — I build the systems that compound over time.</div>
+          </div>
+          <div class="about-pillar">
+            <div class="pillar-label">Ecosystem Thinking</div>
+            <div class="pillar-desc">Multi-vertical GTM, marketplace supply and demand, cross-functional alignment. Growth as infrastructure, not a department.</div>
+          </div>
+          <div class="about-pillar">
+            <div class="pillar-label">AI-Assisted Execution</div>
+            <div class="pillar-desc">Six tools in production. Automation pipelines, fraud detection, reporting at scale. I build the things that make the team faster.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: How I approach work -->
+<section class="approach-section">
+  <div class="approach-inner">
+    <div class="reveal"><div class="section-tag">How I work</div></div>
+    <h2 class="section-title reveal">How I approach work.</h2>
+    <div class="approach-cards">
+      <div class="approach-card reveal reveal-delay-1">
+        <div class="approach-card-label"><span>Build systems,</span> not campaigns</div>
+        <div class="approach-card-desc">Campaigns end. Systems compound. Every project I touch, I'm thinking about the infrastructure: the feedback loops, the data layers, the automation that makes the next iteration faster.</div>
+      </div>
+      <div class="approach-card reveal reveal-delay-2">
+        <div class="approach-card-label"><span>Hire-quality output</span> as the standard</div>
+        <div class="approach-card-desc">I write briefs that ship. I build tools that teams actually use. I don't prototype for the sake of it — everything I make is meant to work in production.</div>
+      </div>
+      <div class="approach-card reveal reveal-delay-3">
+        <div class="approach-card-label"><span>Cross-functional</span> by default</div>
+        <div class="approach-card-desc">Growth sits at the intersection of product, data, and ops. I've worked across all three and know how to align them without friction.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: CTA Strip -->
+<section class="cta-strip">
+  <div class="cta-strip-inner reveal">
+    <h2 class="cta-strip-heading">Open to new opportunities</h2>
+    <p class="cta-strip-sub">Looking for a growth operator who can lead strategy, build the systems, and ship the tools? Let's talk.</p>
+    <div class="cta-btns">
+      <a href="/experience" class="btn-primary">View My Work →</a>
+      <a href="/contact" class="btn-outline">Get in Touch →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">JS<span>.</span></div>
+  <div class="footer-mid">© 2026 Jigyanshu Shah · All rights reserved</div>
+  <div class="footer-domain">jigyanshushah.ai</div>
+</footer>
+
+<script>
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+});
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+menuBtn.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mobileMenu.classList.toggle('open', menuOpen);
+  menuBtn.textContent = menuOpen ? '✕' : '☰';
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link, .mobile-cta').forEach(a => {
+  a.addEventListener('click', () => {
+    menuOpen = false; mobileMenu.classList.remove('open');
+    menuBtn.textContent = '☰'; document.body.style.overflow = '';
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicle Recall Checker | Flask API + SQLite by Jigyanshu Shah</title>
+<meta name="description" content="Flask REST API that looks up VINs against a SQLite recall database — deployed for Cars24 Australia. Endpoints: /lookup, /status, /health. Static HTML frontend, CORS-configured, gunicorn-ready.">
+<link rel="canonical" href="https://jigyanshushah.ai/projects/vehicle-recall-checker">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #080808;
+  --carbon: #111111;
+  --surface: #181818;
+  --steel: #252525;
+  --divider: #2c2c2c;
+  --ivory: #F2F2F2;
+  --mist: #9A9A9A;
+  --smoke: #505050;
+  --flame: #E8243C;
+  --acid: #B8F03C;
+  --white: #FFFFFF;
+  --syne: 'Syne', system-ui, sans-serif;
+  --outfit: 'Outfit', system-ui, sans-serif;
+}
+
+/* BASE */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--void); color: var(--ivory); font-family: var(--outfit); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+#progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--flame); z-index: 1000; width: 0%; transition: width 0.1s linear; }
+
+/* NAV */
+nav { position: fixed; top: 2px; left: 0; right: 0; z-index: 999; background: rgba(8,8,8,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--divider); padding: 0 48px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: var(--syne); font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--flame); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--mist); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover { color: var(--ivory); }
+.nav-cta { padding: 8px 20px; background: var(--flame); color: #fff; font-family: var(--outfit); font-weight: 600; font-size: 13px; border: none; border-radius: 100px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
+.nav-cta:hover { opacity: 0.85; }
+.nav-menu-btn { display: none; background: none; border: none; color: var(--ivory); cursor: pointer; font-size: 22px; }
+.mobile-menu { display: none; position: fixed; inset: 0; top: 58px; background: rgba(8,8,8,0.97); z-index: 998; padding: 40px 28px; flex-direction: column; gap: 0; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { display: block; padding: 18px 0; font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--ivory); text-decoration: none; border-bottom: 1px solid var(--divider); transition: color 0.2s; }
+.mobile-menu a:hover { color: var(--flame); }
+.mobile-menu .mobile-cta { margin-top: 32px; display: inline-flex; padding: 14px 32px; background: var(--flame); color: #fff; border-radius: 100px; font-weight: 600; font-size: 16px; text-decoration: none; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--divider); padding: 40px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: var(--syne); font-weight: 800; font-size: 18px; letter-spacing: -0.03em; color: var(--white); }
+.footer-logo span { color: var(--flame); }
+.footer-mid { font-size: 13px; color: var(--smoke); text-align: center; }
+.footer-domain { font-size: 13px; color: var(--mist); font-family: 'Courier New', monospace; letter-spacing: 0.04em; }
+
+/* CASE STUDY SPECIFIC */
+.page-header { padding: 100px 48px 60px; max-width: 1200px; margin: 0 auto; }
+.breadcrumb { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--smoke); text-decoration: none; margin-bottom: 32px; transition: color 0.2s; }
+.breadcrumb:hover { color: var(--mist); }
+.project-type-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acid); margin-bottom: 16px; }
+.project-type-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--acid); }
+.project-title { font-family: var(--syne); font-size: clamp(36px, 5vw, 64px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; color: var(--white); margin-bottom: 20px; }
+.status-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(184,240,60,0.08); border: 1px solid rgba(184,240,60,0.2); border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--acid); margin-bottom: 24px; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--acid); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+.project-summary { font-size: 18px; color: var(--mist); font-weight: 300; max-width: 700px; line-height: 1.75; margin-bottom: 28px; }
+.hero-tech-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-tech-chip { padding: 7px 16px; border: 1px solid var(--steel); border-radius: 100px; font-size: 12px; font-weight: 500; color: var(--mist); }
+
+.metrics-strip { background: var(--carbon); border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
+.metrics-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: repeat(3, 1fr); }
+.metric-card { padding: 40px 32px; border-right: 1px solid var(--divider); }
+.metric-card:last-child { border-right: none; }
+.metric-num { font-family: var(--syne); font-size: 48px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 10px; }
+.metric-num span { color: var(--flame); }
+.metric-num.word { font-size: 24px; letter-spacing: -0.02em; line-height: 1.2; }
+.metric-label { font-size: 13px; color: var(--smoke); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.case-body { max-width: 1200px; margin: 0 auto; padding: 0 48px 80px; }
+.case-section { padding: 56px 0; border-top: 1px solid var(--divider); }
+.case-section h2 { font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--white); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+.case-section h2::before { content: ''; display: block; width: 4px; height: 24px; background: var(--flame); border-radius: 2px; flex-shrink: 0; }
+.case-text { font-size: 15px; color: var(--mist); line-height: 1.85; font-weight: 300; }
+.case-text strong { color: var(--ivory); font-weight: 600; }
+.case-text p { margin-bottom: 16px; }
+.case-text p:last-child { margin-bottom: 0; }
+
+.step-list { display: flex; flex-direction: column; gap: 3px; margin-top: 16px; }
+.step-card { background: var(--carbon); padding: 24px 28px; border-left: 3px solid var(--steel); display: flex; gap: 20px; transition: border-color 0.2s; }
+.step-card:hover { border-left-color: var(--flame); }
+.step-num { font-family: var(--syne); font-size: 12px; font-weight: 700; color: var(--acid); flex-shrink: 0; min-width: 28px; padding-top: 2px; letter-spacing: 0.06em; }
+.step-body { flex: 1; }
+.step-title { font-family: var(--syne); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+.step-desc { font-size: 14px; color: var(--mist); line-height: 1.7; font-weight: 300; }
+.step-desc strong { color: var(--ivory); font-weight: 600; }
+
+.sample-report { background: var(--carbon); border: 1px solid var(--steel); border-radius: 8px; padding: 28px 32px; margin-top: 16px; font-family: 'Courier New', monospace; font-size: 12.5px; line-height: 1.9; color: var(--mist); overflow-x: auto; }
+.dummy-notice { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--smoke); background: var(--surface); border: 1px solid var(--steel); padding: 5px 12px; border-radius: 4px; margin-bottom: 16px; font-family: var(--outfit); letter-spacing: 0.04em; }
+.ok { color: #4CAF50; }
+.warn { color: #E8923C; }
+.fail { color: var(--flame); font-weight: bold; }
+.hl { color: var(--acid); }
+.dim { color: var(--smoke); }
+
+.tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-top: 16px; }
+.tech-group { background: var(--carbon); padding: 24px 28px; }
+.tech-group-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--smoke); margin-bottom: 14px; }
+.tech-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tech-chip { padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; border: 1px solid var(--steel); color: var(--mist); }
+.tech-chip.featured { border-color: rgba(184,240,60,0.3); color: var(--acid); background: rgba(184,240,60,0.04); }
+
+.impact-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.impact-item { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--mist); line-height: 1.65; }
+.impact-item::before { content: '→'; color: var(--acid); font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.impact-item strong { color: var(--ivory); }
+
+.limitation-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.limitation-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--mist); line-height: 1.65; }
+.limitation-item::before { content: '◦'; color: var(--smoke); flex-shrink: 0; }
+
+.endpoint-block { background: var(--carbon); border: 1px solid var(--steel); border-radius: 6px; padding: 20px 24px; margin-bottom: 8px; display: flex; align-items: flex-start; gap: 16px; }
+.endpoint-method { font-family: 'Courier New', monospace; font-size: 11px; font-weight: 700; color: var(--acid); background: rgba(184,240,60,0.08); border: 1px solid rgba(184,240,60,0.2); padding: 3px 10px; border-radius: 4px; flex-shrink: 0; letter-spacing: 0.06em; margin-top: 2px; }
+.endpoint-path { font-family: 'Courier New', monospace; font-size: 14px; color: var(--white); font-weight: 600; margin-bottom: 4px; }
+.endpoint-desc { font-size: 13px; color: var(--mist); line-height: 1.6; }
+
+.bottom-nav { max-width: 1200px; margin: 0 auto; padding: 40px 48px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--divider); }
+.bottom-nav-link { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--mist); text-decoration: none; transition: color 0.2s; }
+.bottom-nav-link:hover { color: var(--ivory); }
+.bottom-nav-link.fwd { color: var(--flame); }
+.bottom-nav-link.fwd:hover { color: var(--ivory); }
+
+@media (max-width: 1024px) {
+  nav { padding: 0 28px; }
+  .nav-links { display: none; }
+  .nav-menu-btn { display: block; }
+  .page-header, .case-body, .bottom-nav { padding-left: 28px; padding-right: 28px; }
+  .metrics-inner { padding: 0 28px; grid-template-columns: 1fr; }
+  .metric-card { border-right: none; border-bottom: 1px solid var(--divider); }
+  .metric-card:last-child { border-bottom: none; }
+  .tech-grid { grid-template-columns: 1fr; }
+  footer { padding: 32px 28px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .page-header, .case-body, .bottom-nav { padding-left: 20px; padding-right: 20px; }
+  .metrics-inner { padding: 0 20px; }
+  .project-title { font-size: 36px; }
+  .step-card { padding: 18px 20px; gap: 14px; }
+  .case-section h2 { font-size: 22px; }
+  footer { flex-direction: column; text-align: center; padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav id="navbar">
+  <a href="/" class="nav-logo">JS<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/about">About</a></li>
+    <li><a href="/experience">Experience</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/ai-achievements">AI Work</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="nav-cta">Hire me →</a>
+  <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/about" class="mob-link">About</a>
+  <a href="/experience" class="mob-link">Experience</a>
+  <a href="/projects" class="mob-link">Projects</a>
+  <a href="/ai-achievements" class="mob-link">AI Work</a>
+  <a href="/contact" class="mob-link">Contact</a>
+  <a href="/contact" class="mobile-cta">Hire me →</a>
+</div>
+
+<main>
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <a href="/projects" class="breadcrumb reveal">← Back to Projects</a>
+    <div class="project-type-tag reveal">Trust · Compliance · API</div>
+    <h1 class="project-title reveal">Vehicle Recall Checker</h1>
+    <div class="reveal">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Live · Cars24 AU
+      </div>
+    </div>
+    <p class="project-summary reveal">A Flask REST API that looks up any VIN against a SQLite recall database — serving a Cars24-branded HTML frontend. Three endpoints: /lookup (VIN query), /status (database stats), /health. Deployed behind gunicorn, CORS-configured.</p>
+    <div class="hero-tech-chips reveal">
+      <span class="hero-tech-chip">Python</span>
+      <span class="hero-tech-chip">Flask</span>
+      <span class="hero-tech-chip">SQLite</span>
+      <span class="hero-tech-chip">Flask-CORS</span>
+      <span class="hero-tech-chip">gunicorn</span>
+      <span class="hero-tech-chip">REST API</span>
+      <span class="hero-tech-chip">Static HTML</span>
+    </div>
+  </div>
+
+  <!-- METRICS STRIP -->
+  <div class="metrics-strip">
+    <div class="metrics-inner">
+      <div class="metric-card reveal">
+        <div class="metric-num word" style="color:var(--acid);">/lookup</div>
+        <div class="metric-label">Real-time VIN recall query endpoint</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-1">
+        <div class="metric-num word">SQLite</div>
+        <div class="metric-label">Local recall database — no external API dependency</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-2">
+        <div class="metric-num word">Static<span> +</span> API</div>
+        <div class="metric-label">Decoupled frontend and backend architecture</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE BODY -->
+  <div class="case-body">
+
+    <!-- PROBLEM STATEMENT -->
+    <div class="case-section reveal">
+      <h2>Problem Statement</h2>
+      <div class="case-text">
+        <p>Cars24 AU needed a way to check whether any vehicle in its inventory had an active recall notice — without depending on a paid external API call for every single lookup. The solution needed to be fast, deployable, and accessible via a simple browser frontend for the ops team.</p>
+      </div>
+    </div>
+
+    <!-- WHAT I BUILT -->
+    <div class="case-section reveal">
+      <h2>What I Built</h2>
+      <div class="case-text">
+        <p>A Python Flask API with three endpoints backed by a local SQLite recall database:</p>
+      </div>
+      <div style="margin-top: 20px;">
+        <div class="endpoint-block">
+          <div class="endpoint-method">GET</div>
+          <div>
+            <div class="endpoint-path">/lookup?vin=VIN</div>
+            <div class="endpoint-desc">Returns all matching recall records for a given VIN. Strips whitespace, uppercases the input, queries the database, and returns structured JSON with found status, recall count, and an array of recall objects.</div>
+          </div>
+        </div>
+        <div class="endpoint-block">
+          <div class="endpoint-method">GET</div>
+          <div>
+            <div class="endpoint-path">/status</div>
+            <div class="endpoint-desc">Returns total VIN count and number of distinct source files in the database. Useful for ops to verify the database is populated and up to date.</div>
+          </div>
+        </div>
+        <div class="endpoint-block">
+          <div class="endpoint-method">GET</div>
+          <div>
+            <div class="endpoint-path">/health</div>
+            <div class="endpoint-desc">Simple liveness check — returns <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">{"ok": true}</code>. Used by the deployment platform for liveness probing.</div>
+          </div>
+        </div>
+      </div>
+      <div class="case-text" style="margin-top: 20px;">
+        <p>A static HTML frontend (Cars24-branded, Geist font, blue/mint palette) calls the API and renders results in real time. The whole system is CORS-configured so the frontend can be hosted separately from the API.</p>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="case-section reveal">
+      <h2>How It Works</h2>
+      <div class="step-list">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Database</div>
+            <div class="step-desc"><code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">vin_database.db</code> is a SQLite database with a <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">recalls</code> table. Each row has: <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">recall_id</code>, <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">source_file</code> (which recall data file it came from), and <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">raw_row</code> (the original recall record). Indexed on <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">vin</code> for fast lookup.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">API — /lookup</div>
+            <div class="step-desc">Accepts a VIN via query param (<code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">?vin=...</code>). Strips whitespace, uppercases. Queries the database: <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">SELECT recall_id, source_file, MIN(raw_row) AS raw_row FROM recalls WHERE vin = ? GROUP BY recall_id, source_file ORDER BY recall_id, source_file</code>. Returns JSON: <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">{vin, found: bool, message, recall_count, recalls: [...]}</code>.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">API — /status</div>
+            <div class="step-desc">Returns total VIN count and number of distinct source files. Useful for ops to verify the database is populated and current.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">API — /health</div>
+            <div class="step-desc">Simple <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">{"ok": true}</code> response. Used by the deployment platform for liveness probing.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <div class="step-title">CORS configuration</div>
+            <div class="step-desc"><code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">CORS_ORIGINS</code> env var controls allowed origins. Defaults to <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">*</code> for local dev; set to the production frontend URL in deployment. This lets the static HTML frontend be hosted on a different domain (e.g., Cars24's internal tooling host) while calling the Python API.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">06</div>
+          <div class="step-body">
+            <div class="step-title">Deployment</div>
+            <div class="step-desc">Runs via gunicorn: <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">gunicorn "app:app" --bind 0.0.0.0:5000</code>. Environment variables control <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">VIN_DB_PATH</code>, <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">HOST</code>, <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">PORT</code>, and <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">CORS_ORIGINS</code> — no config files needed for deployment.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAMPLE API RESPONSE -->
+    <div class="case-section reveal">
+      <h2>Sample API Response</h2>
+      <div class="dummy-notice">&#9432; Sample output — dummy data. No real VINs or recall IDs shown.</div>
+      <div class="sample-report">
+<span class="hl">SAMPLE OUTPUT — DUMMY DATA</span>
+<span class="dim">═══════════════════════════════════════════════════════════════</span>
+<strong style="color:var(--ivory);">GET /lookup?vin=DEMO000000000000A</strong>
+
+<span class="ok">HTTP 200 OK</span>
+<span class="dim">Content-Type: application/json</span>
+
+<span class="dim">{</span>
+  <span class="hl">"vin":</span>          <span style="color:var(--ivory);">"DEMO000000000000A"</span>,
+  <span class="hl">"found":</span>        <span style="color:var(--ivory);">true</span>,
+  <span class="hl">"message":</span>      <span style="color:var(--ivory);">"VIN found"</span>,
+  <span class="hl">"recall_count":</span> <span style="color:var(--ivory);">1</span>,
+  <span class="hl">"recalls":</span> <span class="dim">[</span>
+    <span class="dim">{</span>
+      <span class="hl">"recall_id":</span>   <span style="color:var(--ivory);">"RC-DEMO-2023-001"</span>,
+      <span class="hl">"source_file":</span> <span style="color:var(--ivory);">"sample_recall_2023_Q2.csv"</span>,
+      <span class="hl">"raw_row":</span>     <span style="color:var(--ivory);">"DEMO000000000000A,RC-DEMO-2023-001,Sample recall notice (demo),2023-06-12"</span>
+    <span class="dim">}</span>
+  <span class="dim">]</span>
+<span class="dim">}</span>
+
+<span class="dim">─────────────────────────────────────────────────────────────</span>
+<strong style="color:var(--ivory);">GET /lookup?vin=DEMO000000000001B</strong>
+
+<span class="ok">HTTP 200 OK</span>
+<span class="dim">{</span>
+  <span class="hl">"vin":</span>     <span style="color:var(--ivory);">"DEMO000000000001B"</span>,
+  <span class="hl">"found":</span>   <span style="color:var(--ivory);">false</span>,
+  <span class="hl">"message":</span> <span style="color:var(--ivory);">"VIN not found"</span>,
+  <span class="hl">"recalls":</span> <span class="dim">[]</span>
+<span class="dim">}</span>
+
+<span class="dim">─────────────────────────────────────────────────────────────</span>
+<strong style="color:var(--ivory);">GET /status</strong>
+
+<span class="ok">HTTP 200 OK</span>
+<span class="dim">{</span>
+  <span class="hl">"total_vins":</span>   <span style="color:var(--ivory);">14203</span>,
+  <span class="hl">"total_files":</span>  <span style="color:var(--ivory);">12</span>,
+  <span class="hl">"database":</span>     <span style="color:var(--ivory);">"vin_database.db"</span>
+<span class="dim">}</span>
+<span class="dim">═══════════════════════════════════════════════════════════════</span>
+      </div>
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="case-section reveal">
+      <h2>Tech Stack</h2>
+      <div class="tech-grid">
+        <div class="tech-group">
+          <div class="tech-group-title">Backend</div>
+          <div class="tech-chips">
+            <span class="tech-chip featured">Python</span>
+            <span class="tech-chip featured">Flask</span>
+            <span class="tech-chip featured">SQLite</span>
+            <span class="tech-chip featured">Flask-CORS</span>
+            <span class="tech-chip featured">gunicorn</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-title">Frontend</div>
+          <div class="tech-chips">
+            <span class="tech-chip">Static HTML/CSS/JS</span>
+            <span class="tech-chip">Geist font (Google Fonts)</span>
+            <span class="tech-chip">Fetch API (browser-native)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUSINESS IMPACT -->
+    <div class="case-section reveal">
+      <h2>Business Impact</h2>
+      <div class="impact-list">
+        <div class="impact-item">Ops team can check any vehicle VIN against the recall database in real time via a browser interface — no technical knowledge required</div>
+        <div class="impact-item">Decoupled architecture: the HTML frontend can be updated or rehosted without touching the API</div>
+        <div class="impact-item">SQLite local database means zero external API cost per lookup — all queries run against a local file</div>
+        <div class="impact-item">CORS configuration makes it safe to host the frontend on Cars24's existing tooling infrastructure without CORS errors</div>
+        <div class="impact-item">/status endpoint lets the ops team verify data freshness at a glance</div>
+      </div>
+    </div>
+
+    <!-- LIMITATIONS -->
+    <div class="case-section reveal">
+      <h2>Limitations &amp; Future Improvements</h2>
+      <div class="limitation-list">
+        <div class="limitation-item">Database must be manually updated when new recall data is published — a future version would automate periodic ingestion from the government recall data source.</div>
+        <div class="limitation-item">SQLite is sufficient for low-to-moderate concurrent traffic; a PostgreSQL backend would be needed if the tool is opened to high-volume concurrent access.</div>
+        <div class="limitation-item">The /lookup endpoint returns the full raw recall row — a future version would parse the raw row into structured fields (recall title, severity, issued date, affected models) for a cleaner API response.</div>
+        <div class="limitation-item">No authentication on the API currently — appropriate for internal ops tooling but would need an API key layer before any public-facing use.</div>
+      </div>
+    </div>
+
+  </div><!-- /case-body -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav reveal">
+    <a href="/projects" class="bottom-nav-link">← Back to Projects</a>
+    <a href="/ai-achievements" class="bottom-nav-link fwd">View all AI tools →</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">JS<span>.</span></div>
+  <div class="footer-mid">© 2026 Jigyanshu Shah · All rights reserved</div>
+  <div class="footer-domain">jigyanshushah.ai</div>
+</footer>
+
+<script>
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+});
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+menuBtn.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mobileMenu.classList.toggle('open', menuOpen);
+  menuBtn.textContent = menuOpen ? '✕' : '☰';
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link, .mobile-cta').forEach(a => {
+  a.addEventListener('click', () => {
+    menuOpen = false; mobileMenu.classList.remove('open');
+    menuBtn.textContent = '☰'; document.body.style.overflow = '';
+  });
+});
+</script>
+</body>
+</html>

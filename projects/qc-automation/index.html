@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QC Automation Engine | Claude API + Multi-DB Pipeline by Jigyanshu Shah</title>
+<meta name="description" content="Full production QC automation pipeline for Cars24 Australia — Autogate API ingestion, Glasses reference data merge, Claude AI for descriptions and image QC, Google Sheets ops approval, 4-hour cron cycle.">
+<link rel="canonical" href="https://jigyanshushah.ai/projects/qc-automation">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #080808;
+  --carbon: #111111;
+  --surface: #181818;
+  --steel: #252525;
+  --divider: #2c2c2c;
+  --ivory: #F2F2F2;
+  --mist: #9A9A9A;
+  --smoke: #505050;
+  --flame: #E8243C;
+  --acid: #B8F03C;
+  --white: #FFFFFF;
+  --syne: 'Syne', system-ui, sans-serif;
+  --outfit: 'Outfit', system-ui, sans-serif;
+}
+
+/* BASE */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--void); color: var(--ivory); font-family: var(--outfit); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+#progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--flame); z-index: 1000; width: 0%; transition: width 0.1s linear; }
+
+/* NAV */
+nav { position: fixed; top: 2px; left: 0; right: 0; z-index: 999; background: rgba(8,8,8,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--divider); padding: 0 48px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: var(--syne); font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--flame); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--mist); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ivory); }
+.nav-cta { padding: 8px 20px; background: var(--flame); color: #fff; font-family: var(--outfit); font-weight: 600; font-size: 13px; border: none; border-radius: 100px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
+.nav-cta:hover { opacity: 0.85; }
+.nav-menu-btn { display: none; background: none; border: none; color: var(--ivory); cursor: pointer; font-size: 22px; }
+.mobile-menu { display: none; position: fixed; inset: 0; top: 58px; background: rgba(8,8,8,0.97); z-index: 998; padding: 40px 28px; flex-direction: column; gap: 0; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { display: block; padding: 18px 0; font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--ivory); text-decoration: none; border-bottom: 1px solid var(--divider); transition: color 0.2s; }
+.mobile-menu a:hover { color: var(--flame); }
+.mobile-menu .mobile-cta { margin-top: 32px; display: inline-flex; padding: 14px 32px; background: var(--flame); color: #fff; border-radius: 100px; font-weight: 600; font-size: 16px; text-decoration: none; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--divider); padding: 40px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: var(--syne); font-weight: 800; font-size: 18px; letter-spacing: -0.03em; color: var(--white); }
+.footer-logo span { color: var(--flame); }
+.footer-mid { font-size: 13px; color: var(--smoke); text-align: center; }
+.footer-domain { font-size: 13px; color: var(--mist); font-family: 'Courier New', monospace; letter-spacing: 0.04em; }
+
+/* BUTTONS */
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--flame); color: #fff; font-family: var(--outfit); font-weight: 600; font-size: 15px; border-radius: 100px; text-decoration: none; transition: transform 0.2s, opacity 0.2s; }
+.btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+.btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: transparent; color: var(--ivory); font-family: var(--outfit); font-weight: 600; font-size: 15px; border: 1px solid var(--steel); border-radius: 100px; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+.btn-outline:hover { border-color: var(--ivory); transform: translateY(-2px); }
+
+/* CASE STUDY SPECIFIC */
+.page-header { padding: 100px 48px 60px; max-width: 1200px; margin: 0 auto; }
+.breadcrumb { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--smoke); text-decoration: none; margin-bottom: 32px; transition: color 0.2s; }
+.breadcrumb:hover { color: var(--mist); }
+.project-type-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acid); margin-bottom: 16px; }
+.project-type-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--acid); }
+.project-title { font-family: var(--syne); font-size: clamp(36px, 5vw, 64px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; color: var(--white); margin-bottom: 20px; }
+.status-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(184,240,60,0.08); border: 1px solid rgba(184,240,60,0.2); border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--acid); margin-bottom: 24px; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--acid); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+.project-summary { font-size: 18px; color: var(--mist); font-weight: 300; max-width: 700px; line-height: 1.75; margin-bottom: 28px; }
+.hero-tech-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-tech-chip { padding: 7px 16px; border: 1px solid var(--steel); border-radius: 100px; font-size: 12px; font-weight: 500; color: var(--mist); }
+.snapshot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 32px; }
+.snapshot-card { background: var(--carbon); padding: 24px 22px; border-left: 3px solid var(--steel); }
+.snapshot-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--smoke); margin-bottom: 10px; }
+.snapshot-value { font-family: var(--syne); font-size: 18px; font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 8px; }
+.snapshot-copy { font-size: 13px; color: var(--mist); line-height: 1.65; }
+
+.metrics-strip { background: var(--carbon); border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
+.metrics-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: repeat(3, 1fr); }
+.metric-card { padding: 40px 32px; border-right: 1px solid var(--divider); }
+.metric-card:last-child { border-right: none; }
+.metric-num { font-family: var(--syne); font-size: 48px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 10px; }
+.metric-num span { color: var(--flame); }
+.metric-num.word { font-size: 28px; letter-spacing: -0.02em; }
+.metric-label { font-size: 13px; color: var(--smoke); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.case-body { max-width: 1200px; margin: 0 auto; padding: 0 48px 80px; }
+.case-section { padding: 56px 0; border-top: 1px solid var(--divider); }
+.case-section h2 { font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--white); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+.case-section h2::before { content: ''; display: block; width: 4px; height: 24px; background: var(--flame); border-radius: 2px; flex-shrink: 0; }
+.case-text { font-size: 15px; color: var(--mist); line-height: 1.85; font-weight: 300; }
+.case-text strong { color: var(--ivory); font-weight: 600; }
+.case-text p { margin-bottom: 16px; }
+.case-text p:last-child { margin-bottom: 0; }
+
+.arch-diagram { background: var(--carbon); border: 1px solid var(--steel); border-radius: 8px; padding: 36px; margin: 28px 0; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.9; color: var(--mist); overflow-x: auto; }
+.arch-diagram .arch-title { color: var(--acid); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 16px; }
+.arch-diagram .node { color: var(--white); }
+.arch-diagram .arrow { color: var(--smoke); }
+.arch-diagram .label { color: var(--flame); }
+
+.step-list { display: flex; flex-direction: column; gap: 3px; margin-top: 16px; }
+.step-card { background: var(--carbon); padding: 24px 28px; border-left: 3px solid var(--steel); display: flex; gap: 20px; transition: border-color 0.2s; }
+.step-card:hover { border-left-color: var(--flame); }
+.step-num { font-family: var(--syne); font-size: 12px; font-weight: 700; color: var(--acid); flex-shrink: 0; min-width: 28px; padding-top: 2px; letter-spacing: 0.06em; }
+.step-body { flex: 1; }
+.step-title { font-family: var(--syne); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+.step-desc { font-size: 14px; color: var(--mist); line-height: 1.7; font-weight: 300; }
+.step-desc strong { color: var(--ivory); font-weight: 600; }
+
+.sample-report { background: var(--carbon); border: 1px solid var(--steel); border-radius: 8px; padding: 28px 32px; margin-top: 16px; font-family: 'Courier New', monospace; font-size: 12.5px; line-height: 1.9; color: var(--mist); overflow-x: auto; }
+.dummy-notice { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--smoke); background: var(--surface); border: 1px solid var(--steel); padding: 5px 12px; border-radius: 4px; margin-bottom: 16px; font-family: var(--outfit); letter-spacing: 0.04em; }
+.ok { color: #4CAF50; }
+.warn { color: #E8923C; }
+.fail { color: var(--flame); font-weight: bold; }
+.hl { color: var(--acid); }
+.dim { color: var(--smoke); }
+
+.tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-top: 16px; }
+.tech-group { background: var(--carbon); padding: 24px 28px; }
+.tech-group-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--smoke); margin-bottom: 14px; }
+.tech-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tech-chip { padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; border: 1px solid var(--steel); color: var(--mist); }
+.tech-chip.featured { border-color: rgba(184,240,60,0.3); color: var(--acid); background: rgba(184,240,60,0.04); }
+
+.impact-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.impact-item { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--mist); line-height: 1.65; }
+.impact-item::before { content: '→'; color: var(--acid); font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.impact-item strong { color: var(--ivory); }
+
+.limitation-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.limitation-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--mist); line-height: 1.65; }
+.limitation-item::before { content: '◦'; color: var(--smoke); flex-shrink: 0; }
+
+.related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-top: 16px; }
+.related-card { background: var(--carbon); padding: 28px 30px; border-left: 3px solid var(--steel); text-decoration: none; transition: border-color 0.2s, background 0.2s, transform 0.2s; }
+.related-card:hover { border-left-color: var(--flame); background: var(--surface); transform: translateY(-2px); }
+.related-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--acid); margin-bottom: 10px; }
+.related-title { font-family: var(--syne); font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+.related-desc { font-size: 14px; color: var(--mist); line-height: 1.7; margin-bottom: 16px; }
+.related-cta { font-size: 13px; font-weight: 600; color: var(--ivory); }
+
+.bottom-nav { max-width: 1200px; margin: 0 auto; padding: 40px 48px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--divider); }
+.bottom-nav-link { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--mist); text-decoration: none; transition: color 0.2s; }
+.bottom-nav-link:hover { color: var(--ivory); }
+.bottom-nav-link.fwd { color: var(--flame); }
+.bottom-nav-link.fwd:hover { color: var(--ivory); }
+
+@media (max-width: 1024px) {
+  nav { padding: 0 28px; }
+  .nav-links { display: none; }
+  .nav-menu-btn { display: block; }
+  .page-header, .case-body, .bottom-nav { padding-left: 28px; padding-right: 28px; }
+  .metrics-inner { padding: 0 28px; grid-template-columns: 1fr; }
+  .metric-card { border-right: none; border-bottom: 1px solid var(--divider); }
+  .metric-card:last-child { border-bottom: none; }
+  .snapshot-grid, .related-grid { grid-template-columns: 1fr 1fr; }
+  .tech-grid { grid-template-columns: 1fr; }
+  footer { padding: 32px 28px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .page-header, .case-body, .bottom-nav { padding-left: 20px; padding-right: 20px; }
+  .metrics-inner { padding: 0 20px; }
+  .project-title { font-size: 36px; }
+  .step-card { padding: 18px 20px; gap: 14px; }
+  .case-section h2 { font-size: 22px; }
+  .snapshot-grid, .related-grid { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav id="navbar">
+  <a href="/" class="nav-logo">JS<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/about">About</a></li>
+    <li><a href="/experience">Experience</a></li>
+    <li><a href="/projects" class="active">Projects</a></li>
+    <li><a href="/ai-achievements">AI Work</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="nav-cta">Hire me →</a>
+  <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/about" class="mob-link">About</a>
+  <a href="/experience" class="mob-link">Experience</a>
+  <a href="/projects" class="mob-link">Projects</a>
+  <a href="/ai-achievements" class="mob-link">AI Work</a>
+  <a href="/contact" class="mob-link">Contact</a>
+  <a href="/contact" class="mobile-cta">Hire me →</a>
+</div>
+
+<main>
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <a href="/projects" class="breadcrumb reveal">← Back to Projects</a>
+    <div class="project-type-tag reveal">Automation · Operations · AI</div>
+    <h1 class="project-title reveal">QC Automation Engine</h1>
+    <div class="reveal">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Live · Cars24 AU
+      </div>
+    </div>
+    <p class="project-summary reveal">A full production inventory quality-control pipeline — Autogate API feeds dealer data every 4 hours, Glasses reference data cross-validates it, a rules engine resolves conflicts, and Claude AI writes descriptions, checks images, and audits dealer comments. Google Sheets drives the human approval workflow before DMS publish.</p>
+    <div class="hero-tech-chips reveal">
+      <span class="hero-tech-chip">Python</span>
+      <span class="hero-tech-chip">PostgreSQL</span>
+      <span class="hero-tech-chip">Claude API</span>
+      <span class="hero-tech-chip">Autogate API</span>
+      <span class="hero-tech-chip">Glasses API</span>
+      <span class="hero-tech-chip">Google Sheets API</span>
+      <span class="hero-tech-chip">gunicorn</span>
+      <span class="hero-tech-chip">Cron</span>
+    </div>
+    <div class="snapshot-grid reveal reveal-delay-1">
+      <div class="snapshot-card">
+        <div class="snapshot-label">Role</div>
+        <div class="snapshot-value">System owner</div>
+        <div class="snapshot-copy">Designed the pipeline logic, AI task gating, scoring model, and ops approval workflow.</div>
+      </div>
+      <div class="snapshot-card">
+        <div class="snapshot-label">Users</div>
+        <div class="snapshot-value">Ops + marketplace</div>
+        <div class="snapshot-copy">Built for internal review teams while improving the buyer-facing quality of live inventory.</div>
+      </div>
+      <div class="snapshot-card">
+        <div class="snapshot-label">Decisioning</div>
+        <div class="snapshot-value">Rules first, AI second</div>
+        <div class="snapshot-copy">Deterministic QC handles the majority of cases; Claude is only invoked where judgment adds value.</div>
+      </div>
+      <div class="snapshot-card">
+        <div class="snapshot-label">Outcome</div>
+        <div class="snapshot-value">Human-in-loop scale</div>
+        <div class="snapshot-copy">Ops reviews exceptions instead of every listing, with publish readiness made visible in one queue.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- METRICS STRIP -->
+  <div class="metrics-strip">
+    <div class="metrics-inner">
+      <div class="metric-card reveal">
+        <div class="metric-num word">4h<span> /</span></div>
+        <div class="metric-label">Automated cron cycle — continuous inventory sync</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-1">
+        <div class="metric-num">20<span>+</span></div>
+        <div class="metric-label">Field-level QC rules per vehicle listing</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-2">
+        <div class="metric-num word" style="color:var(--acid);">Claude</div>
+        <div class="metric-label">AI description generation, image QC &amp; fuzzy matching</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE BODY -->
+  <div class="case-body">
+
+    <!-- ARCHITECTURE -->
+    <div class="case-section reveal">
+      <h2>Architecture</h2>
+      <div class="arch-diagram">
+        <div class="arch-title">System Architecture — QC Automation Engine</div>
+<span class="node">Autogate API (every 4h)</span>          <span class="node">Glasses Reference API</span>
+       <span class="arrow">|</span>                                  <span class="arrow">|</span>
+       <span class="arrow">↓</span>                                  <span class="arrow">↓</span>
+    <span class="node">DB1</span> <span class="dim">(dealer raw feed)</span>         <span class="node">DB2</span> <span class="dim">(vehicle spec data)</span>
+       <span class="arrow">|</span>                                  <span class="arrow">|</span>
+       <span class="arrow">+──────────── merge ───────────────+</span>
+                        <span class="arrow">|</span>
+                       <span class="node">DB3</span> <span class="dim">(side-by-side: dealer + Glasses per field)</span>
+                        <span class="arrow">|</span>
+               <span class="arrow">┌────────┴────────┐</span>
+            <span class="label">New VIN</span>         <span class="label">Existing VIN?</span>
+               <span class="arrow">|</span>                  <span class="arrow">|</span>
+           <span class="dim">Full QC</span>         <span class="dim">GTG: check changes</span>
+                          <span class="dim">Pending: check failed fields only</span>
+                        <span class="arrow">|</span>
+                <span class="node">QC Rules Engine</span>
+                <span class="dim">(field-level: hard / high / low risk)</span>
+                        <span class="arrow">|</span>
+              <span class="arrow">┌─────────┴──────────┐</span>
+           <span class="label">GTG path</span>           <span class="label">Pending path</span>
+              <span class="arrow">|</span>                    <span class="arrow">|</span>
+       <span class="node">AI layer checks</span>        <span class="dim">Write to DB5</span>
+       <span class="dim">(Claude API):</span>          <span class="dim">status = Pending</span>
+       <span class="dim">- Descriptions</span>         <span class="dim">failed_fields = [...]</span>
+       <span class="dim">- Image QC</span>
+       <span class="dim">- Fuzzy matching</span>
+       <span class="dim">- Comments safety</span>
+              <span class="arrow">|</span>
+    <span class="arrow">┌─────────┴──────────┐</span>
+  <span class="dim">JSON</span>     <span class="node">DB5 write</span>    <span class="node">Google Sheet sync</span>
+  <span class="dim">output</span>   <span class="dim">(master)</span>     <span class="dim">(ops approval UI)</span>
+                              <span class="arrow">|</span>
+                    <span class="label">Human approval → DMS publish</span>
+      </div>
+    </div>
+
+    <!-- PROBLEM STATEMENT -->
+    <div class="case-section reveal">
+      <h2>Problem Statement</h2>
+      <div class="case-text">
+        <p>Cars24 Australia runs a dealer marketplace — dealers submit listings via the Autogate API, and each vehicle needs to be validated, enriched, and published to the internal DMS (Dealer Management System) before buyers can see it.</p>
+        <p>The challenge: <strong>data quality is inconsistent</strong>. Dealers fill in 20+ fields per vehicle, but spellings differ ("Auto" vs "Automatic"), fields are left blank, images are missing, descriptions are generic or missing entirely, and dealer data sometimes conflicts with what the Glasses reference database says about the same vehicle.</p>
+        <p>Before this engine existed, quality checking was manual: a human reviewer would open each record, cross-reference it, flag issues, and send it back to dealers for correction. For a marketplace with thousands of active listings refreshing every 4 hours, this didn't scale.</p>
+      </div>
+    </div>
+
+    <!-- WHAT I BUILT -->
+    <div class="case-section reveal">
+      <h2>What I Built</h2>
+      <div class="case-text">
+        <p>A full automated inventory QC pipeline that sits between the Autogate API and the DMS publish gate. It:</p>
+        <p><strong>Ingests</strong> dealer inventory data every 4 hours via the Autogate API and stores it in DB1.</p>
+        <p><strong>Cross-references</strong> that data against Glasses vehicle reference data (DB2) — field by field, side by side in DB3.</p>
+        <p><strong>Runs a rules engine</strong> that checks each field for completeness, validity, conflicts, and threshold criteria — classifying each issue as hard/high/low risk.</p>
+        <p><strong>Resolves conflicts</strong> automatically for low-risk fields (dealer wins); flags high-risk conflicts for review.</p>
+        <p><strong>Calls Claude API</strong> for description generation/rewriting, fuzzy variant matching, image QC, and dealer comments safety.</p>
+        <p><strong>Scores</strong> each listing 0–100 across 5 weighted dimensions.</p>
+        <p><strong>Writes results</strong> to DB5 (master store) as GTG, Pending, or Hard Fail.</p>
+        <p><strong>Syncs</strong> to a Google Sheet for the ops team — single-click approval to trigger DMS publish.</p>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="case-section reveal">
+      <h2>How It Works</h2>
+      <div class="step-list">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Autogate API poll (every 4h)</div>
+            <div class="step-desc">Cron triggers <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">main.py</code>. The Autogate poller fetches the latest dealer inventory, writes raw records to DB1. Multiple DMS sources (Autogate, EasyCars) feed into the same schema.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">Glasses reference merge</div>
+            <div class="step-desc">For each VIN, the engine looks up spec data from DB2 (Glasses API). Both dealer values and Glasses values are written side by side into DB3 — e.g., <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">make_dealer</code> vs <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">make_glasses</code>, <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">transmission_dealer</code> vs <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">transmission_glasses</code> — giving the QC engine a direct comparison for every field.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">Re-queue logic</div>
+            <div class="step-desc">Before running full QC, the engine checks if the VIN already exists in DB5. If it's GTG, only material changes trigger a re-run. If it's Pending, only the previously-failed fields are re-checked. This avoids redundant processing on every 4-hour cycle.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">Rules engine</div>
+            <div class="step-desc"><code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">qc/engine.py</code> loops through 20+ field rules defined in <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">config/field_rules.py</code>. Each field has: mandatory level (True / publish / conditional / preferred), source priority (dealer first, Glasses fallback), risk classification (hard / high / low), normalisation map (body type enum, fuel type enum, colour synonyms, etc.), validation function (VIN format check, year range, price &gt; 0, odometer plausibility), and on_blank / on_conflict behaviour.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <div class="step-title">Conflict resolution</div>
+            <div class="step-desc"><code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">qc/conflict_resolver.py</code> handles cases where dealer and Glasses values differ. Low-risk fields: dealer wins, discrepancy logged. High-risk fields (transmission, engine capacity, year): flagged for human review. Hard fields (VIN format, price = 0): automatic failure.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">06</div>
+          <div class="step-body">
+            <div class="step-title">Claude AI layer</div>
+            <div class="step-desc">Four selective AI tasks — not run on every record: <strong>description_generate</strong>: blank or low-quality descriptions → Claude writes a 150-word customer-facing description from vehicle specs. <strong>description_rewrite</strong>: present but poor descriptions → Claude rewrites preserving facts. <strong>fuzzy_field_match</strong>: variant/badge/series conflicts where values are similar → Claude resolves with confidence score. <strong>image_qc</strong>: Claude Vision checks first 3 images against listed make/model/year. <strong>comments_safety</strong>: dealer comments checked for false claims, prohibited content, pricing contradictions.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">07</div>
+          <div class="step-body">
+            <div class="step-title">Scoring</div>
+            <div class="step-desc"><code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">qc/scorer.py</code> assigns a 0–100 score across 5 weighted dimensions: identity completeness (30pts), vehicle basics (20pts), price/odometer validity (15pts), conflict severity (15pts), image threshold (10pts), description quality (10pts). Score bands: <strong>90–100</strong> = GTG auto-write, <strong>75–89</strong> = GTG minor gaps, <strong>50–74</strong> = Pending/exception queue, <strong>0–49</strong> = Hard Fail/hold.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">08</div>
+          <div class="step-body">
+            <div class="step-title">Google Sheets sync + DMS publish</div>
+            <div class="step-desc"><code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">outputs/sheets_sync.py</code> writes all Pending records (and recent GTG) to a Google Sheet. Ops team sees: VIN, stock number, make, model, QC status, score, failed fields, dealer vs Glasses values. A single "Ops Approved = TRUE" checkbox triggers the DB5 status update and queues the record for DMS publish.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAMPLE REPORT -->
+    <div class="case-section reveal">
+      <h2>Sample Report</h2>
+      <div class="dummy-notice">&#9432; Sample output — dummy data. No real VINs, dealer names, or company data shown.</div>
+      <div class="sample-report">
+<span class="hl">SAMPLE OUTPUT — DUMMY DATA</span>
+<span class="dim">═══════════════════════════════════════════════════════════════</span>
+<strong style="color:var(--ivory);">QC ENGINE — RUN SUMMARY</strong>
+<span class="dim">Cycle: 2024-01-15T10:30:00Z  |  Duration: 18m 43s</span>
+<span class="dim">─────────────────────────────────────────────────────────────</span>
+<span class="dim">RECORDS PROCESSED:</span>  <span style="color:var(--ivory);">2,147</span>
+<span class="ok">GTG (score ≥75):</span>    <span class="ok">1,496  (69.7%)</span>
+<span class="warn">PENDING:</span>              <span class="warn">487  (22.7%)</span>
+<span class="fail">HARD FAIL:</span>            <span class="fail">164  (7.6%)</span>
+<span class="dim">AI tasks run:</span>          <span style="color:var(--ivory);">89</span>  <span class="dim">(description: 61, image QC: 18, fuzzy: 10)</span>
+<span class="dim">─────────────────────────────────────────────────────────────</span>
+<span class="dim">SAMPLE VIN: DEMO-VIN-0000000A  (dummy data)</span>
+  <span class="dim">Make/Model:</span>    <span style="color:var(--ivory);">Sample Brand X — Demo Model 2021</span>
+
+  <span class="dim">FIELD CHECKS:</span>
+  <span class="ok">✓</span>  <span class="dim">vin</span>              <span style="color:var(--ivory);">DEMO-VIN-0000000A</span>        <span class="dim">dealer</span>        <span class="dim">[valid format]</span>
+  <span class="ok">✓</span>  <span class="dim">make</span>             <span style="color:var(--ivory);">Sample Brand X</span>           <span class="dim">dealer</span>        <span class="dim">[match: glasses]</span>
+  <span class="ok">✓</span>  <span class="dim">model</span>            <span style="color:var(--ivory);">Demo Model</span>               <span class="dim">dealer</span>        <span class="dim">[match: glasses]</span>
+  <span class="ok">✓</span>  <span class="dim">year</span>             <span style="color:var(--ivory);">2021</span>                     <span class="dim">dealer</span>        <span class="dim">[match: glasses]</span>
+  <span class="ok">✓</span>  <span class="dim">transmission</span>     <span style="color:var(--ivory);">Automatic</span>                <span class="dim">dealer</span>        <span class="dim">[normalised from "auto"]</span>
+  <span class="ok">✓</span>  <span class="dim">fuel_type</span>        <span style="color:var(--ivory);">Petrol</span>                   <span class="dim">glasses</span>       <span class="dim">[dealer blank → fallback]</span>
+  <span class="ok">✓</span>  <span class="dim">body_type</span>        <span style="color:var(--ivory);">SUV</span>                      <span class="dim">dealer</span>        <span class="dim">[normalised from "4x4"]</span>
+  <span class="ok">✓</span>  <span class="dim">price</span>            <span style="color:var(--ivory);">$29,990</span>                  <span class="dim">dealer</span>        <span class="dim">[valid]</span>
+  <span class="ok">✓</span>  <span class="dim">odometer</span>         <span style="color:var(--ivory);">62,400 km</span>                <span class="dim">dealer</span>        <span class="dim">[plausible]</span>
+  <span class="ok">✓</span>  <span class="dim">image_count</span>      <span style="color:var(--ivory);">10</span>                       <span class="dim">dealer</span>        <span class="dim">[≥ threshold 8 ✓]</span>
+  <span class="ok">✓</span>  <span class="dim">description</span>      <span style="color:var(--ivory);">AI-generated</span>             <span class="dim">ai_generate</span>   <span class="dim">[original blank]</span>
+
+  <span class="dim">QC SCORE:</span> <span class="hl">94 / 100</span>  <span class="dim">→</span>  <span class="ok">STATUS: GTG ✓</span>
+<span class="dim">─────────────────────────────────────────────────────────────</span>
+<span class="dim">SAMPLE VIN: DEMO-VIN-0000000B  (dummy data)</span>
+  <span class="dim">Make/Model:</span>    <span style="color:var(--ivory);">Sample Brand Y — Demo Model 2019</span>
+
+  <span class="dim">FIELD CHECKS:</span>
+  <span class="ok">✓</span>  <span class="dim">vin</span>              <span style="color:var(--ivory);">DEMO-VIN-0000000B</span>        <span class="dim">dealer</span>        <span class="dim">[valid]</span>
+  <span class="ok">✓</span>  <span class="dim">make</span>             <span style="color:var(--ivory);">Sample Brand Y</span>           <span class="dim">dealer</span>        <span class="dim">[match: glasses]</span>
+  <span class="warn">⚠</span>  <span class="dim">transmission</span>     <span style="color:var(--ivory);">Manual (dealer) vs</span>       <span class="warn">conflict</span>      <span class="warn">[HIGH RISK — flagged]</span>
+                      <span style="color:var(--ivory);">Automatic (glasses)</span>
+  <span class="fail">✗</span>  <span class="dim">price</span>            <span style="color:var(--ivory);">$0</span>                       <span class="dim">dealer</span>        <span class="fail">[HARD FAIL — zero price]</span>
+  <span class="fail">✗</span>  <span class="dim">image_count</span>      <span style="color:var(--ivory);">3</span>                        <span class="dim">dealer</span>        <span class="fail">[FAIL — below min 5]</span>
+
+  <span class="dim">QC SCORE:</span> <span style="color:var(--flame);">38 / 100</span>  <span class="dim">→</span>  <span class="fail">STATUS: HARD FAIL ✗</span>
+<span class="dim">═══════════════════════════════════════════════════════════════</span>
+      </div>
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="case-section reveal">
+      <h2>Tech Stack</h2>
+      <div class="tech-grid">
+        <div class="tech-group">
+          <div class="tech-group-title">Core Infrastructure</div>
+          <div class="tech-chips">
+            <span class="tech-chip featured">Python</span>
+            <span class="tech-chip featured">PostgreSQL</span>
+            <span class="tech-chip featured">Cron / scheduled jobs</span>
+            <span class="tech-chip">gunicorn</span>
+            <span class="tech-chip">SQLAlchemy</span>
+            <span class="tech-chip">psycopg2</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-title">APIs &amp; Integrations</div>
+          <div class="tech-chips">
+            <span class="tech-chip featured">Claude API — claude-sonnet-4-20250514</span>
+            <span class="tech-chip featured">Autogate API</span>
+            <span class="tech-chip featured">Glasses API</span>
+            <span class="tech-chip featured">Google Sheets API</span>
+            <span class="tech-chip">openpyxl</span>
+            <span class="tech-chip">Flask-CORS</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-text" style="margin-top: 20px;">
+        <p>The Claude API is used selectively — only triggered for specific AI tasks (description generation, image QC, fuzzy matching, comments safety). Not run on every record. The rules engine handles ~90% of decisions deterministically.</p>
+      </div>
+    </div>
+
+    <!-- BUSINESS IMPACT -->
+    <div class="case-section reveal">
+      <h2>Business Impact</h2>
+      <div class="impact-list">
+        <div class="impact-item">Eliminated manual per-listing QC review for a dealer marketplace running thousands of active listings</div>
+        <div class="impact-item">4-hour automated sync cycle replaced a process that previously had no structured refresh cadence</div>
+        <div class="impact-item">Claude API generates accurate, customer-facing descriptions for listings where dealers submitted blank or low-quality copy — improving listing quality at scale</div>
+        <div class="impact-item">Image QC layer catches mismatched vehicle images before they reach buyers</div>
+        <div class="impact-item">Google Sheets approval UI gives ops team a single-click workflow replacing scattered communication</div>
+        <div class="impact-item">Normalisation maps (body type, fuel, transmission, colour synonyms) enforce consistent taxonomy across the marketplace — critical for search and filtering accuracy</div>
+      </div>
+    </div>
+
+    <div class="case-section reveal">
+      <h2>Related Case Studies</h2>
+      <div class="related-grid">
+        <a href="/projects/service-history-scraper" class="related-card">
+          <div class="related-label">Internal Data Tool</div>
+          <div class="related-title">Service History Scraper</div>
+          <div class="related-desc">Another operations-heavy system: Playwright scraping, structured normalization, and export-ready dealer intelligence.</div>
+          <div class="related-cta">View case study →</div>
+        </a>
+        <a href="/projects/vehicle-recall-checker" class="related-card">
+          <div class="related-label">Trust &amp; Compliance</div>
+          <div class="related-title">Vehicle Recall Checker</div>
+          <div class="related-desc">A lighter-weight API product focused on recall risk checks, operational speed, and dealership-facing usability.</div>
+          <div class="related-cta">View case study →</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- LIMITATIONS -->
+    <div class="case-section reveal">
+      <h2>Limitations &amp; Future Improvements</h2>
+      <div class="limitation-list">
+        <div class="limitation-item">Human approval gate (v1): currently GTG listings still require a single ops click before DMS publish. v2 plan: auto-publish for score ≥ 90 with no hard fails.</div>
+        <div class="limitation-item">VIN-level image matching: current image QC checks make/model/year against the first 3 images; a more precise model would check every image and flag specific mismatches by type (exterior, interior, engine bay).</div>
+        <div class="limitation-item">Dealer feedback loop: Pending records are visible in the Google Sheet but there's no automated notification back to the dealer. A future version would trigger a structured email/webhook to the dealer's DMS with the specific failed fields.</div>
+        <div class="limitation-item">Full version history in DB5: v1 stores latest state only; v2 will add a complete change log for audit purposes.</div>
+      </div>
+    </div>
+
+  </div><!-- /case-body -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav reveal">
+    <a href="/projects" class="bottom-nav-link">← Back to Projects</a>
+    <a href="/ai-achievements" class="bottom-nav-link fwd">View all AI tools →</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">JS<span>.</span></div>
+  <div class="footer-mid">© 2026 Jigyanshu Shah · All rights reserved</div>
+  <div class="footer-domain">jigyanshushah.ai</div>
+</footer>
+
+<script>
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+});
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+menuBtn.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mobileMenu.classList.toggle('open', menuOpen);
+  menuBtn.textContent = menuOpen ? '✕' : '☰';
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link, .mobile-cta').forEach(a => {
+  a.addEventListener('click', () => {
+    menuOpen = false; mobileMenu.classList.remove('open');
+    menuBtn.textContent = '☰'; document.body.style.overflow = '';
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Achievements | Jigyanshu Shah — 6 AI Tools in Production</title>
+<meta name="description" content="Six AI tools built and shipped by Jigyanshu Shah — marketplace QC automation, fraud detection, content auditing, community intelligence, and reporting at scale.">
+<link rel="canonical" href="https://jigyanshushah.ai/ai-achievements">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #080808;
+  --carbon: #111111;
+  --surface: #181818;
+  --steel: #252525;
+  --divider: #2c2c2c;
+  --ivory: #F2F2F2;
+  --mist: #9A9A9A;
+  --smoke: #505050;
+  --crimson: #C91A33;
+  --flame: #E8243C;
+  --acid: #B8F03C;
+  --white: #FFFFFF;
+  --syne: 'Syne', system-ui, sans-serif;
+  --outfit: 'Outfit', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--void); color: var(--ivory); font-family: var(--outfit); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+
+/* SCROLL PROGRESS */
+#progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--flame); z-index: 1000; width: 0%; transition: width 0.1s linear; }
+
+/* NAV */
+nav {
+  position: fixed; top: 2px; left: 0; right: 0; z-index: 999;
+  background: rgba(8,8,8,0.88); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--divider);
+  padding: 0 48px; height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { font-family: var(--syne); font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--flame); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--mist); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ivory); }
+.nav-links a.current-page { color: var(--ivory); }
+.nav-cta {
+  padding: 8px 20px; background: var(--flame); color: #fff;
+  font-family: var(--outfit); font-weight: 600; font-size: 13px;
+  border: none; border-radius: 100px; cursor: pointer; text-decoration: none;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.85; }
+.nav-menu-btn { display: none; background: none; border: none; color: var(--ivory); cursor: pointer; font-size: 22px; }
+.mobile-menu {
+  display: none; position: fixed; inset: 0; top: 58px;
+  background: rgba(8,8,8,0.97); z-index: 998; padding: 40px 28px;
+  flex-direction: column; gap: 0;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a { display: block; padding: 18px 0; font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--ivory); text-decoration: none; border-bottom: 1px solid var(--divider); transition: color 0.2s; }
+.mobile-menu a:hover { color: var(--flame); }
+.mobile-menu .mobile-cta { margin-top: 32px; display: inline-flex; padding: 14px 32px; background: var(--flame); color: #fff; border-radius: 100px; font-weight: 600; font-size: 16px; text-decoration: none; border-bottom: none; }
+
+/* REVEAL ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* PAGE HERO */
+.page-hero {
+  min-height: 220px; padding: 120px 48px 60px;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  position: relative; overflow: hidden;
+  border-bottom: 1px solid var(--divider);
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(var(--divider) 1px, transparent 1px), linear-gradient(90deg, var(--divider) 1px, transparent 1px);
+  background-size: 72px 72px; opacity: 0.2; pointer-events: none;
+}
+.hero-acid-glow {
+  position: absolute; width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,240,60,0.07) 0%, transparent 65%);
+  top: -250px; right: -80px; pointer-events: none;
+}
+.acid-accent-line {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--acid) 0%, transparent 60%);
+}
+.page-hero-content { position: relative; z-index: 2; max-width: 1200px; width: 100%; margin: 0 auto; }
+.page-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--acid); margin-bottom: 18px;
+}
+.page-hero-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--acid); }
+.page-hero-title {
+  font-family: var(--syne); font-size: clamp(42px, 6vw, 80px);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.04em; color: var(--white);
+  margin-bottom: 16px;
+  opacity: 0; animation: fadeUp 0.7s ease 0.2s forwards;
+}
+.page-hero-sub {
+  font-size: 17px; font-weight: 300; color: var(--mist); max-width: 560px; line-height: 1.75;
+  opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+/* SECTION BASE */
+.section-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--acid); margin-bottom: 18px;
+}
+.section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--acid); }
+
+/* INTRO STRIP */
+.intro-strip {
+  border-top: 1px solid var(--divider);
+  background: var(--carbon);
+  padding: 100px 48px;
+  text-align: center;
+}
+.intro-strip-inner { max-width: 680px; margin: 0 auto; }
+.intro-strip .section-tag { justify-content: center; }
+.intro-strip .section-tag::before { display: none; }
+.intro-strip-title {
+  font-family: var(--syne); font-size: clamp(28px, 4vw, 46px);
+  font-weight: 800; letter-spacing: -0.03em; color: var(--white);
+  margin-bottom: 20px; line-height: 1.1;
+}
+.intro-strip-desc { font-size: 16px; color: var(--mist); font-weight: 300; line-height: 1.8; }
+
+/* AI LIST */
+.ai-section { border-top: 1px solid var(--divider); padding: 80px 48px; max-width: 1200px; margin: 0 auto; }
+.ai-list { display: flex; flex-direction: column; gap: 3px; }
+.ai-list-item {
+  background: var(--surface); padding: 36px 40px;
+  border-left: 3px solid var(--steel);
+  transition: border-color 0.2s, background 0.2s;
+  display: flex; align-items: flex-start; gap: 28px;
+}
+.ai-list-item:hover { border-left-color: var(--acid); background: var(--carbon); }
+.ai-item-num {
+  font-family: var(--syne); font-size: 13px; font-weight: 700;
+  color: var(--acid); flex-shrink: 0; min-width: 36px;
+  letter-spacing: 0.06em; padding-top: 2px;
+}
+.ai-item-body { flex: 1; }
+.ai-item-type {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--acid); margin-bottom: 8px;
+}
+.ai-item-title {
+  font-family: var(--syne); font-size: 22px; font-weight: 700;
+  color: var(--white); margin-bottom: 12px; line-height: 1.2;
+}
+.ai-item-desc { font-size: 14px; color: var(--mist); line-height: 1.75; font-weight: 300; margin-bottom: 16px; }
+.ai-item-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--acid); margin-bottom: 14px;
+}
+.ai-item-status::before {
+  content: ''; display: block; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--acid); animation: pulse 2s infinite;
+}
+.ai-item-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--ivory);
+  text-decoration: none; letter-spacing: 0.03em;
+  transition: color 0.2s, gap 0.2s;
+}
+.ai-item-link:hover { color: var(--acid); gap: 10px; }
+.ai-item-note {
+  font-size: 12px; color: var(--smoke); font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+/* APPROACH SECTION */
+.approach-section {
+  border-top: 1px solid var(--divider);
+  background: var(--carbon);
+  padding: 100px 48px;
+}
+.approach-inner { max-width: 1200px; margin: 0 auto; }
+.approach-title {
+  font-family: var(--syne); font-size: clamp(28px, 4vw, 46px);
+  font-weight: 800; letter-spacing: -0.03em; color: var(--white);
+  margin-bottom: 56px; line-height: 1.1;
+}
+.approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.approach-card {
+  background: var(--surface); padding: 36px 32px;
+  border-left: 3px solid var(--steel);
+  transition: border-color 0.2s, background 0.2s;
+}
+.approach-card:hover { border-left-color: var(--acid); background: var(--void); }
+.approach-card-label {
+  font-family: var(--syne); font-size: 18px; font-weight: 700;
+  color: var(--white); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.approach-card-label::before { content: ''; display: block; width: 4px; height: 18px; background: var(--acid); border-radius: 2px; flex-shrink: 0; }
+.approach-card-desc { font-size: 14px; color: var(--mist); line-height: 1.75; font-weight: 300; }
+
+/* BOTTOM CTA */
+.bottom-cta {
+  border-top: 1px solid var(--divider);
+  padding: 100px 48px;
+  text-align: center;
+}
+.bottom-cta-inner { max-width: 600px; margin: 0 auto; }
+.bottom-cta-title {
+  font-family: var(--syne); font-size: clamp(24px, 3.5vw, 40px);
+  font-weight: 800; color: var(--white); letter-spacing: -0.03em;
+  margin-bottom: 40px; line-height: 1.1;
+}
+.cta-buttons { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: var(--flame); color: #fff;
+  font-family: var(--outfit); font-weight: 600; font-size: 15px;
+  border-radius: 100px; text-decoration: none; transition: transform 0.2s, opacity 0.2s;
+}
+.btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; background: transparent; color: var(--ivory);
+  font-family: var(--outfit); font-weight: 600; font-size: 15px;
+  border: 1px solid var(--steel); border-radius: 100px; text-decoration: none;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.btn-outline:hover { border-color: var(--ivory); transform: translateY(-2px); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--divider); padding: 40px 48px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.footer-logo { font-family: var(--syne); font-weight: 800; font-size: 18px; letter-spacing: -0.03em; color: var(--white); }
+.footer-logo span { color: var(--flame); }
+.footer-mid { font-size: 13px; color: var(--smoke); text-align: center; }
+.footer-domain { font-size: 13px; color: var(--mist); font-family: 'Courier New', monospace; letter-spacing: 0.04em; }
+
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  nav { padding: 0 28px; }
+  .nav-links { display: none; }
+  .nav-menu-btn { display: block; }
+  .page-hero { padding: 100px 28px 48px; }
+  .intro-strip { padding: 72px 28px; }
+  .ai-section { padding: 60px 28px; }
+  .approach-section { padding: 72px 28px; }
+  .approach-grid { grid-template-columns: 1fr; }
+  .bottom-cta { padding: 72px 28px; }
+  footer { padding: 32px 28px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .page-hero { padding: 88px 20px 40px; }
+  .intro-strip { padding: 60px 20px; }
+  .ai-section { padding: 48px 20px; }
+  .approach-section { padding: 60px 20px; }
+  .bottom-cta { padding: 60px 20px; }
+  .ai-list-item { padding: 24px 20px; gap: 16px; }
+  .approach-card { padding: 28px 24px; }
+  footer { flex-direction: column; text-align: center; padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="/" class="nav-logo">JS<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/about">About</a></li>
+    <li><a href="/experience">Experience</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/ai-achievements" class="current-page">AI Work</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="nav-cta">Hire me →</a>
+  <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/about" class="mob-link">About</a>
+  <a href="/experience" class="mob-link">Experience</a>
+  <a href="/projects" class="mob-link">Projects</a>
+  <a href="/ai-achievements" class="mob-link">AI Work</a>
+  <a href="/contact" class="mob-link">Contact</a>
+  <a href="/contact" class="mobile-cta">Hire me →</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-acid-glow"></div>
+  <div class="acid-accent-line"></div>
+  <div class="page-hero-content">
+    <div class="page-hero-eyebrow">jigyanshushah.ai / ai-achievements</div>
+    <h1 class="page-hero-title">AI in Practice</h1>
+    <p class="page-hero-sub">Six tools. Real workflows. Zero side projects.</p>
+  </div>
+</section>
+
+<!-- INTRO STRIP -->
+<div class="intro-strip">
+  <div class="intro-strip-inner">
+    <div class="reveal"><div class="section-tag">AI Work</div></div>
+    <h2 class="intro-strip-title reveal">What I've built with AI</h2>
+    <p class="intro-strip-desc reveal">I don't use AI as a buzzword. Every tool below runs in production, solves a real operational problem, and was built prompt-first using Python and automation pipelines. These are not demos.</p>
+  </div>
+</div>
+
+<!-- AI TOOLS LIST -->
+<div class="ai-section">
+  <div class="ai-list">
+
+    <!-- 01 QC Automation Engine -->
+    <div class="ai-list-item reveal">
+      <div class="ai-item-num">01</div>
+      <div class="ai-item-body">
+        <div class="ai-item-type">Automation · Operations</div>
+        <div class="ai-item-title">QC Automation Engine</div>
+        <div class="ai-item-desc">Automated vehicle listing quality control pipeline for Cars24 Australia — replaced a 2-person manual review team. Processes 2,000+ records in ~20 minutes vs 5+ days manually. 69.7% of eligible listings auto-cleared as Good To Go in the latest run.</div>
+        <div class="ai-item-status">Live · Cars24 AU</div>
+        <a href="/projects/qc-automation" class="ai-item-link">View Case Study →</a>
+      </div>
+    </div>
+
+    <!-- 02 Marketing Reporting Suite -->
+    <div class="ai-list-item reveal reveal-delay-1">
+      <div class="ai-item-num">02</div>
+      <div class="ai-item-body">
+        <div class="ai-item-type">Reporting · Analytics</div>
+        <div class="ai-item-title">Marketing Reporting Suite</div>
+        <div class="ai-item-desc">Automated multi-channel reporting across SEO, performance marketing, and content — eliminated manual report-building and standardised visibility across all channels. Runs on schedule, lands in the right hands.</div>
+        <div class="ai-item-status">Live · Internal</div>
+        <span class="ai-item-note">Internal tool — case study coming soon</span>
+      </div>
+    </div>
+
+    <!-- 03 Content Audit Automation -->
+    <div class="ai-list-item reveal reveal-delay-2">
+      <div class="ai-item-num">03</div>
+      <div class="ai-item-body">
+        <div class="ai-item-type">Content · Quality</div>
+        <div class="ai-item-title">Content Audit Automation</div>
+        <div class="ai-item-desc">Auto-triggered content audits on every content launch — catches structural issues, metadata gaps, and discoverability problems before they compound in search performance. Zero manual QA overhead on go-live.</div>
+        <div class="ai-item-status">Live · Internal</div>
+        <span class="ai-item-note">Internal tool — case study coming soon</span>
+      </div>
+    </div>
+
+    <!-- 04 Reddit Community Intelligence -->
+    <div class="ai-list-item reveal reveal-delay-3">
+      <div class="ai-item-num">04</div>
+      <div class="ai-item-body">
+        <div class="ai-item-type">Community · Engagement</div>
+        <div class="ai-item-title">Reddit Community Intelligence</div>
+        <div class="ai-item-desc">End-to-end pipeline that scrapes and filters relevant Reddit threads, delivers curated posts with suggested responses directly to Slack, and tracks engagement progression — whether you replied, how you engaged, and what the outcome was.</div>
+        <div class="ai-item-status">Live · Internal</div>
+        <span class="ai-item-note">Internal tool — case study coming soon</span>
+      </div>
+    </div>
+
+    <!-- 05 Vehicle Recall Checker -->
+    <div class="ai-list-item reveal reveal-delay-4">
+      <div class="ai-item-num">05</div>
+      <div class="ai-item-body">
+        <div class="ai-item-type">Trust · Compliance</div>
+        <div class="ai-item-title">Vehicle Recall Checker</div>
+        <div class="ai-item-desc">Flags active Australian government recall notices against live Cars24 inventory — automated trust and compliance layer for the marketplace, protecting buyers and reducing operational and reputational risk.</div>
+        <div class="ai-item-status">Live · Cars24 AU</div>
+        <a href="/projects/vehicle-recall-checker" class="ai-item-link">View Case Study →</a>
+      </div>
+    </div>
+
+    <!-- 06 Odometer Rollback Alert -->
+    <div class="ai-list-item reveal reveal-delay-5">
+      <div class="ai-item-num">06</div>
+      <div class="ai-item-body">
+        <div class="ai-item-type">Fraud Detection · Trust</div>
+        <div class="ai-item-title">Odometer Rollback Alert</div>
+        <div class="ai-item-desc">Detects odometer tampering and rollback signals across vehicle listings — automated fraud detection layer that improves listing integrity, builds buyer trust, and reduces fraudulent inventory entering the marketplace.</div>
+        <div class="ai-item-status">Live · Cars24 AU</div>
+        <span class="ai-item-note">Case study coming soon</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MY AI APPROACH -->
+<div class="approach-section">
+  <div class="approach-inner">
+    <div class="reveal"><div class="section-tag">How I work</div></div>
+    <h2 class="approach-title reveal">My AI approach</h2>
+    <div class="approach-grid">
+      <div class="approach-card reveal">
+        <div class="approach-card-label">Prompt-first</div>
+        <div class="approach-card-desc">I build by describing the problem precisely, then iterating on the output. The constraint is the spec, not the API docs.</div>
+      </div>
+      <div class="approach-card reveal reveal-delay-1">
+        <div class="approach-card-label">Production only</div>
+        <div class="approach-card-desc">If it doesn't run in a real workflow, it doesn't count. Every tool here is used by someone, on real data, regularly.</div>
+      </div>
+      <div class="approach-card reveal reveal-delay-2">
+        <div class="approach-card-label">Operator mindset</div>
+        <div class="approach-card-desc">I build tools that make teams faster — not tools that look impressive in a demo. Speed and reliability over cleverness.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="bottom-cta-inner">
+    <h2 class="bottom-cta-title reveal">See it in action</h2>
+    <div class="cta-buttons reveal">
+      <a href="/projects/qc-automation" class="btn-primary">See the full case study →</a>
+      <a href="/assets/resume.pdf" class="btn-outline">Download Resume →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">JS<span>.</span></div>
+  <div class="footer-mid">© 2026 Jigyanshu Shah · All rights reserved</div>
+  <div class="footer-domain">jigyanshushah.ai</div>
+</footer>
+
+<script>
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+});
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+menuBtn.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mobileMenu.classList.toggle('open', menuOpen);
+  menuBtn.textContent = menuOpen ? '✕' : '☰';
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link, .mobile-cta').forEach(a => {
+  a.addEventListener('click', () => {
+    menuOpen = false; mobileMenu.classList.remove('open');
+    menuBtn.textContent = '☰'; document.body.style.overflow = '';
+  });
+});
+</script>
+</body>
+</html>

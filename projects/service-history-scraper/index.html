@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service History Scraper | OEM Dealer Data with Playwright by Jigyanshu Shah</title>
+<meta name="description" content="Playwright-based Python scraper that maps OEM authorised service centres across Australia — 10 brands, dual extraction strategy (HTML + XHR API discovery), outputs to Excel + CSV.">
+<link rel="canonical" href="https://jigyanshushah.ai/projects/service-history-scraper">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #080808;
+  --carbon: #111111;
+  --surface: #181818;
+  --steel: #252525;
+  --divider: #2c2c2c;
+  --ivory: #F2F2F2;
+  --mist: #9A9A9A;
+  --smoke: #505050;
+  --flame: #E8243C;
+  --acid: #B8F03C;
+  --white: #FFFFFF;
+  --syne: 'Syne', system-ui, sans-serif;
+  --outfit: 'Outfit', system-ui, sans-serif;
+}
+
+/* BASE */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--void); color: var(--ivory); font-family: var(--outfit); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+#progress-bar { position: fixed; top: 0; left: 0; height: 2px; background: var(--flame); z-index: 1000; width: 0%; transition: width 0.1s linear; }
+
+/* NAV */
+nav { position: fixed; top: 2px; left: 0; right: 0; z-index: 999; background: rgba(8,8,8,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--divider); padding: 0 48px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-family: var(--syne); font-weight: 800; font-size: 20px; letter-spacing: -0.03em; color: var(--white); text-decoration: none; }
+.nav-logo span { color: var(--flame); }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--mist); letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover { color: var(--ivory); }
+.nav-cta { padding: 8px 20px; background: var(--flame); color: #fff; font-family: var(--outfit); font-weight: 600; font-size: 13px; border: none; border-radius: 100px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
+.nav-cta:hover { opacity: 0.85; }
+.nav-menu-btn { display: none; background: none; border: none; color: var(--ivory); cursor: pointer; font-size: 22px; }
+.mobile-menu { display: none; position: fixed; inset: 0; top: 58px; background: rgba(8,8,8,0.97); z-index: 998; padding: 40px 28px; flex-direction: column; gap: 0; }
+.mobile-menu.open { display: flex; }
+.mobile-menu a { display: block; padding: 18px 0; font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--ivory); text-decoration: none; border-bottom: 1px solid var(--divider); transition: color 0.2s; }
+.mobile-menu a:hover { color: var(--flame); }
+.mobile-menu .mobile-cta { margin-top: 32px; display: inline-flex; padding: 14px 32px; background: var(--flame); color: #fff; border-radius: 100px; font-weight: 600; font-size: 16px; text-decoration: none; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+
+/* FOOTER */
+footer { border-top: 1px solid var(--divider); padding: 40px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: var(--syne); font-weight: 800; font-size: 18px; letter-spacing: -0.03em; color: var(--white); }
+.footer-logo span { color: var(--flame); }
+.footer-mid { font-size: 13px; color: var(--smoke); text-align: center; }
+.footer-domain { font-size: 13px; color: var(--mist); font-family: 'Courier New', monospace; letter-spacing: 0.04em; }
+
+/* CASE STUDY SPECIFIC */
+.page-header { padding: 100px 48px 60px; max-width: 1200px; margin: 0 auto; }
+.breadcrumb { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--smoke); text-decoration: none; margin-bottom: 32px; transition: color 0.2s; }
+.breadcrumb:hover { color: var(--mist); }
+.project-type-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--acid); margin-bottom: 16px; }
+.project-type-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--acid); }
+.project-title { font-family: var(--syne); font-size: clamp(36px, 5vw, 64px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; color: var(--white); margin-bottom: 20px; }
+.status-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(184,240,60,0.08); border: 1px solid rgba(184,240,60,0.2); border-radius: 100px; font-size: 13px; font-weight: 600; color: var(--acid); margin-bottom: 24px; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--acid); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+.project-summary { font-size: 18px; color: var(--mist); font-weight: 300; max-width: 700px; line-height: 1.75; margin-bottom: 28px; }
+.hero-tech-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-tech-chip { padding: 7px 16px; border: 1px solid var(--steel); border-radius: 100px; font-size: 12px; font-weight: 500; color: var(--mist); }
+
+.metrics-strip { background: var(--carbon); border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
+.metrics-inner { max-width: 1200px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: repeat(3, 1fr); }
+.metric-card { padding: 40px 32px; border-right: 1px solid var(--divider); }
+.metric-card:last-child { border-right: none; }
+.metric-num { font-family: var(--syne); font-size: 48px; font-weight: 800; color: var(--white); line-height: 1; margin-bottom: 10px; }
+.metric-num span { color: var(--flame); }
+.metric-num.word { font-size: 24px; letter-spacing: -0.02em; line-height: 1.2; }
+.metric-label { font-size: 13px; color: var(--smoke); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.case-body { max-width: 1200px; margin: 0 auto; padding: 0 48px 80px; }
+.case-section { padding: 56px 0; border-top: 1px solid var(--divider); }
+.case-section h2 { font-family: var(--syne); font-size: 28px; font-weight: 700; color: var(--white); margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
+.case-section h2::before { content: ''; display: block; width: 4px; height: 24px; background: var(--flame); border-radius: 2px; flex-shrink: 0; }
+.case-text { font-size: 15px; color: var(--mist); line-height: 1.85; font-weight: 300; }
+.case-text strong { color: var(--ivory); font-weight: 600; }
+.case-text p { margin-bottom: 16px; }
+.case-text p:last-child { margin-bottom: 0; }
+
+.step-list { display: flex; flex-direction: column; gap: 3px; margin-top: 16px; }
+.step-card { background: var(--carbon); padding: 24px 28px; border-left: 3px solid var(--steel); display: flex; gap: 20px; transition: border-color 0.2s; }
+.step-card:hover { border-left-color: var(--flame); }
+.step-num { font-family: var(--syne); font-size: 12px; font-weight: 700; color: var(--acid); flex-shrink: 0; min-width: 28px; padding-top: 2px; letter-spacing: 0.06em; }
+.step-body { flex: 1; }
+.step-title { font-family: var(--syne); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 6px; }
+.step-desc { font-size: 14px; color: var(--mist); line-height: 1.7; font-weight: 300; }
+.step-desc strong { color: var(--ivory); font-weight: 600; }
+
+.sample-report { background: var(--carbon); border: 1px solid var(--steel); border-radius: 8px; padding: 28px 32px; margin-top: 16px; font-family: 'Courier New', monospace; font-size: 12.5px; line-height: 1.9; color: var(--mist); overflow-x: auto; }
+.dummy-notice { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--smoke); background: var(--surface); border: 1px solid var(--steel); padding: 5px 12px; border-radius: 4px; margin-bottom: 16px; font-family: var(--outfit); letter-spacing: 0.04em; }
+.ok { color: #4CAF50; }
+.warn { color: #E8923C; }
+.fail { color: var(--flame); font-weight: bold; }
+.hl { color: var(--acid); }
+.dim { color: var(--smoke); }
+
+.tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; margin-top: 16px; }
+.tech-group { background: var(--carbon); padding: 24px 28px; }
+.tech-group-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--smoke); margin-bottom: 14px; }
+.tech-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tech-chip { padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; border: 1px solid var(--steel); color: var(--mist); }
+.tech-chip.featured { border-color: rgba(184,240,60,0.3); color: var(--acid); background: rgba(184,240,60,0.04); }
+
+.strategy-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 16px; }
+.strategy-card { background: var(--carbon); border: 1px solid var(--steel); padding: 24px 28px; }
+.strategy-card.primary { border-color: rgba(184,240,60,0.2); }
+.strategy-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--smoke); margin-bottom: 10px; }
+.strategy-label.accent { color: var(--acid); }
+.strategy-title { font-family: var(--syne); font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+.strategy-desc { font-size: 13px; color: var(--mist); line-height: 1.65; }
+
+.impact-list { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.impact-item { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--mist); line-height: 1.65; }
+.impact-item::before { content: '→'; color: var(--acid); font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.impact-item strong { color: var(--ivory); }
+
+.limitation-list { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.limitation-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--mist); line-height: 1.65; }
+.limitation-item::before { content: '◦'; color: var(--smoke); flex-shrink: 0; }
+
+.bottom-nav { max-width: 1200px; margin: 0 auto; padding: 40px 48px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; border-top: 1px solid var(--divider); }
+.bottom-nav-link { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--mist); text-decoration: none; transition: color 0.2s; }
+.bottom-nav-link:hover { color: var(--ivory); }
+.bottom-nav-link.fwd { color: var(--flame); }
+.bottom-nav-link.fwd:hover { color: var(--ivory); }
+
+@media (max-width: 1024px) {
+  nav { padding: 0 28px; }
+  .nav-links { display: none; }
+  .nav-menu-btn { display: block; }
+  .page-header, .case-body, .bottom-nav { padding-left: 28px; padding-right: 28px; }
+  .metrics-inner { padding: 0 28px; grid-template-columns: 1fr; }
+  .metric-card { border-right: none; border-bottom: 1px solid var(--divider); }
+  .metric-card:last-child { border-bottom: none; }
+  .tech-grid { grid-template-columns: 1fr; }
+  .strategy-pair { grid-template-columns: 1fr; }
+  footer { padding: 32px 28px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .page-header, .case-body, .bottom-nav { padding-left: 20px; padding-right: 20px; }
+  .metrics-inner { padding: 0 20px; }
+  .project-title { font-size: 36px; }
+  .step-card { padding: 18px 20px; gap: 14px; }
+  .case-section h2 { font-size: 22px; }
+  footer { flex-direction: column; text-align: center; padding: 28px 20px; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav id="navbar">
+  <a href="/" class="nav-logo">JS<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/about">About</a></li>
+    <li><a href="/experience">Experience</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/ai-achievements">AI Work</a></li>
+    <li><a href="/contact">Contact</a></li>
+  </ul>
+  <a href="/contact" class="nav-cta">Hire me →</a>
+  <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/about" class="mob-link">About</a>
+  <a href="/experience" class="mob-link">Experience</a>
+  <a href="/projects" class="mob-link">Projects</a>
+  <a href="/ai-achievements" class="mob-link">AI Work</a>
+  <a href="/contact" class="mob-link">Contact</a>
+  <a href="/contact" class="mobile-cta">Hire me →</a>
+</div>
+
+<main>
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <a href="/projects" class="breadcrumb reveal">← Back to Projects</a>
+    <div class="project-type-tag reveal">Data · Scraping · Automotive</div>
+    <h1 class="project-title reveal">Service History Scraper</h1>
+    <div class="reveal">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Live · Internal
+      </div>
+    </div>
+    <p class="project-summary reveal">A Playwright-based Python scraper that maps OEM authorised service centres across Australia — 10 brands, dual extraction strategy (rendered HTML + XHR/fetch API discovery), deduplicated output to Excel and CSV.</p>
+    <div class="hero-tech-chips reveal">
+      <span class="hero-tech-chip">Python</span>
+      <span class="hero-tech-chip">Playwright (Chromium)</span>
+      <span class="hero-tech-chip">BeautifulSoup</span>
+      <span class="hero-tech-chip">pandas</span>
+      <span class="hero-tech-chip">openpyxl</span>
+      <span class="hero-tech-chip">YAML</span>
+      <span class="hero-tech-chip">asyncio</span>
+    </div>
+  </div>
+
+  <!-- METRICS STRIP -->
+  <div class="metrics-strip">
+    <div class="metrics-inner">
+      <div class="metric-card reveal">
+        <div class="metric-num">10</div>
+        <div class="metric-label">OEM brands scraped (Toyota, Hyundai, Ford, Kia, Mazda + 5 more)</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-1">
+        <div class="metric-num word" style="color:var(--acid);">Dual<br>strategy</div>
+        <div class="metric-label">HTML card extraction + XHR API JSON discovery</div>
+      </div>
+      <div class="metric-card reveal reveal-delay-2">
+        <div class="metric-num word">Excel<span> +</span> CSV</div>
+        <div class="metric-label">Structured output with make/state summary sheet</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE BODY -->
+  <div class="case-body">
+
+    <!-- PROBLEM STATEMENT -->
+    <div class="case-section reveal">
+      <h2>Problem Statement</h2>
+      <div class="case-text">
+        <p>Cars24 AU needed a structured, up-to-date map of OEM authorised service centres across Australia — by make, state, suburb, and capability (sales/service/parts). This data is used for marketplace intelligence: understanding the service ecosystem a buyer enters when they purchase a vehicle.</p>
+        <p>The challenge: OEM dealer locator pages don't expose clean APIs. Most of them render dealer cards via JavaScript after the page loads — with XHR/fetch calls to internal APIs that aren't publicly documented. <strong>Simple HTML scraping misses most of the data.</strong></p>
+      </div>
+    </div>
+
+    <!-- WHAT I BUILT -->
+    <div class="case-section reveal">
+      <h2>What I Built</h2>
+      <div class="case-text">
+        <p>A multi-brand async Python scraper using Playwright (headless Chromium) that:</p>
+        <p>Loads each OEM dealer locator page with a real browser and intercepts all XHR/fetch responses during page load, capturing JSON API payloads. Extracts dealer records from both the rendered HTML and the captured API responses. Normalises all records into a standard schema (17 fields: name, make, state, suburb, address, phone, website, sales/service/parts flags, confidence, etc.). Deduplicates across sources by make + dealer name + address. Exports to a multi-sheet Excel file (main data + make/state summary) and CSV.</p>
+        <p><strong>Brands:</strong> Toyota, Hyundai, Ford, Kia, Mazda, Mitsubishi, Nissan, Volkswagen, Honda, Subaru.</p>
+      </div>
+
+      <!-- DUAL EXTRACTION STRATEGY -->
+      <div class="strategy-pair">
+        <div class="strategy-card primary">
+          <div class="strategy-label accent">Primary</div>
+          <div class="strategy-title">XHR / JSON API Discovery</div>
+          <div class="strategy-desc">A response listener captures all XHR/fetch calls during page load. Responses with <code style="color:var(--acid);background:var(--surface);padding:1px 5px;border-radius:3px;font-size:11px;">Content-Type: application/json</code> or URLs containing "dealer", "retailer", "locator" are parsed and walked recursively for dealer record objects. Captures data that HTML-only scrapers miss entirely.</div>
+        </div>
+        <div class="strategy-card">
+          <div class="strategy-label">Fallback</div>
+          <div class="strategy-title">HTML Card Extraction</div>
+          <div class="strategy-desc">BeautifulSoup finds dealer cards via CSS selectors (<code style="color:var(--acid);background:var(--surface);padding:1px 5px;border-radius:3px;font-size:11px;">[class*=dealer]</code>, <code style="color:var(--acid);background:var(--surface);padding:1px 5px;border-radius:3px;font-size:11px;">[class*=location]</code>, <code style="color:var(--acid);background:var(--surface);padding:1px 5px;border-radius:3px;font-size:11px;">article</code>, <code style="color:var(--acid);background:var(--surface);padding:1px 5px;border-radius:3px;font-size:11px;">.card</code>) and extracts name, phone, state from rendered text. Runs in parallel with JSON strategy; records are merged and deduped.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="case-section reveal">
+      <h2>How It Works</h2>
+      <div class="step-list">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Config-driven</div>
+            <div class="step-desc">Brand URLs and scraping mode are defined in <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">config/brands.yaml</code>. Adding a new brand is a one-line YAML entry — no code changes required.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">Playwright browser launch</div>
+            <div class="step-desc">For each brand, a headless Chromium browser loads the dealer locator URL. The viewport is set to 1440×1200 to trigger desktop layouts. Common consent dialogs ("Accept all", "Agree") are dismissed automatically.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">Network interception</div>
+            <div class="step-desc">A response listener captures all XHR/fetch responses during page load. Responses with <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">Content-Type: application/json</code> or URLs containing "dealer", "retailer", "locator" keywords are captured and parsed. This is the key innovation: many OEM locators don't render dealer data in the initial HTML — they fetch it via undocumented internal APIs.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">Scroll-triggered loading</div>
+            <div class="step-desc">After DOM load, the browser scrolls the page 6 times (1200px each) with 1-second waits between scrolls, triggering lazy-loaded dealer map components that only load when in view.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <div class="step-title">Dual extraction</div>
+            <div class="step-desc">Two parallel extraction strategies run: <strong>JSON payloads</strong>: <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">extract_dicts()</code> recursively walks each captured API response looking for objects with name + address/suburb + phone/URL fields and dealer terminology. Records normalised into <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">DealerRecord</code> objects. <strong>HTML card fallback</strong>: <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">extract_from_html()</code> uses BeautifulSoup to find dealer cards via CSS selectors, extracting name, phone, and state from rendered text.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">06</div>
+          <div class="step-body">
+            <div class="step-title">Normalisation</div>
+            <div class="step-desc"><code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">normalize_candidate()</code> maps raw field values into the standard schema. State is inferred from explicit state fields, text matching against state names/abbreviations, or postcode-to-state lookup. Service/sales/parts flags are inferred from boolean fields or keyword presence in the record text.</div>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">07</div>
+          <div class="step-body">
+            <div class="step-title">Deduplication + export</div>
+            <div class="step-desc">Records are deduplicated by (make, normalised dealer name, normalised address) key. Output goes to Excel (two sheets: full data + make/state summary via <code style="color:var(--acid);background:var(--surface);padding:1px 6px;border-radius:3px;font-size:12px;">groupby</code>) and CSV.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAMPLE OUTPUT -->
+    <div class="case-section reveal">
+      <h2>Sample Output</h2>
+      <div class="dummy-notice">&#9432; Sample output — dummy data. No real dealer names, addresses, or company data shown.</div>
+      <div class="sample-report">
+<span class="hl">SAMPLE OUTPUT — DUMMY DATA</span>
+<span class="dim">═══════════════════════════════════════════════════════════════</span>
+<strong style="color:var(--ivory);">SERVICE HISTORY SCRAPER — RUN REPORT</strong>
+<span class="dim">Brands: 10  |  Duration: ~12 min  |  Confidence filter: Medium+</span>
+<span class="dim">─────────────────────────────────────────────────────────────</span>
+<span class="dim">TOTAL RECORDS:</span>     <span style="color:var(--ivory);">847</span>
+<span class="hl">DEDUPED RECORDS:</span>   <span class="hl">762</span>
+<span class="dim">─────────────────────────────────────────────────────────────</span>
+<span class="dim">SAMPLE RECORDS (all dummy data):</span>
+
+<span class="dim">Partner Category  │ Make    │ State │ Dealer Name           │ Suburb       │ Service │ Confidence</span>
+<span class="dim">──────────────────┼─────────┼───────┼───────────────────────┼──────────────┼─────────┼───────────</span>
+<span style="color:var(--ivory);">OEM Auth. Service</span> │ <span class="hl">Toyota</span>  │ <span class="ok">NSW</span>   │ Sample Toyota Dealer  │ Sample Suburb│ <span class="ok">Yes</span>     │ <span class="ok">High</span>
+<span style="color:var(--ivory);">OEM Auth. Service</span> │ <span class="hl">Hyundai</span> │ <span class="ok">VIC</span>   │ Sample Hyundai Dealer │ Demo Town    │ <span class="ok">Yes</span>     │ <span class="ok">High</span>
+<span style="color:var(--ivory);">OEM Auth. Service</span> │ <span class="hl">Ford</span>    │ <span class="ok">QLD</span>   │ Sample Ford Dealer    │ Demo City    │ <span class="ok">Yes</span>     │ <span class="warn">Medium</span>
+<span style="color:var(--ivory);">OEM Auth. Service</span> │ <span class="hl">Kia</span>     │ <span class="ok">WA</span>    │ Sample Kia Dealer     │ Demo West    │ <span class="dim">Unknown</span> │ <span class="warn">Medium</span>
+<span class="dim">─────────────────────────────────────────────────────────────</span>
+<span class="dim">MAKE / STATE SUMMARY (dummy counts):</span>
+<span class="hl">Toyota:</span>   <span class="dim">NSW: 42 │ VIC: 38 │ QLD: 29 │ WA: 21 │ SA: 15 │ ...</span>
+<span class="hl">Hyundai:</span>  <span class="dim">NSW: 35 │ VIC: 31 │ QLD: 24 │ WA: 18 │ SA: 12 │ ...</span>
+<span class="hl">Ford:</span>     <span class="dim">NSW: 28 │ VIC: 25 │ QLD: 20 │ WA: 16 │ SA: 10 │ ...</span>
+<span class="dim">═══════════════════════════════════════════════════════════════</span>
+      </div>
+    </div>
+
+    <!-- TECH STACK -->
+    <div class="case-section reveal">
+      <h2>Tech Stack</h2>
+      <div class="tech-grid">
+        <div class="tech-group">
+          <div class="tech-group-title">Scraping + Processing</div>
+          <div class="tech-chips">
+            <span class="tech-chip featured">Python</span>
+            <span class="tech-chip featured">Playwright — Chromium headless</span>
+            <span class="tech-chip featured">asyncio</span>
+            <span class="tech-chip featured">BeautifulSoup — lxml</span>
+            <span class="tech-chip featured">pandas</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-title">Output + Config</div>
+          <div class="tech-chips">
+            <span class="tech-chip featured">openpyxl</span>
+            <span class="tech-chip">YAML (config)</span>
+            <span class="tech-chip">CSV (stdlib)</span>
+            <span class="tech-chip">regex (stdlib)</span>
+          </div>
+        </div>
+      </div>
+      <div class="case-text" style="margin-top: 20px;">
+        <p>Playwright is required (not requests/selenium) because OEM locator pages use JavaScript-rendered content and XHR-based data fetching. The async architecture means each brand's browser session runs independently.</p>
+      </div>
+    </div>
+
+    <!-- BUSINESS IMPACT -->
+    <div class="case-section reveal">
+      <h2>Business Impact</h2>
+      <div class="impact-list">
+        <div class="impact-item">Built a structured, deduplicated map of 700+ OEM authorised service centres across Australia across 10 makes</div>
+        <div class="impact-item">Config-driven brand list means new makes can be added in minutes — no code changes</div>
+        <div class="impact-item">Make/state summary sheet in Excel gives immediate visibility into service centre density by region — useful for marketplace supply/demand analysis</div>
+        <div class="impact-item">Dual extraction strategy (HTML + XHR API discovery) captures data that HTML-only scrapers would miss entirely on modern OEM locator pages</div>
+        <div class="impact-item">Debug output (network URLs, JSON payloads, candidate records per brand) makes it easy to diagnose when a new OEM locator changes its API structure</div>
+      </div>
+    </div>
+
+    <!-- LIMITATIONS -->
+    <div class="case-section reveal">
+      <h2>Limitations &amp; Future Improvements</h2>
+      <div class="limitation-list">
+        <div class="limitation-item">Some OEM locators require postcode-based search to load dealer results — a future version would iterate through Australian postcodes to ensure full coverage for these brands.</div>
+        <div class="limitation-item">Phone number and website fields have inconsistent availability across brands — a future version could enrich missing contact data via Google Places API or similar.</div>
+        <div class="limitation-item">The scraper captures a point-in-time snapshot; a recurring scheduled run (e.g., monthly) would keep the dataset current as dealers open, close, or change locations.</div>
+        <div class="limitation-item">Sales/parts/service flags rely on keyword inference when OEMs don't expose them as explicit boolean fields — confidence is "Medium" in those cases; a manual validation pass could promote them.</div>
+      </div>
+    </div>
+
+  </div><!-- /case-body -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav reveal">
+    <a href="/projects" class="bottom-nav-link">← Back to Projects</a>
+    <a href="/ai-achievements" class="bottom-nav-link fwd">View all AI tools →</a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-logo">JS<span>.</span></div>
+  <div class="footer-mid">© 2026 Jigyanshu Shah · All rights reserved</div>
+  <div class="footer-domain">jigyanshushah.ai</div>
+</footer>
+
+<script>
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (scrollTop / docHeight * 100) + '%';
+});
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+menuBtn.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mobileMenu.classList.toggle('open', menuOpen);
+  menuBtn.textContent = menuOpen ? '✕' : '☰';
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link, .mobile-cta').forEach(a => {
+  a.addEventListener('click', () => {
+    menuOpen = false; mobileMenu.classList.remove('open');
+    menuBtn.textContent = '☰'; document.body.style.overflow = '';
+  });
+});
+</script>
+</body>
+</html>
