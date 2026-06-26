@@ -9,11 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/ai-automation.css">
 <style>
-.reporting-page main{background:linear-gradient(180deg,#0a0c10 0%,#0d1118 100%)}
+.reporting-page main{background:linear-gradient(180deg,#0d0b08 0%,#110e0b 100%)}
 .reporting-wrap{padding:112px 0 56px}.reporting-wrap .container{max-width:1240px}
 .reporting-hero{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:linear-gradient(135deg,#101625 0%,#172338 45%,#0f151f 100%);padding:36px 40px}
 .reporting-hero:before{content:"";position:absolute;top:-120px;right:-40px;width:320px;height:320px;border-radius:50%;background:rgba(255,90,54,.16)}
-.reporting-hero:after{content:"";position:absolute;bottom:-110px;left:38%;width:240px;height:240px;border-radius:50%;background:rgba(215,255,100,.06)}
+.reporting-hero:after{content:"";position:absolute;bottom:-110px;left:38%;width:240px;height:240px;border-radius:50%;background:rgba(240,180,41,.06)}
 .reporting-hero-grid,.reporting-grid-2,.reporting-grid-3,.reporting-metrics,.reporting-stack,.reporting-flow,.reporting-impact{display:grid;gap:18px}
 .reporting-hero-grid{grid-template-columns:1.12fr .88fr;position:relative;z-index:1}
 .reporting-grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -26,7 +26,7 @@
 .reporting-eyebrow:before{content:"";display:block;width:24px;height:1px;background:var(--signal)}
 .reporting-title{font-family:var(--syne);font-size:clamp(2.5rem,5vw,4.8rem);line-height:.94;letter-spacing:-.06em;margin-bottom:16px}
 .reporting-title span,.reporting-card.kpi .reporting-value,.reporting-chip strong,.reporting-step-num,.reporting-panel strong{color:var(--accent)}
-.reporting-sub{max-width:60ch;color:rgba(255,255,255,.8);font-size:16px;line-height:1.8}
+.reporting-sub{max-width:60ch;color:rgba(245,240,232,.8);font-size:17px;line-height:1.75}
 .reporting-panel,.reporting-card,.reporting-step,.reporting-board,.reporting-rail{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04)}
 .reporting-panel{padding:22px}
 .reporting-panel h3,.reporting-card-title,.reporting-rail h3{font-family:var(--syne);font-size:22px;letter-spacing:-.04em;margin-bottom:10px}
@@ -34,8 +34,8 @@
 .reporting-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .reporting-chip{border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);border-radius:999px;padding:8px 12px;font-size:12px;color:var(--text)}
 .reporting-card{padding:22px}
-.reporting-card.kpi{padding:20px;background:#121823}
-.reporting-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8f98a8;margin-bottom:8px}
+.reporting-card.kpi{padding:20px;background:#1a1612}
+.reporting-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9e9284;margin-bottom:8px}
 .reporting-value{font-family:var(--syne);font-size:32px;line-height:1;letter-spacing:-.05em;margin-bottom:8px}
 .reporting-section{padding:34px 0 0}
 .reporting-step{padding:22px;min-height:100%}
@@ -46,21 +46,32 @@
 .reporting-board-title{font-family:var(--syne);font-size:28px;letter-spacing:-.05em}
 .reporting-board-meta{display:flex;gap:10px;flex-wrap:wrap}
 .reporting-badge{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 12px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,90,54,.12);border:1px solid rgba(255,90,54,.2);color:#ffd6cb}
-.reporting-badge.good{background:rgba(215,255,100,.08);border-color:rgba(215,255,100,.18);color:#e8ffc2}
-.reporting-stack-card{padding:18px;border:1px solid rgba(255,255,255,.08);background:#111722}
-.reporting-stack-card h4{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#8f98a8;margin-bottom:10px}
+.reporting-badge.good{background:rgba(240,180,41,.08);border-color:rgba(240,180,41,.22);color:#fde9a2}
+.reporting-stack-card{padding:18px;border:1px solid rgba(255,255,255,.08);background:#1a1612}
+.reporting-stack-card h4{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#9e9284;margin-bottom:10px}
 .reporting-stack-card p{color:var(--muted);font-size:13px;line-height:1.7}
 .reporting-list{list-style:none;display:grid;gap:10px}
 .reporting-list li{position:relative;padding-left:18px}
 .reporting-list li:before{content:"";position:absolute;left:0;top:.72em;width:7px;height:7px;border-radius:50%;background:var(--signal)}
-.reporting-rail{padding:22px;background:#101620}
+.reporting-rail{padding:22px;background:#1a1612}
 .reporting-rail + .reporting-rail{margin-top:18px}
 .reporting-divider{height:1px;background:rgba(255,255,255,.08);margin:16px 0}
 .reporting-callout{border-left:4px solid var(--signal);background:rgba(255,90,54,.08);padding:16px 18px;color:#ffd7cf;font-size:14px;line-height:1.7}
-.reporting-callout strong{color:#fff}
+.reporting-callout strong{color:#f5f0e8}
 .reporting-cta{padding-top:26px;text-align:center}
+.data-flow{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;margin-top:18px}
+.data-sources,.data-outputs{display:grid;gap:6px}
+.data-node{padding:12px 14px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);display:flex;align-items:center;gap:10px}
+.data-node-dot{width:8px;height:8px;border-radius:50%;background:#ff5a36;flex-shrink:0}
+.data-node-label{font-size:13px;font-weight:600;color:#f5f0e8}
+.data-node-sub{font-size:11px;color:#9e9284;margin-top:1px}
+.data-logic{text-align:center;padding:24px 18px;background:rgba(255,90,54,.06);border:1px solid rgba(255,90,54,.2);border-top:3px solid #ff5a36}
+.data-logic-title{font-size:14px;font-weight:800;color:#f5f0e8;margin-bottom:6px}
+.data-logic-copy{font-size:12px;color:#9e9284;line-height:1.55}
+.data-arrows{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+.data-arr{color:rgba(255,90,54,.4);font-size:20px}
 @media(max-width:980px){.reporting-hero-grid,.reporting-grid-2,.reporting-grid-3,.reporting-metrics,.reporting-stack,.reporting-flow,.reporting-impact{grid-template-columns:1fr}}
-@media(max-width:760px){.reporting-wrap{padding:96px 0 44px}.reporting-hero,.reporting-board{padding:28px 22px}}
+@media(max-width:760px){.reporting-wrap{padding:96px 0 44px}.reporting-hero,.reporting-board{padding:28px 22px}.data-flow{grid-template-columns:1fr}.data-arrows{flex-direction:row}}
 </style>
 </head>
 <body class="reporting-page">
@@ -127,11 +138,32 @@
               <div class="reporting-badge good">After · one operating layer</div>
             </div>
           </div>
-          <div class="reporting-stack">
-            <div class="reporting-stack-card"><h4>Input layer</h4><p>Google Ads, GSC, HubSpot, and Snowflake feeds were pulled into one recurring reporting environment instead of sitting in separate logins and isolated exports.</p></div>
-            <div class="reporting-stack-card"><h4>Logic layer</h4><p>Channel naming, KPI mapping, and source-of-truth definitions were normalized so reporting stopped becoming an argument about whose sheet was “right”.</p></div>
-            <div class="reporting-stack-card"><h4>Output layer</h4><p>Leadership views, channel summaries, and recurring reporting tables were generated in a consistent format that teams could reuse across weeks and months.</p></div>
-            <div class="reporting-stack-card"><h4>Action layer</h4><p>The point was not just visibility. It was faster diagnosis across SEO, CRM, and paid teams so performance issues were found earlier and discussed with shared context.</p></div>
+          <div class=”reporting-stack”>
+            <div class=”reporting-stack-card”><h4>Input layer</h4><p>Google Ads, GSC, HubSpot, and Snowflake feeds were pulled into one recurring reporting environment instead of sitting in separate logins and isolated exports.</p></div>
+            <div class=”reporting-stack-card”><h4>Logic layer</h4><p>Channel naming, KPI mapping, and source-of-truth definitions were normalized so reporting stopped becoming an argument about whose sheet was “right”.</p></div>
+            <div class=”reporting-stack-card”><h4>Output layer</h4><p>Leadership views, channel summaries, and recurring reporting tables were generated in a consistent format that teams could reuse across weeks and months.</p></div>
+            <div class=”reporting-stack-card”><h4>Action layer</h4><p>The point was not just visibility. It was faster diagnosis across SEO, CRM, and paid teams so performance issues were found earlier and discussed with shared context.</p></div>
+          </div>
+          <div class=”data-flow”>
+            <div class=”data-sources”>
+              <div class=”data-node”><div class=”data-node-dot”></div><div><div class=”data-node-label”>Google Ads</div><div class=”data-node-sub”>Spend &amp; conversion data</div></div></div>
+              <div class=”data-node”><div class=”data-node-dot”></div><div><div class=”data-node-label”>Google Search Console</div><div class=”data-node-sub”>Organic visibility &amp; clicks</div></div></div>
+              <div class=”data-node”><div class=”data-node-dot”></div><div><div class=”data-node-label”>HubSpot CRM</div><div class=”data-node-sub”>Funnel &amp; lifecycle output</div></div></div>
+              <div class=”data-node”><div class=”data-node-dot”></div><div><div class=”data-node-label”>Snowflake</div><div class=”data-node-sub”>Warehouse-level rollups</div></div></div>
+            </div>
+            <div class=”data-arrows”>
+              <div class=”data-arr”>&#8594;</div>
+              <div class=”data-logic”>
+                <div class=”data-logic-title”>Logic Layer</div>
+                <div class=”data-logic-copy”>Named definitions, KPI mapping, normalized schema</div>
+              </div>
+              <div class=”data-arr”>&#8594;</div>
+            </div>
+            <div class=”data-outputs”>
+              <div class=”data-node”><div class=”data-node-dot”></div><div><div class=”data-node-label”>Leadership dashboards</div><div class=”data-node-sub”>Executive-ready summaries</div></div></div>
+              <div class=”data-node”><div class=”data-node-dot”></div><div><div class=”data-node-label”>Channel summaries</div><div class=”data-node-sub”>Per-team performance views</div></div></div>
+              <div class=”data-node”><div class=”data-node-dot”></div><div><div class=”data-node-label”>Weekly cadence tables</div><div class=”data-node-sub”>Recurring refresh output</div></div></div>
+            </div>
           </div>
         </article>
         <div>

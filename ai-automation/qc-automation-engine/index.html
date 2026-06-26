@@ -10,13 +10,13 @@
 <link rel="stylesheet" href="/assets/ai-automation.css">
 <style>
 .qc-page {
-  --qc-bg: #0a0d12;
-  --qc-surface: #10151d;
-  --qc-surface-2: #161c26;
-  --qc-border: rgba(130, 154, 190, 0.16);
+  --qc-bg: #0d0b09;
+  --qc-surface: #181410;
+  --qc-surface-2: #1e1a14;
+  --qc-border: rgba(130, 154, 190, 0.14);
   --qc-border-strong: rgba(0, 229, 160, 0.26);
-  --qc-text: #eaf0f8;
-  --qc-muted: #95a0b5;
+  --qc-text: #f5f0e8;
+  --qc-muted: #9e9284;
   --qc-mono: 'JetBrains Mono', monospace;
   --qc-sans: 'Outfit', sans-serif;
   --qc-display: 'Syne', sans-serif;
@@ -30,8 +30,8 @@
 .qc-page main {
   background:
     radial-gradient(circle at 85% 18%, rgba(71, 54, 254, 0.22), transparent 22%),
-    radial-gradient(circle at 12% 84%, rgba(0, 229, 160, 0.1), transparent 26%),
-    linear-gradient(180deg, #090b10 0%, #0b0f15 42%, #080a0f 100%);
+    radial-gradient(circle at 12% 84%, rgba(240, 180, 41, 0.1), transparent 26%),
+    linear-gradient(180deg, #0d0b09 0%, #100e0c 42%, #0a0908 100%);
 }
 .qc-shell {
   padding: 128px 0 80px;
@@ -535,6 +535,38 @@
   .qc-stage-arrow { display: none; }
   .qc-stage { min-width: 0; border: 1px solid var(--qc-border); background: rgba(255,255,255,0.025); }
 }
+.qc-decision-states {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+.qc-ds {
+  padding: 20px 18px;
+  border: 1px solid var(--qc-border);
+  border-top: 3px solid;
+  position: relative;
+}
+.qc-ds.pass { border-top-color: var(--qc-green); background: rgba(0,229,160,0.04); }
+.qc-ds.review { border-top-color: var(--qc-warn); background: rgba(245,200,66,0.04); }
+.qc-ds.autofix { border-top-color: #7b9cff; background: rgba(123,156,255,0.04); }
+.qc-ds.fail { border-top-color: var(--qc-red); background: rgba(255,68,102,0.04); }
+.qc-ds-indicator {
+  width: 10px; height: 10px; border-radius: 50%; margin-bottom: 10px;
+}
+.qc-ds.pass .qc-ds-indicator { background: var(--qc-green); }
+.qc-ds.review .qc-ds-indicator { background: var(--qc-warn); }
+.qc-ds.autofix .qc-ds-indicator { background: #7b9cff; }
+.qc-ds.fail .qc-ds-indicator { background: var(--qc-red); }
+.qc-ds-label {
+  font-family: var(--qc-mono);
+  font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;
+}
+.qc-ds.pass .qc-ds-label { color: var(--qc-green); }
+.qc-ds.review .qc-ds-label { color: var(--qc-warn); }
+.qc-ds.autofix .qc-ds-label { color: #7b9cff; }
+.qc-ds.fail .qc-ds-label { color: var(--qc-red); }
+.qc-ds-copy { font-size: 13px; color: var(--qc-muted); line-height: 1.65; }
+@media (max-width: 760px) { .qc-decision-states { grid-template-columns: repeat(2,1fr); } }
 </style>
 </head>
 <body class="qc-page">
@@ -789,6 +821,32 @@
                 <strong>Design principle:</strong> use AI where judgment creates leverage, but keep final operational state transitions legible, auditable, and rules-backed.
               </div>
             </article>
+          </div>
+        </section>
+
+        <section class="qc-section">
+          <div class="qc-section-label">Decision outcomes</div>
+          <div class="qc-decision-states">
+            <div class="qc-ds pass">
+              <div class="qc-ds-indicator"></div>
+              <div class="qc-ds-label">PASS</div>
+              <div class="qc-ds-copy">All checks met. Listing cleared automatically for publishing without human review.</div>
+            </div>
+            <div class="qc-ds review">
+              <div class="qc-ds-indicator"></div>
+              <div class="qc-ds-label">REVIEW</div>
+              <div class="qc-ds-copy">Edge case or ambiguous field. Routed to ops queue with full diagnostic context for fast resolution.</div>
+            </div>
+            <div class="qc-ds autofix">
+              <div class="qc-ds-indicator"></div>
+              <div class="qc-ds-label">AUTO-FIX</div>
+              <div class="qc-ds-copy">Minor correctable issue. System applies the fix and re-runs the check without human involvement.</div>
+            </div>
+            <div class="qc-ds fail">
+              <div class="qc-ds-indicator"></div>
+              <div class="qc-ds-label">FAIL</div>
+              <div class="qc-ds-copy">Critical or unresolvable issue. Listing held and flagged with a specific failure reason for the dealer or ops team.</div>
+            </div>
           </div>
         </section>
 
