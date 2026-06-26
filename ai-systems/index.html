@@ -1,13 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=/ai-achievements/">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirecting to AI Automation</title>
-  <link rel="canonical" href="https://jigyanshushah.ai/ai-achievements/">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Automation | Jigyanshu Shah</title>
+<meta name="description" content="AI automation projects by Jigyanshu Shah across QC workflows, reporting systems, recall pipelines, and operational tooling.">
+<link rel="canonical" href="https://jigyanshushah.ai/ai-systems/">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0a0b0d;
+  --panel: #151821;
+  --line: rgba(255,255,255,0.08);
+  --line-strong: rgba(255,255,255,0.14);
+  --text: #f4f1ea;
+  --muted: #a9a39a;
+  --muted-2: #70695f;
+  --signal: #ff5a36;
+  --accent: #d7ff64;
+  --sand: #d9c8b0;
+  --syne: 'Syne', system-ui, sans-serif;
+  --outfit: 'Outfit', system-ui, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background:
+    radial-gradient(circle at top right, rgba(255,90,54,0.16), transparent 24%),
+    radial-gradient(circle at bottom left, rgba(215,255,100,0.07), transparent 28%),
+    linear-gradient(180deg, #090a0d 0%, #0c0e12 42%, #090a0d 100%);
+  color: var(--text);
+  font-family: var(--outfit);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; }
+#progress-bar { position: fixed; top: 0; left: 0; width: 0; height: 2px; background: var(--signal); z-index: 1000; transition: width 0.1s linear; }
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999; height: 64px; padding: 0 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,11,13,0.72); backdrop-filter: blur(18px); border-bottom: 1px solid var(--line);
+}
+.nav-logo { font-family: var(--syne); font-size: 20px; font-weight: 800; text-decoration: none; letter-spacing: -0.04em; }
+.nav-logo span { color: var(--signal); }
+.nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+.nav-links a { text-decoration: none; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+.nav-links a:hover, .nav-links a.active { color: var(--text); }
+.nav-cta {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 132px;
+  padding: 10px 18px; border-radius: 999px; text-decoration: none; background: var(--signal);
+  color: #fff8f2; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.nav-menu-btn { display: none; background: none; border: none; color: var(--text); font-size: 22px; cursor: pointer; }
+.mobile-menu {
+  display: none; position: fixed; inset: 0; top: 64px; z-index: 998; background: rgba(10,11,13,0.97);
+  padding: 28px 24px; flex-direction: column;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  display: block; padding: 16px 0; border-bottom: 1px solid var(--line); text-decoration: none;
+  font-family: var(--syne); font-size: 28px; font-weight: 700;
+}
+.mobile-menu .mobile-cta {
+  margin-top: 24px; border-bottom: none; padding: 14px 20px; border-radius: 999px; background: var(--signal);
+  color: #fff8f2; font-size: 15px; text-align: center;
+}
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.container { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
+.section { padding: 92px 0; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--sand); margin-bottom: 16px;
+}
+.eyebrow::before { content: ""; display: block; width: 24px; height: 1px; background: var(--signal); }
+.hero { padding-top: 136px; padding-bottom: 68px; min-height: 48vh; display: flex; align-items: end; border-bottom: 1px solid var(--line); }
+.hero-title { font-family: var(--syne); font-size: clamp(3rem, 7vw, 6rem); line-height: 0.95; letter-spacing: -0.06em; margin-bottom: 16px; }
+.hero-copy { max-width: 800px; font-size: 18px; line-height: 1.8; color: var(--muted); }
+.system-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.system-card { background: var(--panel); border: 1px solid var(--line); padding: 28px 26px; min-height: 260px; display: flex; flex-direction: column; }
+.system-num { font-family: var(--syne); font-size: 13px; font-weight: 800; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 14px; }
+.system-title { font-family: var(--syne); font-size: 22px; line-height: 1.12; letter-spacing: -0.04em; margin-bottom: 12px; }
+.system-desc { font-size: 14px; line-height: 1.78; color: var(--muted); margin-bottom: 18px; flex: 1; }
+.system-status { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); }
+.system-status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.section-title { font-family: var(--syne); font-size: clamp(34px, 5vw, 68px); line-height: 0.98; letter-spacing: -0.05em; margin-bottom: 14px; }
+.section-sub { max-width: 760px; color: var(--muted); font-size: 17px; line-height: 1.8; margin-bottom: 32px; }
+.proof-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
+.proof-card { padding: 30px; border: 1px solid var(--line); background: rgba(255,255,255,0.03); }
+.proof-card h3 { font-family: var(--syne); font-size: 24px; line-height: 1.08; letter-spacing: -0.04em; margin-bottom: 10px; }
+.proof-card p { color: var(--muted); font-size: 15px; line-height: 1.8; }
+.cta-band { padding: 108px 0 116px; text-align: center; }
+.cta-shell { max-width: 860px; margin: 0 auto; padding: 42px 36px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%); }
+.cta-title { font-family: var(--syne); font-size: clamp(34px, 5vw, 64px); line-height: 0.98; letter-spacing: -0.05em; margin-bottom: 16px; }
+.cta-copy { max-width: 620px; margin: 0 auto 28px; font-size: 17px; line-height: 1.82; color: var(--muted); }
+.cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; }
+.btn-primary, .btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 15px 24px; border-radius: 999px; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.04em; }
+.btn-primary { background: var(--signal); color: #fff8f2; }
+.btn-secondary { border: 1px solid var(--line-strong); color: var(--text); background: rgba(255,255,255,0.03); }
+footer { border-top: 1px solid var(--line); padding: 34px 40px 40px; }
+.footer-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.footer-logo { font-family: var(--syne); font-size: 18px; font-weight: 800; letter-spacing: -0.04em; }
+.footer-logo span { color: var(--signal); }
+.footer-copy, .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; }
+.footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-links a:hover { color: var(--text); }
+@media (max-width: 980px) {
+  .system-grid, .proof-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 840px) {
+  nav { padding: 0 24px; }
+  .nav-links, .nav-cta { display: none; }
+  .nav-menu-btn { display: block; }
+  .container { padding: 0 24px; }
+  .section { padding: 72px 0; }
+  .hero { padding-top: 104px; }
+  .cta-band { padding: 88px 0 96px; }
+  footer { padding: 28px 24px 34px; }
+}
+@media (max-width: 640px) {
+  .hero-title { font-size: clamp(2.6rem, 12vw, 4rem); line-height: 1; }
+  .hero-copy, .cta-copy, .section-sub { font-size: 16px; }
+  .system-card, .proof-card, .cta-shell { padding: 24px 20px; }
+  .cta-actions { flex-direction: column; }
+  .btn-primary, .btn-secondary { width: 100%; }
+  footer { padding: 28px 20px 34px; }
+}
+</style>
 </head>
 <body>
-  <p>Redirecting to <a href="/ai-achievements/">/ai-achievements/</a>…</p>
+<div id="progress-bar"></div>
+<nav id="navbar">
+  <a href="/" class="nav-logo">JS<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/work/">Work</a></li>
+    <li><a href="/ai-systems/" class="active">AI Automation</a></li>
+    <li><a href="/experience/">Experience</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+  <a href="/contact/" class="nav-cta">Work With Me</a>
+  <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/" class="mob-link">Home</a>
+  <a href="/work/" class="mob-link">Work</a>
+  <a href="/ai-systems/" class="mob-link">AI Automation</a>
+  <a href="/experience/" class="mob-link">Experience</a>
+  <a href="/about/" class="mob-link">About</a>
+  <a href="/contact/" class="mob-link">Contact</a>
+  <a href="/contact/" class="mobile-cta">Work With Me</a>
+</div>
+<main>
+  <section class="hero">
+    <div class="container reveal">
+      <div class="eyebrow">AI Automation</div>
+      <h1 class="hero-title">Automation that changes how teams actually operate.</h1>
+      <p class="hero-copy">These projects sit inside real workflows: QC, reporting, recall checks, search scoring, and research pipelines. The goal is practical leverage — less manual work, faster decision-making, and cleaner execution.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow reveal">Projects</div>
+      <h2 class="section-title reveal">AI automation in real workflows, not demo mode.</h2>
+      <p class="section-sub reveal">The tools matter because they changed operating behavior. They made workflows faster, sharper, and more measurable for internal teams.</p>
+      <div class="system-grid">
+        <article class="system-card reveal">
+          <div class="system-num">01</div>
+          <h3 class="system-title">QC Automation Engine</h3>
+          <p class="system-desc">Rules engine plus AI-assisted scoring, description generation, image QC, and ops routing for dealer inventory readiness.</p>
+          <div class="system-status">Live at Cars24 AU</div>
+        </article>
+        <article class="system-card reveal reveal-delay-1">
+          <div class="system-num">02</div>
+          <h3 class="system-title">VIN Recall Pipeline</h3>
+          <p class="system-desc">VIN matching and recall retrieval system connecting multiple data sources to make trust checks instant instead of manual.</p>
+          <div class="system-status">5.4M VINs covered</div>
+        </article>
+        <article class="system-card reveal reveal-delay-2">
+          <div class="system-num">03</div>
+          <h3 class="system-title">AI Reporting Layer</h3>
+          <p class="system-desc">Automated reporting and data aggregation workflows replacing repeated weekly, biweekly, and monthly report cycles.</p>
+          <div class="system-status">5.5 days/month saved</div>
+        </article>
+        <article class="system-card reveal reveal-delay-1">
+          <div class="system-num">04</div>
+          <h3 class="system-title">SEO + GEO Audit Systems</h3>
+          <p class="system-desc">Scoring systems for content quality, search readiness, structured visibility, and audit workflows before and after publishing.</p>
+          <div class="system-status">Built for internal teams</div>
+        </article>
+        <article class="system-card reveal reveal-delay-2">
+          <div class="system-num">05</div>
+          <h3 class="system-title">Odometer Tampering Detection</h3>
+          <p class="system-desc">Trust layer built to flag suspicious rollback patterns and stop compromised inventory from entering the buyer journey.</p>
+          <div class="system-status">Fraud prevention workflow</div>
+        </article>
+        <article class="system-card reveal reveal-delay-3">
+          <div class="system-num">06</div>
+          <h3 class="system-title">Service Network Intelligence</h3>
+          <p class="system-desc">Research and data export pipeline for service-center mapping, OEM network analysis, and structured operational visibility.</p>
+          <div class="system-status">Data pipeline + export layer</div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="proof-grid">
+        <article class="proof-card reveal">
+          <h3>Rules first, AI second.</h3>
+          <p>The strongest systems start with deterministic logic, clear exceptions, and reliable input structure. AI gets added where judgment and synthesis improve outcomes.</p>
+        </article>
+        <article class="proof-card reveal reveal-delay-1">
+          <h3>Built for adoption.</h3>
+          <p>The goal is not to ship a clever tool. The goal is to create something operators actually use because it removes friction and improves decisions.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="cta-band">
+    <div class="container">
+      <div class="cta-shell reveal">
+        <div class="eyebrow" style="justify-content:center;">Next move</div>
+        <h2 class="cta-title">Want to see the broader work context?</h2>
+        <p class="cta-copy">Explore selected work or start a conversation if you’re hiring for growth execution, operations, or AI automation that needs to work in production.</p>
+        <div class="cta-actions">
+          <a href="/work/" class="btn-primary">View Selected Work</a>
+          <a href="/contact/" class="btn-secondary">Start a Conversation</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Jigyanshu Shah<span>.</span></div>
+    <div class="footer-copy">Growth &amp; GTM Engineer · © 2026 Jigyanshu Shah</div>
+    <div class="footer-links">
+      <a href="/work/">Work</a>
+      <a href="/ai-systems/">AI Automation</a>
+      <a href="/contact/">Contact</a>
+      <a href="https://www.linkedin.com/in/jigyanshu-shah/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/jigyanshushah" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:jigyanshushah69@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+<script>
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = docHeight > 0 ? (scrollTop / docHeight * 100) + '%' : '0%';
+});
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+revealEls.forEach((element) => revealObserver.observe(element));
+const menuBtn = document.getElementById('menuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+menuBtn.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  mobileMenu.classList.toggle('open', menuOpen);
+  menuBtn.textContent = menuOpen ? '✕' : '☰';
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+document.querySelectorAll('.mob-link, .mobile-cta').forEach((link) => {
+  link.addEventListener('click', () => {
+    menuOpen = false;
+    mobileMenu.classList.remove('open');
+    menuBtn.textContent = '☰';
+    document.body.style.overflow = '';
+  });
+});
+</script>
 </body>
 </html>
