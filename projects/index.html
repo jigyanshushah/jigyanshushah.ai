@@ -213,7 +213,7 @@ nav {
 .bottom-cta {
   border-top: 1px solid var(--divider);
   background: var(--carbon);
-  padding: 100px 48px;
+  padding: 56px 48px 40px;
   text-align: center;
 }
 .bottom-cta-inner { max-width: 600px; margin: 0 auto; }
@@ -232,14 +232,13 @@ nav {
 .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
 
 /* FOOTER */
-footer {
-  border-top: 1px solid var(--divider); padding: 40px 48px;
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
-}
+footer { border-top: 1px solid var(--divider); padding: 24px 48px 28px; }
+.footer-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
 .footer-logo { font-family: var(--syne); font-weight: 800; font-size: 18px; letter-spacing: -0.03em; color: var(--white); }
 .footer-logo span { color: var(--flame); }
-.footer-mid { font-size: 13px; color: var(--smoke); text-align: center; }
-.footer-domain { font-size: 13px; color: var(--mist); font-family: 'Courier New', monospace; letter-spacing: 0.04em; }
+.footer-copy, .footer-links a { font-size: 13px; color: var(--mist); text-decoration: none; }
+.footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+.footer-links a:hover { color: var(--ivory); }
 
 @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 
@@ -251,8 +250,8 @@ footer {
   .page-hero { padding: 100px 28px 48px; }
   .intro-strip { padding: 72px 28px; }
   .projects-section { padding: 60px 28px; }
-  .bottom-cta { padding: 72px 28px; }
-  footer { padding: 32px 28px; }
+  .bottom-cta { padding: 48px 28px 36px; }
+  footer { padding: 24px 28px 28px; }
 }
 @media (max-width: 768px) {
   .projects-grid { grid-template-columns: 1fr; }
@@ -262,10 +261,10 @@ footer {
   .page-hero { padding: 88px 20px 40px; }
   .intro-strip { padding: 60px 20px; }
   .projects-section { padding: 48px 20px; }
-  .bottom-cta { padding: 60px 20px; }
+  .bottom-cta { padding: 40px 20px 32px; }
   .project-card { padding: 28px 24px; }
   .project-num { font-size: 36px; }
-  footer { flex-direction: column; text-align: center; padding: 28px 20px; }
+  footer { padding: 24px 20px 28px; }
 }
 </style>
 </head>
@@ -277,23 +276,21 @@ footer {
 <nav id="navbar">
   <a href="/" class="nav-logo">JS<span>.</span></a>
   <ul class="nav-links">
-    <li><a href="/about">About</a></li>
-    <li><a href="/experience">Experience</a></li>
-    <li><a href="/projects" class="current-page">Projects</a></li>
-    <li><a href="/ai-achievements">AI Work</a></li>
-    <li><a href="/contact">Contact</a></li>
+    <li><a href="/">About</a></li>
+    <li><a href="/experience/">Experience</a></li>
+    <li><a href="/ai-systems/">AI Automations</a></li>
+    <li><a href="/contact/">Contact</a></li>
   </ul>
-  <a href="/contact" class="nav-cta">Hire me →</a>
+  <a href="/contact/" class="nav-cta">Work With Me</a>
   <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">☰</button>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="/about" class="mob-link">About</a>
-  <a href="/experience" class="mob-link">Experience</a>
-  <a href="/projects" class="mob-link">Projects</a>
-  <a href="/ai-achievements" class="mob-link">AI Work</a>
-  <a href="/contact" class="mob-link">Contact</a>
-  <a href="/contact" class="mobile-cta">Hire me →</a>
+  <a href="/" class="mob-link">About</a>
+  <a href="/experience/" class="mob-link">Experience</a>
+  <a href="/ai-systems/" class="mob-link">AI Automations</a>
+  <a href="/contact/" class="mob-link">Contact</a>
+  <a href="/contact/" class="mobile-cta">Work With Me</a>
 </div>
 
 <!-- PAGE HERO -->
@@ -398,9 +395,19 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">JS<span>.</span></div>
-  <div class="footer-mid">© 2026 Jigyanshu Shah · All rights reserved</div>
-  <div class="footer-domain">jigyanshushah.ai</div>
+  <div class="footer-inner">
+    <div class="footer-logo">Jigyanshu Shah<span>.</span></div>
+    <div class="footer-copy">Growth &amp; GTM Engineer · © 2026 Jigyanshu Shah</div>
+    <div class="footer-links">
+      <a href="/">About</a>
+      <a href="/experience/">Experience</a>
+      <a href="/ai-systems/">AI Automations</a>
+      <a href="/contact/">Contact</a>
+      <a href="https://www.linkedin.com/in/jigyanshu-shah/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/jigyanshushah" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:jigyanshushah69@gmail.com">Email</a>
+    </div>
+  </div>
 </footer>
 
 <script>
